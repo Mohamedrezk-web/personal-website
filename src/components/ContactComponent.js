@@ -116,6 +116,7 @@ export class ContactComponent extends Component {
         to_email: 'mo.rezk06@gmail.com',
         from_name: form.querySelector('#name').value,
         from_email: form.querySelector('#email').value,
+        reply_to: form.querySelector('#email').value,
         phone: form.querySelector('#phone').value,
         message: form.querySelector('#message').value,
       };
