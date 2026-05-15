@@ -1,0 +1,9 @@
+/* ── BASE ── */
+.cc-section {
+  background: var(--section-bg);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-section-y);
+  padding-top: calc(var(--space-section-y) + var(--navbar-height));
+}

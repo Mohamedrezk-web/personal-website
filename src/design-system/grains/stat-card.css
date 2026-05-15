@@ -1,0 +1,34 @@
+/* ── FLOATING STAT CARD ── */
+.stat-card {
+  position: absolute;
+  background: color-mix(in srgb, var(--color-text-primary) 5%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-accent-indigo) 30%, transparent);
+  border-radius: var(--stat-card-radius);
+  padding: var(--stat-card-padding);
+  backdrop-filter: blur(12px);
+  display: flex; flex-direction: column; align-items: center;
+  animation: statFloat 5s ease-in-out infinite;
+}
+.stat-card--1 { bottom: var(--stat-card-offset); left: var(--stat-card-offset); animation-delay: 0s; }
+.stat-card--2 { top: var(--stat-card-offset); right: var(--stat-card-offset); animation-delay: 2.5s; }
+
+.stat-num {
+  font-size: var(--stat-num-font-size);
+  font-weight: 800;
+  line-height: 1;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.stat-label {
+  font-size: var(--stat-label-font-size);
+  color: var(--color-text-faint);
+  letter-spacing: var(--stat-label-letter-spacing);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+@keyframes statFloat {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(var(--stat-float-distance)); }
+}

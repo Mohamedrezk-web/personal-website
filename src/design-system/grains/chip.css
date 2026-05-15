@@ -1,0 +1,24 @@
+/* ── CHIP LIST ── */
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--chip-list-gap);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── CHIP ── */
+.chip {
+  font-size: var(--chip-font-size);
+  font-weight: var(--chip-font-weight);
+  color: var(--color-text-primary);
+  background: var(--chip-bg);
+  border: 1px solid var(--chip-border);
+  border-radius: var(--chip-radius);
+  padding: var(--chip-padding);
+  letter-spacing: var(--chip-letter-spacing);
+  transition: box-shadow .2s ease;
+}
+.chip:hover {
+  box-shadow: 0 0 10px var(--chip-border);
+}

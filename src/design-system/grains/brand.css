@@ -1,0 +1,26 @@
+/* ── BRAND / LOGO ── */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--prim-space-2);
+  text-decoration: none;
+}
+.nav-logo {
+  display: block;
+  width: var(--brand-logo-size);
+  height: var(--brand-logo-size);
+  filter: drop-shadow(0 0 6px var(--color-glow-indigo-mid));
+  transition: filter var(--transition-interactive);
+}
+.nav-brand:hover .nav-logo {
+  filter: drop-shadow(0 0 12px var(--color-glow-indigo-high));
+}
+.nav-brand-text {
+  font-size: var(--brand-text-font-size);
+  font-weight: 700;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: var(--brand-letter-spacing);
+}

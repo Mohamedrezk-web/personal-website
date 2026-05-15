@@ -1,0 +1,161 @@
+/* ── ACCORDION CARD ── */
+.accordion-card {
+  position: relative;
+  border-radius: var(--accordion-radius);
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.accordion-card:hover { transform: var(--accordion-hover-lift); }
+.accordion-card:hover .accordion-card-glow { opacity: 1; }
+
+.accordion-card-glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: calc(var(--accordion-radius) + 1px);
+  background: linear-gradient(135deg, var(--job-glow), transparent 60%);
+  opacity: 0;
+  transition: opacity .35s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── ACCORDION TRIGGER (header button) ── */
+.accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--accordion-trigger-gap);
+  padding: var(--accordion-trigger-padding);
+  background: var(--color-surface-card);
+  border: 1px solid var(--job-border);
+  border-radius: var(--accordion-radius);
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+  transition: background .3s ease, border-color .3s ease, border-radius .2s ease;
+}
+.accordion-trigger[aria-expanded="true"] {
+  background: var(--job-bg);
+  border-color: var(--job-color);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.accordion-trigger:hover {
+  background: var(--job-bg);
+  border-color: var(--job-color);
+}
+.accordion-info { flex: 1; }
+
+.accordion-company-row {
+  display: flex;
+  align-items: center;
+  gap: var(--accordion-company-gap);
+  flex-wrap: wrap;
+}
+.accordion-company {
+  font-size: var(--accordion-company-font-size);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+.current-badge {
+  font-size: var(--accordion-badge-font-size);
+  font-weight: 600;
+  letter-spacing: var(--accordion-badge-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-status-success);
+  background: var(--color-status-success-bg);
+  border: 1px solid var(--color-status-success-border);
+  border-radius: var(--radius-badge);
+  padding: var(--accordion-badge-padding);
+  box-shadow: 0 0 8px var(--color-glow-green-mid);
+}
+.accordion-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--accordion-meta-gap);
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+.accordion-position {
+  color: var(--job-color);
+  font-size: var(--accordion-position-font-size);
+  font-weight: 500;
+}
+.meta-sep { color: var(--color-text-ghost); font-size: .8rem; }
+.accordion-period {
+  color: var(--color-text-faint);
+  font-size: var(--accordion-period-font-size);
+}
+.cal-icon {
+  font-size: .7rem;
+  margin-inline-end: .25rem;
+}
+.accordion-chevron {
+  color: var(--job-color);
+  font-size: .85rem;
+  flex-shrink: 0;
+  transition: transform .3s ease;
+}
+.accordion-trigger[aria-expanded="true"] .accordion-chevron { transform: rotate(180deg); }
+
+/* ── ACCORDION BODY ── */
+.accordion-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .28s ease-out;
+  position: relative;
+  z-index: 1;
+  contain: layout style;
+}
+.accordion-body.is-open {
+  grid-template-rows: 1fr;
+}
+.accordion-body-inner {
+  overflow: hidden;
+  min-height: 0;
+  padding: var(--accordion-body-padding);
+  background: color-mix(in srgb, var(--color-text-primary) 2%, transparent);
+  border: 1px solid var(--job-border);
+  border-top: none;
+  border-bottom-left-radius: var(--accordion-radius);
+  border-bottom-right-radius: var(--accordion-radius);
+}
+
+/* ── CONTENT LABELS & LISTS ── */
+.content-label {
+  font-size: var(--accordion-label-font-size);
+  text-transform: uppercase;
+  letter-spacing: var(--accordion-label-spacing);
+  color: var(--job-color);
+  opacity: .8;
+  margin-bottom: var(--accordion-label-gap);
+  font-weight: 600;
+}
+.mt-4 { margin-top: 1.25rem; }
+
+.content-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--accordion-list-gap);
+}
+.content-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--accordion-list-item-gap);
+  color: var(--color-text-muted);
+  font-size: var(--accordion-list-font-size);
+  line-height: 1.6;
+}
+.list-bullet {
+  flex-shrink: 0;
+  width: var(--accordion-bullet-size);
+  height: var(--accordion-bullet-size);
+  border-radius: 50%;
+  background: var(--job-color);
+  box-shadow: 0 0 6px var(--job-glow);
+  margin-top: 7px;
+}

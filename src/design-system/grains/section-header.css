@@ -1,0 +1,61 @@
+/* ── SECTION EYEBROW ── */
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-text-accent);
+  margin-bottom: var(--space-stack-sm);
+  font-size: var(--section-eyebrow-font-size);
+  letter-spacing: var(--section-eyebrow-letter-spacing);
+  text-transform: uppercase;
+  animation: fadeUp .6s ease both;
+}
+.eyebrow-line {
+  display: block;
+  width: var(--section-eyebrow-line-width); height: 1px;
+  background: var(--section-eyebrow-line-bg);
+}
+.eyebrow-line-r {
+  background: var(--section-eyebrow-line-bg-r);
+}
+
+/* ── SECTION TITLE ── */
+.section-title {
+  font-size: var(--section-title-font-size);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+  animation: fadeUp .7s ease .1s both, var(--heading-extra-animation, none);
+  text-shadow: var(--heading-shadow, none);
+}
+.section-title-accent {
+  background: var(--gradient-accent-full);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: var(--accent-filter, drop-shadow(0 0 24px var(--color-glow-indigo-mid)));
+}
+
+/* ── SECTION SUBTITLE ── */
+.section-subtitle {
+  color: var(--color-text-faint);
+  font-size: var(--section-subtitle-font-size);
+  max-width: var(--section-subtitle-max-width);
+  margin: .75rem auto 0;
+  line-height: 1.7;
+  animation: fadeUp .7s ease .2s both;
+}
+
+/* ── SECTION HEADER WRAPPER ── */
+.section-head {
+  text-align: center;
+  margin-bottom: var(--space-stack-xl);
+}
+
+@media (max-width: 767px) {
+  .section-subtitle {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+

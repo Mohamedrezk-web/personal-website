@@ -1,0 +1,365 @@
+/* ── HERO VISUAL COLUMN ── */
+.hero-col-visual {
+  flex: 0 0 40%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .hero-col-visual { display: flex; }
+}
+
+/* ═══════════════════════════════════════════
+   DEFAULT THEME — ORBITAL SYSTEM VISUAL
+═══════════════════════════════════════════ */
+
+.hv-scene {
+  position: relative;
+  width: 420px;
+  height: 400px;
+  flex-shrink: 0;
+}
+[data-theme] .hv-scene { display: none; }
+
+/* SVG layer: ellipses, connection paths, nodes */
+.hv-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.hv-ellipse { fill: none; }
+.hv-ellipse--a { stroke: color-mix(in srgb, var(--color-accent-indigo) 22%, transparent); stroke-width: 0.8; }
+.hv-ellipse--b { stroke: color-mix(in srgb, var(--color-accent-cyan)   14%, transparent); stroke-width: 0.8; stroke-dasharray: 4 6; }
+.hv-ellipse--c { stroke: color-mix(in srgb, var(--color-accent-violet) 26%, transparent); stroke-width: 0.8; }
+
+.hv-path {
+  fill: none;
+  stroke-width: 1;
+  stroke-dasharray: 5 4;
+  animation: hv-dash 3.5s linear infinite;
+}
+.hv-path--1 { stroke: color-mix(in srgb, var(--color-accent-indigo) 40%, transparent); }
+.hv-path--2 { stroke: color-mix(in srgb, var(--color-accent-violet) 40%, transparent); animation-delay: -1.2s; }
+.hv-path--3 { stroke: color-mix(in srgb, var(--color-accent-cyan)   40%, transparent); animation-delay: -2.3s; }
+
+@keyframes hv-dash {
+  to { stroke-dashoffset: -18; }
+}
+
+.hv-node {
+  opacity: 0.8;
+  animation: hv-node-blink 2.5s ease-in-out infinite;
+}
+.hv-node--1   { fill: var(--color-accent-indigo); }
+.hv-node--2   { fill: var(--color-accent-violet); animation-delay: -.8s; }
+.hv-node--3   { fill: var(--color-accent-cyan);   animation-delay: -1.6s; }
+.hv-node--hub { fill: var(--color-accent-indigo); }
+@keyframes hv-node-blink {
+  0%,100% { opacity: 0.8; }
+  50%     { opacity: 1; }
+}
+
+/* ── Hub ── */
+.hv-hub {
+  position: absolute;
+  width: 110px; height: 110px;
+  top: 145px; left: 155px;
+  z-index: 4;
+}
+
+.hv-hub-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-accent-indigo) 55%, transparent);
+  animation: hv-expand 3.2s ease-out infinite;
+  pointer-events: none;
+}
+.hv-hub-pulse--b { animation-delay: -1.6s; }
+@keyframes hv-expand {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+
+.hv-hub-ring {
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 1.5px dashed color-mix(in srgb, var(--color-accent-indigo) 38%, transparent);
+  animation: hv-spin 10s linear infinite;
+  pointer-events: none;
+}
+.hv-hub-ring--b {
+  inset: -15px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: color-mix(in srgb, var(--color-accent-cyan) 22%, transparent);
+  animation-duration: 16s;
+  animation-direction: reverse;
+}
+@keyframes hv-spin {
+  to { transform: rotate(360deg); }
+}
+
+.hv-hub-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border-strong);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 0 32px color-mix(in srgb, var(--color-accent-indigo) 18%, transparent),
+    inset 0 0 20px color-mix(in srgb, var(--color-accent-indigo) 5%, transparent);
+  z-index: 1;
+  animation: hv-hub-float 6s ease-in-out infinite;
+}
+@keyframes hv-hub-float {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-6px); }
+}
+
+.hv-hub-icon {
+  font-size: 1.55rem;
+  color: var(--color-accent-indigo);
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--color-accent-indigo) 90%, transparent));
+}
+.hv-hub-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.hv-hub-led {
+  display: inline-block;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 5px #22c55e;
+  animation: hv-blink 2s ease-in-out infinite;
+}
+@keyframes hv-blink {
+  0%,100% { opacity: 1; }
+  50%     { opacity: 0.2; }
+}
+.hv-hub-status-text {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ── Satellite cards ── */
+.hv-sat {
+  position: absolute;
+  width: 84px;
+  background: color-mix(in srgb, var(--color-surface-card) 88%, transparent);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 6px 8px;
+  gap: 5px;
+  backdrop-filter: blur(12px);
+  z-index: 3;
+}
+.hv-sat--1 {
+  top: 5px; left: 270px;
+  box-shadow: 0 0 18px color-mix(in srgb, var(--color-accent-indigo) 10%, transparent);
+  animation: hv-float-a 7s ease-in-out infinite;
+}
+.hv-sat--2 {
+  top: 285px; left: 258px;
+  box-shadow: 0 0 18px color-mix(in srgb, var(--color-accent-violet) 10%, transparent);
+  animation: hv-float-b 9.5s ease-in-out infinite;
+}
+.hv-sat--3 {
+  top: 155px; left: 5px;
+  box-shadow: 0 0 18px color-mix(in srgb, var(--color-accent-cyan) 10%, transparent);
+  animation: hv-float-c 8.5s ease-in-out infinite;
+}
+
+.hv-donut {
+  position: relative;
+  width: 44px; height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hv-donut svg { width: 44px; height: 44px; }
+.hv-donut-bg      { stroke: var(--color-border-strong); }
+.hv-donut-arc--1  { stroke: var(--color-accent-indigo); }
+.hv-donut-arc--2  { stroke: var(--color-accent-violet); }
+.hv-donut-arc--3  { stroke: var(--color-accent-cyan); }
+.hv-donut-label {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.hv-sat-name {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+@keyframes hv-float-a {
+  0%,100% { transform: translate(0, 0); }
+  35%     { transform: translate(3px, -8px); }
+  70%     { transform: translate(-2px, 4px); }
+}
+@keyframes hv-float-b {
+  0%,100% { transform: translate(0, 0); }
+  40%     { transform: translate(4px, 7px); }
+  75%     { transform: translate(-2px, -4px); }
+}
+@keyframes hv-float-c {
+  0%,100% { transform: translate(0, 0); }
+  38%     { transform: translate(-4px, -7px); }
+  72%     { transform: translate(3px, 4px); }
+}
+
+/* ── Floating badges ── */
+.hv-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: color-mix(in srgb, var(--color-surface-card) 72%, transparent);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+  z-index: 3;
+  animation: hv-badge-float 6s ease-in-out infinite;
+}
+.hv-badge i { font-size: 10px; color: var(--color-accent-indigo); }
+.hv-badge--1 { top: 85px;  left: 68px;  animation-delay:    0s; }
+.hv-badge--2 { top: 22px;  left: 132px; animation-delay: -2.1s; }
+.hv-badge--3 { top: 340px; left: 108px; animation-delay:   -4s; }
+.hv-badge--4 { top: 142px; left: 328px; animation-delay:   -1s; }
+@keyframes hv-badge-float {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-6px); }
+}
+
+/* ═══════════════════════════════════════════
+   CYBER THEME — 3D TERMINAL CARD
+═══════════════════════════════════════════ */
+
+.hero-card-3d {
+  display: none;
+  width: var(--card3d-size);
+  height: var(--card3d-size);
+  perspective: var(--card3d-perspective);
+  animation: cardFloat 6s ease-in-out infinite;
+}
+/* hero-card-3d unused in cyber — cy-hud replaces it */
+
+.card-face {
+  width: 100%; height: 100%;
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--card3d-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: cardTilt 15s ease-in-out infinite;
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 0 40px color-mix(in srgb, var(--color-accent-indigo) 20%, transparent),
+    inset 0 0 40px color-mix(in srgb, var(--color-accent-indigo) 5%, transparent);
+}
+.card-glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--card3d-radius);
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--color-accent-indigo) 40%, transparent),
+    color-mix(in srgb, var(--color-accent-cyan) 20%, transparent),
+    color-mix(in srgb, var(--color-accent-violet) 30%, transparent));
+  opacity: 0;
+  animation: glowPulse 3s ease-in-out infinite;
+  z-index: -1;
+}
+@keyframes glowPulse {
+  0%,100% { opacity: 0; }
+  50%     { opacity: .6; }
+}
+.card-icon {
+  color: var(--color-accent-indigo);
+  filter: drop-shadow(0 0 20px color-mix(in srgb, var(--color-accent-indigo) 70%, transparent));
+  z-index: 1;
+}
+
+/* ── Orbits ── */
+.card-orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.orbit-1 { width: var(--card3d-orbit-1-size); height: var(--card3d-orbit-1-size); border-color: color-mix(in srgb, var(--color-accent-indigo) 30%, transparent); animation: orbit 8s  linear infinite; }
+.orbit-2 { width: var(--card3d-orbit-2-size); height: var(--card3d-orbit-2-size); border-color: color-mix(in srgb, var(--color-accent-cyan) 25%, transparent);    animation: orbit 12s linear infinite reverse; }
+.orbit-3 { width: var(--card3d-orbit-3-size); height: var(--card3d-orbit-3-size); border-color: color-mix(in srgb, var(--color-accent-violet) 20%, transparent);  animation: orbit 18s linear infinite; }
+
+.orbit-dot {
+  width: var(--card3d-orbit-dot-size);
+  height: var(--card3d-orbit-dot-size);
+  border-radius: 50%;
+  margin-top: calc(var(--card3d-orbit-dot-size) / -2);
+}
+.orbit-1 .orbit-dot { background: var(--color-accent-indigo); box-shadow: 0 0 10px var(--color-accent-indigo); }
+.orbit-2 .orbit-dot { background: var(--color-accent-cyan);   box-shadow: 0 0 10px var(--color-accent-cyan); }
+.orbit-3 .orbit-dot { background: var(--color-accent-violet); box-shadow: 0 0 10px var(--color-accent-violet); }
+
+@keyframes orbit {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes cardFloat {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(var(--card3d-float-distance)); }
+}
+@keyframes cardTilt {
+  0%   { transform: rotateY(0deg)  rotateX(5deg); }
+  50%  { transform: rotateY(10deg) rotateX(-3deg); }
+  100% { transform: rotateY(0deg)  rotateX(5deg); }
+}
+
+/* ── Cyber Terminal Card (hidden by default, shown only in cyber theme) ── */
+.card-cyber-terminal {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}

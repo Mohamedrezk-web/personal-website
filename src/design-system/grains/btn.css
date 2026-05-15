@@ -1,0 +1,70 @@
+/* ── BASE BUTTON ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  transition: all .3s ease;
+}
+
+/* ── PRIMARY / CTA ── */
+.btn--primary {
+  padding: var(--btn-primary-padding);
+  background: var(--gradient-cta);
+  color: white;
+  border-radius: var(--btn-primary-radius);
+  font-weight: var(--btn-primary-font-weight);
+  font-size: var(--btn-primary-font-size);
+  letter-spacing: var(--btn-primary-letter-spacing);
+  box-shadow: var(--shadow-cta);
+  border: 1px solid var(--btn-primary-border-color);
+}
+.btn--primary:hover {
+  transform: var(--btn-hover-lift);
+  box-shadow: var(--shadow-cta-hover);
+  color: white;
+}
+.btn--primary:active { transform: none; }
+.btn--primary i { margin-inline-start: .5rem; }
+.btn--primary:disabled { opacity: var(--btn-disabled-opacity); cursor: not-allowed; transform: none; }
+
+/* ── ICON / SOCIAL ── */
+.btn--icon {
+  justify-content: center;
+  width: var(--btn-icon-size); height: var(--btn-icon-size);
+  background: var(--color-surface-btn);
+  border: 1px solid var(--color-border-glass);
+  color: var(--color-text-secondary);
+  border-radius: 50%;
+}
+.btn--icon:hover {
+  background: var(--navbar-link-hover-bg);
+  border-color: var(--color-border-base);
+  color: var(--color-accent-indigo);
+  transform: var(--btn-icon-hover-lift);
+  box-shadow: 0 4px 16px var(--color-glow-indigo-mid);
+}
+
+/* ── SPINNER (inside primary button while loading) ── */
+.btn-spinner {
+  display: inline-block;
+  width: var(--btn-spinner-size); height: var(--btn-spinner-size);
+  border: var(--btn-spinner-border-width) solid var(--btn-spinner-track);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: btnSpin .7s linear infinite;
+  margin-right: var(--btn-spinner-gap);
+}
+@keyframes btnSpin { to { transform: rotate(360deg); } }
+
+/* ── HERO ACTIONS WRAPPER ── */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--prim-space-3);
+  align-items: center;
+  animation: fadeUp .7s ease .4s both;
+}
+.social-row { display: flex; gap: var(--prim-space-2); }

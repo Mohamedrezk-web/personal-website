@@ -1,0 +1,135 @@
+/* ── SECTION SHAPES CONTAINER ── */
+.section-shapes {
+  display: var(--decorative-display, block);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  perspective: 1000px;
+}
+.section-shape {
+  position: absolute;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ── SHAPE TYPE MODIFIERS ── */
+.section-shape.shape-cube  { border: 1.5px solid; }
+.section-shape.shape-ring  { border-radius: 50%; border: 2px solid; }
+.section-shape.shape-sphere { border-radius: 50%; }
+
+/* ── GENERIC POSITIONS (used inside .section-shapes) ── */
+.section-shapes .shape-1 {
+  top: 8%; right: 4%;
+  width: 50px; height: 50px;
+  border-color: color-mix(in srgb, var(--color-accent-indigo) 40%, transparent);
+  animation: shapeCube 13s ease-in-out infinite;
+}
+.section-shapes .shape-2 {
+  bottom: 10%; left: 3%;
+  width: 30px; height: 30px;
+  border-color: color-mix(in srgb, var(--color-accent-cyan) 40%, transparent);
+  animation: shapeCube 17s ease-in-out infinite 2.5s;
+}
+.section-shapes .shape-3 {
+  top: 28%; left: 5%;
+  width: 64px; height: 64px;
+  border-color: color-mix(in srgb, var(--color-accent-violet) 30%, transparent);
+  animation: shapeRing 15s ease-in-out infinite 1s;
+}
+.section-shapes .shape-4 {
+  bottom: 30%; right: 7%;
+  width: 18px; height: 18px;
+  background: radial-gradient(circle at 35% 35%,
+    color-mix(in srgb, var(--color-accent-indigo) 90%, transparent),
+    color-mix(in srgb, var(--color-accent-indigo) 10%, transparent));
+  box-shadow: 0 0 14px color-mix(in srgb, var(--color-accent-indigo) 50%, transparent);
+  animation: shapeSphere 8s ease-in-out infinite .5s;
+}
+
+@keyframes shapeCube {
+  0%   { transform: translateY(0)    rotateX(0deg)   rotateY(0deg)   rotateZ(0deg); }
+  33%  { transform: translateY(-18px) rotateX(120deg) rotateY(60deg)  rotateZ(20deg); }
+  66%  { transform: translateY(-8px)  rotateX(240deg) rotateY(120deg) rotateZ(10deg); }
+  100% { transform: translateY(0)    rotateX(360deg) rotateY(180deg) rotateZ(0deg); }
+}
+@keyframes shapeRing {
+  0%   { transform: translateY(0)    rotateX(55deg) rotateZ(0deg); }
+  50%  { transform: translateY(-22px) rotateX(55deg) rotateZ(180deg); }
+  100% { transform: translateY(0)    rotateX(55deg) rotateZ(360deg); }
+}
+@keyframes shapeSphere {
+  0%,100% { transform: translateY(0)    scale(1); }
+  50%      { transform: translateY(-14px) scale(1.2); }
+}
+
+/* ══ HERO FLOATING SHAPES ══ */
+.hero-shapes {
+  display: var(--decorative-display, block);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  perspective: 1000px;
+}
+.shape { position: absolute; transform-style: preserve-3d; will-change: transform; }
+
+.shape-cube { border: 1.5px solid color-mix(in srgb, var(--color-accent-indigo) 45%, transparent); }
+.shape-ring  { border-radius: 50%; border: 2px solid; }
+.shape-sphere { border-radius: 50%; }
+
+/* Hero shape positions */
+.hero-shapes .shape-1 {
+  top: 14%; left: 7%;
+  width: 58px; height: 58px;
+  border-color: color-mix(in srgb, var(--color-accent-indigo) 55%, transparent);
+  animation: floatCube 12s ease-in-out infinite;
+}
+.hero-shapes .shape-2 {
+  top: 65%; left: 5%;
+  width: 34px; height: 34px;
+  border-color: color-mix(in srgb, var(--color-accent-cyan) 45%, transparent);
+  animation: floatCube 15s ease-in-out infinite 2s;
+}
+.hero-shapes .shape-3 {
+  top: 9%; right: 19%;
+  width: 78px; height: 78px;
+  border-color: color-mix(in srgb, var(--color-accent-cyan) 35%, transparent);
+  animation: floatRing 14s ease-in-out infinite 3s;
+}
+.hero-shapes .shape-4 {
+  top: 54%; right: 7%;
+  width: 24px; height: 24px;
+  background: radial-gradient(circle at 35% 35%,
+    color-mix(in srgb, var(--color-accent-indigo) 90%, transparent),
+    color-mix(in srgb, var(--color-accent-indigo) 10%, transparent));
+  box-shadow: 0 0 20px color-mix(in srgb, var(--color-accent-indigo) 50%, transparent);
+  animation: floatSphere 10s ease-in-out infinite .5s;
+}
+.hero-shapes .shape-5 {
+  top: 18%; right: 9%;
+  width: 44px; height: 44px;
+  border-color: color-mix(in srgb, var(--color-accent-violet) 45%, transparent);
+  animation: floatCube 18s ease-in-out infinite 1s;
+}
+.hero-shapes .shape-6 {
+  bottom: 19%; left: 14%;
+  width: 54px; height: 54px;
+  border-color: color-mix(in srgb, var(--color-accent-violet) 30%, transparent);
+  animation: floatRing 16s ease-in-out infinite 1s;
+}
+
+@keyframes floatCube {
+  0%   { transform: translateY(0)    rotateX(0deg)   rotateY(0deg)   rotateZ(0deg); }
+  25%  { transform: translateY(-25px) rotateX(90deg)  rotateY(45deg)  rotateZ(15deg); }
+  50%  { transform: translateY(-10px) rotateX(180deg) rotateY(90deg)  rotateZ(30deg); }
+  75%  { transform: translateY(-35px) rotateX(270deg) rotateY(135deg) rotateZ(15deg); }
+  100% { transform: translateY(0)    rotateX(360deg) rotateY(180deg) rotateZ(0deg); }
+}
+@keyframes floatRing {
+  0%   { transform: translateY(0)    rotateX(60deg) rotateZ(0deg); }
+  50%  { transform: translateY(-28px) rotateX(60deg) rotateZ(180deg); }
+  100% { transform: translateY(0)    rotateX(60deg) rotateZ(360deg); }
+}
+@keyframes floatSphere {
+  0%,100% { transform: translateY(0)    scale(1); }
+  50%      { transform: translateY(-20px) scale(1.15); }
+}

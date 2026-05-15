@@ -1,0 +1,26 @@
+/* ── HAMBURGER TOGGLER ── */
+.nav-toggler {
+  display: none;
+  flex-direction: column; justify-content: center;
+  gap: var(--toggler-gap);
+  padding: var(--toggler-padding);
+  background: var(--color-surface-glass);
+  border: 1px solid var(--color-border-glass) !important;
+  border-radius: var(--toggler-radius);
+  width: var(--toggler-size);
+  height: var(--toggler-size);
+  margin-inline-start: auto;
+  cursor: pointer;
+}
+.nav-toggler:focus { box-shadow: var(--shadow-focus-ring) !important; }
+.toggler-line {
+  display: block;
+  width: var(--toggler-line-width);
+  height: var(--toggler-line-height);
+  background: var(--color-text-white-70);
+  border-radius: 2px;
+  transition: transform var(--transition-interactive), opacity var(--transition-interactive);
+}
+.nav-toggler:not(.collapsed) .toggler-line:nth-child(1) { transform: translateY(var(--toggler-line-offset)) rotate(45deg); }
+.nav-toggler:not(.collapsed) .toggler-line:nth-child(2) { opacity: 0; }
+.nav-toggler:not(.collapsed) .toggler-line:nth-child(3) { transform: translateY(calc(var(--toggler-line-offset) * -1)) rotate(-45deg); }

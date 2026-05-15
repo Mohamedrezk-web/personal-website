@@ -1,0 +1,71 @@
+/* ── TIMELINE ── */
+.timeline {
+  position: relative;
+  max-width: var(--timeline-max-width);
+  margin: 0 auto;
+  padding-left: var(--timeline-padding-start);
+}
+.timeline-line {
+  position: absolute;
+  left: var(--timeline-line-left);
+  top: var(--timeline-line-inset-y);
+  bottom: var(--timeline-line-inset-y);
+  width: var(--timeline-line-width);
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-accent-indigo) 60%, transparent),
+    color-mix(in srgb, var(--color-accent-cyan) 40%, transparent),
+    color-mix(in srgb, var(--color-accent-violet) 30%, transparent),
+    transparent
+  );
+}
+
+/* ── TIMELINE ITEM ── */
+.timeline-item {
+  position: relative;
+  margin-bottom: var(--timeline-item-gap);
+  animation: fadeUp .7s ease both;
+}
+.timeline-item:nth-child(1) { animation-delay: .3s; }
+.timeline-item:nth-child(2) { animation-delay: .45s; }
+.timeline-item:nth-child(3) { animation-delay: .6s; }
+
+/* ── TIMELINE DOT ── */
+.timeline-dot {
+  position: absolute;
+  left: var(--timeline-dot-offset);
+  top: var(--timeline-dot-top);
+  width: var(--timeline-dot-size);
+  height: var(--timeline-dot-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.timeline-dot-inner {
+  width: var(--timeline-dot-inner-size);
+  height: var(--timeline-dot-inner-size);
+  border-radius: 50%;
+  background: var(--job-color);
+  box-shadow: 0 0 10px var(--job-glow);
+  z-index: 1;
+}
+.timeline-dot-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--job-color);
+  opacity: var(--timeline-ring-opacity);
+  animation: dotSpin 3s linear infinite;
+  will-change: transform, opacity;
+}
+@keyframes dotSpin {
+  0%   { transform: scale(1);   opacity: var(--timeline-ring-opacity); }
+  50%  { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1);   opacity: var(--timeline-ring-opacity); }
+}
+
+@media (max-width: 767px) {
+  .timeline        { padding-left: 0; }
+  .timeline-line,
+  .timeline-dot    { display: none; }
+}

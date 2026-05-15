@@ -1,0 +1,6 @@
+/* ── BASE ── */
+.we-section {
+  background: transparent;
+  position: relative;
+  padding-block: var(--space-section-y);
+}

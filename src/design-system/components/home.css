@@ -1,0 +1,4 @@
+.home-container {
+  background: var(--section-bg);
+  overflow: hidden;
+}

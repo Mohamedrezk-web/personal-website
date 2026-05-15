@@ -1,43 +1,111 @@
-import { Component } from '../../Component.js';
+import { Component } from "../../Component.js";
 
 export class ContactInfo extends Component {
   constructor() {
     super();
     this.contactInfo = [
-      { icon: 'map-marker-alt', text: 'Egypt, Alexandria' },
-      { icon: 'phone', text: '+20 1012917701' },
-      { icon: 'envelope', text: 'mo.rezk06@gmail.com' },
+      {
+        icon: "map-marker-alt",
+        label: "Location",
+        text: "Egypt, Alexandria",
+        color: "#818cf8",
+        glow: "rgba(99,102,241,.4)",
+        bg: "rgba(99,102,241,.1)",
+        border: "rgba(99,102,241,.3)",
+      },
+      {
+        icon: "phone",
+        label: "Phone",
+        text: "+20 1012917701",
+        color: "#38bdf8",
+        glow: "rgba(6,182,212,.4)",
+        bg: "rgba(6,182,212,.1)",
+        border: "rgba(6,182,212,.3)",
+      },
+      {
+        icon: "envelope",
+        label: "Email",
+        text: "mo.rezk06@gmail.com",
+        color: "#c084fc",
+        glow: "rgba(168,85,247,.4)",
+        bg: "rgba(168,85,247,.1)",
+        border: "rgba(168,85,247,.3)",
+      },
     ];
   }
 
-  renderContactInfo() {
+  renderContactCards() {
     return this.contactInfo
       .map(
-        (info, index) => `
-        <div class="d-flex align-items-center ${index && 'mt-4'}">
-          <div class="rounded-circle me-3 p-3 bg-primary bg-opacity-10">
-            <i class="fas fa-${info.icon} text-primary"></i>
+        (info) => `
+        <div class="contact-card" style="
+          --card-color: ${info.color};
+          --card-glow: ${info.glow};
+          --card-bg: ${info.bg};
+          --card-border: ${info.border};
+        ">
+          <div class="contact-card-inner">
+            <div class="contact-icon-wrap" aria-hidden="true">
+              <i class="fas fa-${info.icon}"></i>
+              <div class="icon-ping"></div>
+            </div>
+            <div class="contact-card-body">
+              <div class="contact-label">${info.label}</div>
+              <div class="contact-text">${info.text}</div>
+            </div>
+            <div class="contact-card-arrow" aria-hidden="true">
+              <i class="fas fa-arrow-right"></i>
+            </div>
           </div>
-          <span class="text-secondary">${info.text}</span>
+          <div class="contact-card-glow"></div>
         </div>
-      `
+      `,
       )
-      .join('');
+      .join("");
   }
 
   render() {
     this.innerHTML = `
-      <section class="py-16 mb-5" id="contact">
-        <div class="container mx-auto px-4">
-          <h2 class="text-3xl font-bold mb-3">Contact</h2>
-          <div class="max-w-xl mx-auto">
-            <div class="p-4 rounded-lg shadow-sm p-6">
-              <div class="mb-6">
-                ${this.renderContactInfo()}
-              </div>
-            </div>
-          </div>
+      <section class="ci-section" id="contact">
+
+        <!-- Ambient glows -->
+        <div class="section-ambient" aria-hidden="true"></div>
+
+        <!-- Grid -->
+        <div class="section-grid" aria-hidden="true"></div>
+
+        <!-- Floating shapes -->
+        <div class="section-shapes" aria-hidden="true">
+          <div class="section-shape shape-cube shape-1"></div>
+          <div class="section-shape shape-cube shape-2"></div>
+          <div class="section-shape shape-ring shape-3"></div>
+          <div class="section-shape shape-sphere shape-4"></div>
         </div>
+
+        <div class="ds-container section-layer">
+
+          <!-- Section header -->
+          <div class="section-head">
+            <div class="section-eyebrow">
+              <span class="eyebrow-line"></span>
+              <span>Get In Touch</span>
+              <span class="eyebrow-line eyebrow-line-r"></span>
+            </div>
+            <h2 class="section-title">
+              Let's <span class="section-title-accent">Connect</span>
+            </h2>
+            <p class="section-subtitle">
+              Have a project in mind or just want to say hello? I'd love to hear from you.
+            </p>
+          </div>
+
+          <!-- Cards -->
+          <div class="ci-cards-wrap">
+            ${this.renderContactCards()}
+          </div>
+
+        </div>
+
       </section>
     `;
   }
@@ -47,4 +115,3 @@ export class ContactInfo extends Component {
   }
 }
 
-customElements.define('contact-info', ContactInfo);

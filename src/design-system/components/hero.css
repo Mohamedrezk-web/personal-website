@@ -1,0 +1,70 @@
+
+          /* ── BASE ── */
+          .hero-section {
+            background: transparent;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: var(--navbar-height);
+          }
+
+          /* ── CANVAS ── */
+          #hero-canvas {
+            display: var(--decorative-display, block);
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+          }
+
+          /* ── LAYOUT ── */
+          .hero-content { position: relative; z-index: 2; }
+          .hero-cols {
+            display: flex;
+            align-items: center;
+            gap: var(--prim-space-7);
+            flex-wrap: wrap;
+          }
+          .hero-col-text { flex: 1 1 55%; min-width: 0; }
+
+          /* ── TABLET — stack & centre ── */
+          @media (min-width: 768px) and (max-width: 1099px) {
+            .hero-cols {
+              flex-direction: column;
+              align-items: center;
+              text-align: center;
+            }
+            .hero-col-text {
+              flex: none;
+              width: 100%;
+              max-width: 640px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            }
+            .hero-desc {
+              text-align: center;
+              margin-left: auto;
+              margin-right: auto;
+            }
+            /* swap left-border accent for bottom-border so it centres properly */
+            .role-text {
+              border-left: none;
+              padding-left: 0;
+              border-bottom: 3px solid var(--color-accent-indigo-strong);
+              padding-bottom: 6px;
+            }
+            .hero-actions {
+              justify-content: center;
+              flex-wrap: wrap;
+            }
+            .hero-col-visual {
+              flex: none;
+              width: 100%;
+              max-width: 480px;
+            }
+          }
+

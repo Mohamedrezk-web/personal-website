@@ -3,18 +3,18 @@
  * Sets up routing, state management, and component registration.
  */
 
+import { initBgCanvas } from './utils/bgCanvas.js';
 import { Router } from './Router.js';
 import { Store } from './Store.js';
-import { Loader } from './utils/loader.js';
 import { HomeComponent } from './components/HomeComponent.js';
 import { AboutComponent } from './components/AboutComponent.js';
 import { PortfolioComponent } from './components/PortfolioComponent.js';
 import { ContactComponent } from './components/ContactComponent.js';
 import { NavbarComponent } from './components/NavbarComponent.js';
 import { HeroSection } from './components/home/HeroSection.js';
-
-// Initialize the loading screen
-Loader.init();
+import { WorkExperience } from './components/home/WorkExperience.js';
+import { TechnologySection } from './components/home/TechnologySection.js';
+import { ContactInfo } from './components/home/ContactInfo.js';
 
 // Create global state store
 export const store = new Store({
@@ -29,6 +29,9 @@ const components = [
   ['app-contact', ContactComponent],
   ['app-navbar', NavbarComponent],
   ['hero-section', HeroSection],
+  ['work-experience', WorkExperience],
+  ['technology-section', TechnologySection],
+  ['contact-info', ContactInfo],
 ];
 
 // Register custom elements with error handling
@@ -51,10 +54,19 @@ for (const [name, Component] of components) {
  * @param {CustomElementConstructor} component - Component to render
  * @param {string} section - Section identifier for state tracking
  */
+const TITLES = {
+  home:      'Muhammad Rezk — Senior Frontend Developer | Angular · TypeScript · React',
+  about:     'About Muhammad Rezk — Senior Frontend Developer',
+  portfolio: 'Portfolio — Muhammad Rezk | Frontend Projects',
+  contact:   'Contact Muhammad Rezk — Senior Frontend Developer',
+};
+
 const handleRouteChange = (component, section) => {
   requestAnimationFrame(() => {
     store.state.currentSection = section;
-    const main = document.querySelector('main');
+    document.title = TITLES[section] || TITLES.home;
+
+    const main = document.querySelector('#main-content');
 
     // Clear existing content
     while (main.firstChild) {
@@ -65,8 +77,15 @@ const handleRouteChange = (component, section) => {
     const newComponent = new component();
     main.appendChild(newComponent);
 
-    // Scroll to top for new route
-    window.scrollTo({ top: 0 });
+    // Announce route change to screen readers
+    const announcer = document.getElementById('a11y-announcer');
+    if (announcer) announcer.textContent = `Page loaded: ${TITLES[section] || section}`;
+
+    // Move focus to main content for keyboard/SR users
+    main.setAttribute('tabindex', '-1');
+    main.focus({ preventScroll: true });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 };
 
@@ -78,13 +97,17 @@ export const router = new Router({
   '/contact': () => handleRouteChange(ContactComponent, 'contact'),
 });
 
-// Handle preloader animation on page load
+// Hide preloader and stamp copyright year once everything has loaded
 window.addEventListener('load', () => {
+  initBgCanvas();
+
   const loader = document.getElementById('preloader');
-  loader.classList.remove('d-flex');
-  loader.style.transition = 'opacity 0.5s ease';
-  loader.style.opacity = '0';
-  setTimeout(() => {
-    loader.style.display = 'none';
-  }, 500);
+  if (loader) {
+    loader.style.transition = 'opacity 0.5s ease';
+    loader.style.opacity = '0';
+    setTimeout(() => { loader.style.display = 'none'; }, 500);
+  }
+
+  const yearEl = document.getElementById('copyright-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 });

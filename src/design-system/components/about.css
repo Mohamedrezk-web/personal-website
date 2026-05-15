@@ -1,0 +1,80 @@
+/* ── BASE ── */
+.about-section {
+  background: var(--section-bg);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-section-y);
+  padding-top: calc(var(--space-section-y) + var(--navbar-height));
+}
+
+/* ── LARGER TITLE ON ABOUT PAGE ── */
+.about-section .section-title {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  line-height: 1.15;
+  margin-bottom: var(--space-stack-md);
+}
+
+/* ── LAYOUT ── */
+.ab-cols {
+  display: flex;
+  align-items: center;
+  gap: var(--prim-space-9);
+  flex-wrap: wrap;
+}
+.ab-text-col {
+  flex: 1 1 50%;
+  min-width: 0;
+  order: 1;
+}
+.ab-img-col {
+  flex: 0 0 40%;
+  min-width: 260px;
+  order: 2;
+}
+@media (max-width: 991px) {
+  .ab-cols { flex-direction: column; }
+  .ab-img-col { order: 1; flex: 1 1 100%; }
+  .ab-text-col { order: 2; flex: 1 1 100%; }
+}
+
+/* ── IMAGE FRAME ── */
+.ab-image-wrap {
+  position: relative;
+  animation: fadeUp .7s ease .15s both;
+}
+.ab-image-frame {
+  position: relative;
+  border-radius: var(--radius-card-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border-strong);
+  box-shadow: 0 0 60px color-mix(in srgb, var(--color-accent-indigo) 15%, transparent),
+              0 0 0 1px color-mix(in srgb, var(--color-accent-indigo) 10%, transparent);
+}
+.ab-image {
+  width: 100%; display: block;
+  filter: brightness(.95) saturate(1.05);
+  transition: filter .4s ease;
+}
+.ab-image-frame:hover .ab-image { filter: brightness(1) saturate(1.1); }
+.ab-image-glow {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, var(--color-bg-page) 100%);
+  pointer-events: none;
+}
+
+/* ── BIO ── */
+.ab-bio {
+  display: flex; flex-direction: column; gap: 16px;
+  animation: fadeUp .7s ease .2s both;
+}
+.ab-bio p {
+  color: var(--color-text-faint); font-size: 1rem; line-height: 1.8; margin: 0;
+  border-left: 2px solid transparent;
+  padding-left: 16px;
+  transition: border-color .3s ease;
+}
+.ab-bio p:hover { border-left-color: var(--color-border-base); color: var(--color-text-muted); }
+
+/* ── ACCENT DOT ── */
+.ab-dot { color: var(--color-accent-indigo-strong); }

@@ -1,0 +1,111 @@
+/* ============================================================
+   BASE — Global element styles
+   Replaces inline styles on #preloader, #app, footer, etc.
+   ============================================================ */
+
+/* — Preloader — */
+#preloader {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-loader);
+  background: var(--loader-bg);
+}
+
+#preloader .ds-spinner {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* — Main content — */
+#app {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+/* — Footer — */
+footer {
+  position: relative;
+  z-index: 1;
+  background: var(--footer-bg);
+  border-top: 1px solid var(--footer-border);
+  padding: 24px 0;
+}
+
+.footer-copy {
+  margin-bottom: 0;
+  color: var(--footer-text);
+  font-size: .85rem;
+}
+
+.footer-name {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+/* ── Full-page background canvas ── */
+
+/* Dark base beneath the canvas for non-JS fallback and other themes */
+html { background-color: var(--color-bg-page); }
+
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;     /* sits above html bg but below #app (z-index:1) */
+  pointer-events: none;
+}
+
+/* Hide in modes/themes that provide their own bg treatment */
+[data-theme="minimal"] #bg-canvas { display: none; }
+
+/* Default theme: transparent sections so bg-canvas shows through every page */
+html:not([data-theme]) { --section-bg: transparent; }
+
+/* Default theme: hero canvas removed — bg-canvas already fills that area */
+html:not([data-theme]) #hero-canvas { display: none; }
+
+/* Default theme: hide floating shapes and grid overlays — bg-canvas is the sole bg */
+html:not([data-theme]) .hero-shapes,
+html:not([data-theme]) .hero-grid,
+html:not([data-theme]) .section-shapes,
+html:not([data-theme]) .section-grid { display: none; }
+
+/* Cyber theme: transparent sections so bg-canvas rain shows through every page */
+[data-theme="cyber"] { --section-bg: transparent; }
+
+/* Cyber theme: hide floating shapes — rain is the sole bg decoration */
+[data-theme="cyber"] .hero-shapes,
+[data-theme="cyber"] .section-shapes { display: none; }
+
+/* ── Mobile: left-align all text ── */
+@media (max-width: 767px) {
+  .section-head,
+  .section-title,
+  .section-subtitle,
+  .section-eyebrow,
+  .hero-title,
+  .hero-desc,
+  .hero-role,
+  .ds-text-center,
+  .submit-wrap,
+  .footer-copy {
+    text-align: left;
+  }
+
+}
+
+/* — Theme overlay layer (scanlines, vignettes, etc.) — */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-shapes);
+  pointer-events: none;
+  background: var(--scanline-bg, none);
+}

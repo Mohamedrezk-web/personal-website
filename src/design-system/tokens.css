@@ -1,0 +1,793 @@
+/* ============================================================
+   DESIGN SYSTEM TOKENS
+   Three tiers: Primitive → Semantic → Component
+   ============================================================ */
+
+/* ============================================================
+   TIER 1 — PRIMITIVES
+   Raw named values. No semantic meaning.
+   Never reference these directly in component CSS.
+   ============================================================ */
+:root {
+  /* — Color: Indigo scale — */
+  --prim-color-indigo-300: #a5b4fc;
+  --prim-color-indigo-400: #818cf8;
+  --prim-color-indigo-500: #6366f1;
+  --prim-color-indigo-600: #4f46e5;
+
+  /* — Color: Cyan scale — */
+  --prim-color-cyan-400: #38bdf8;
+  --prim-color-cyan-500: #06b6d4;
+
+  /* — Color: Violet scale — */
+  --prim-color-violet-400: #c084fc;
+  --prim-color-violet-500: #a855f7;
+
+  /* — Color: Slate (neutral text) scale — */
+  --prim-color-slate-400: #94a3b8;
+  --prim-color-slate-500: #64748b;
+  --prim-color-slate-600: #475569;
+
+  /* — Color: Status — */
+  --prim-color-green-400: #4ade80;
+  --prim-color-red-300: #f87171;
+  --prim-color-red-400: #ef4444;
+  --prim-color-amber-400: #fbbf24;
+  --prim-color-orange-400: #fb923c;
+  --prim-color-teal-400: #2dd4bf;
+  --prim-color-yellow-400: #facc15;
+
+  /* — Color: Dark surface scale — */
+  --prim-color-surface-900: #07071a;
+  --prim-color-surface-850: #0a0a1a;
+  --prim-color-surface-800: #0a0d2b;
+  --prim-color-surface-780: #0b0d2e;
+  --prim-color-surface-760: #0a0c28;
+  --prim-color-surface-750: #0d0d2b;
+  --prim-color-surface-700: #070a18;
+
+  /* — Color: White overlays — */
+  --prim-color-white-03: rgba(255, 255, 255, 0.03);
+  --prim-color-white-04: rgba(255, 255, 255, 0.04);
+  --prim-color-white-05: rgba(255, 255, 255, 0.05);
+  --prim-color-white-06: rgba(255, 255, 255, 0.06);
+  --prim-color-white-08: rgba(255, 255, 255, 0.08);
+  --prim-color-white-12: rgba(255, 255, 255, 0.12);
+  --prim-color-white-15: rgba(255, 255, 255, 0.15);
+  --prim-color-white-60: rgba(255, 255, 255, 0.6);
+  --prim-color-white-70: rgba(255, 255, 255, 0.7);
+  --prim-color-white-80: rgba(255, 255, 255, 0.8);
+  --prim-color-white-85: rgba(255, 255, 255, 0.85);
+  --prim-color-white-90: rgba(255, 255, 255, 0.9);
+  --prim-color-white-95: rgba(255, 255, 255, 0.95);
+
+  /* — Spacing scale — */
+  --prim-space-1:  0.25rem;   /*  4px */
+  --prim-space-2:  0.5rem;    /*  8px */
+  --prim-space-3:  0.75rem;   /* 12px */
+  --prim-space-4:  1rem;      /* 16px */
+  --prim-space-5:  1.25rem;   /* 20px */
+  --prim-space-6:  1.5rem;    /* 24px */
+  --prim-space-7:  2rem;      /* 32px */
+  --prim-space-8:  2.5rem;    /* 40px */
+  --prim-space-9:  3rem;      /* 48px */
+  --prim-space-10: 4rem;      /* 64px */
+
+  /* — Typography: Font sizes — */
+  --prim-text-xs:   0.72rem;
+  --prim-text-sm:   0.78rem;
+  --prim-text-base: 1rem;
+  --prim-text-lg:   1.05rem;
+  --prim-text-xl:   1.1rem;
+  --prim-text-2xl:  1.5rem;
+  --prim-text-3xl:  2rem;
+  --prim-text-4xl:  3.2rem;
+  --prim-text-hero: clamp(2.2rem, 5vw, 4rem);
+
+  /* — Typography: Font weights — */
+  --prim-weight-light:     300;
+  --prim-weight-normal:    400;
+  --prim-weight-medium:    500;
+  --prim-weight-semibold:  600;
+  --prim-weight-bold:      700;
+  --prim-weight-extrabold: 800;
+
+  /* — Typography: Line heights — */
+  --prim-leading-tight:   1.15;
+  --prim-leading-snug:    1.2;
+  --prim-leading-normal:  1.5;
+  --prim-leading-relaxed: 1.6;
+  --prim-leading-loose:   1.7;
+  --prim-leading-prose:   1.8;
+
+  /* — Border radii — */
+  --prim-radius-sm:   8px;
+  --prim-radius-md:   10px;
+  --prim-radius-lg:   14px;
+  --prim-radius-xl:   16px;
+  --prim-radius-2xl:  20px;
+  --prim-radius-3xl:  24px;
+  --prim-radius-pill: 50px;
+  --prim-radius-full: 9999px;
+
+  /* — Transitions — */
+  --prim-transition-fast:      0.25s ease;
+  --prim-transition-base:      0.3s ease;
+  --prim-transition-slow:      0.4s ease;
+  --prim-transition-spring:    0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --prim-transition-accordion: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* — Z-index scale — */
+  --prim-z-below:   -1;
+  --prim-z-base:     0;
+  --prim-z-content:  1;
+  --prim-z-overlay:  2;
+  --prim-z-sticky:   10;
+  --prim-z-fixed:    100;
+  --prim-z-modal:    1000;
+  --prim-z-loader:   9999;
+
+  /* Breakpoints are media-query-only — documented here for reference:
+     sm: 576px | md: 768px | lg: 992px | xl: 1200px | container: 1140px */
+}
+
+/* ============================================================
+   TIER 2 — SEMANTIC
+   Reference Tier 1 via var(). Express role/meaning.
+   These are the tokens to use in component CSS.
+   ============================================================ */
+:root {
+  /* — Backgrounds — */
+  --color-bg-page:   var(--prim-color-surface-900);
+  --color-bg-dark:   var(--prim-color-surface-800);
+  --color-bg-darker: var(--prim-color-surface-750);
+  --color-bg-subtle: var(--prim-color-surface-700);
+
+  /* — Surfaces (glass / overlay effects) — */
+  --color-surface-glass:       var(--prim-color-white-03);
+  --color-surface-glass-hover: var(--prim-color-white-05);
+  --color-surface-overlay:     var(--prim-color-white-04);
+  --color-surface-input:       var(--prim-color-white-04);
+  --color-surface-input-focus: rgba(99, 102, 241, 0.06);
+
+  /* — Text — */
+  --color-text-primary:  var(--prim-color-white-90);
+  --color-text-secondary:var(--prim-color-white-80);
+  --color-text-muted:    var(--prim-color-slate-400);
+  --color-text-faint:    var(--prim-color-slate-500);
+  --color-text-ghost:    var(--prim-color-slate-600);
+  --color-text-accent:   var(--prim-color-indigo-300);
+  --color-text-white-60: var(--prim-color-white-60);
+  --color-text-white-70: var(--prim-color-white-70);
+
+  /* — Accent colors — */
+  --color-accent-indigo:        var(--prim-color-indigo-400);
+  --color-accent-indigo-strong: var(--prim-color-indigo-500);
+  --color-accent-indigo-deep:   var(--prim-color-indigo-600);
+  --color-accent-cyan:          var(--prim-color-cyan-400);
+  --color-accent-cyan-strong:   var(--prim-color-cyan-500);
+  --color-accent-violet:        var(--prim-color-violet-400);
+  --color-accent-violet-strong: var(--prim-color-violet-500);
+
+  /* — Primary / secondary convenience aliases (palette-aware) — */
+  --color-primary:   var(--color-accent-indigo);
+  --color-secondary: var(--color-accent-cyan);
+  --color-tertiary:  var(--color-accent-violet);
+
+  /* — Gradients — */
+  --gradient-accent:      linear-gradient(135deg, var(--color-accent-indigo), var(--color-accent-cyan));
+  --gradient-accent-full: linear-gradient(135deg, var(--color-accent-indigo) 0%, var(--color-accent-cyan) 50%, var(--color-accent-violet) 100%);
+  --gradient-cta:         linear-gradient(135deg, var(--color-accent-indigo-strong), var(--color-accent-indigo-deep));
+
+  /* — Borders — */
+  --color-border-subtle: rgba(99, 102, 241, 0.15);
+  --color-border-base:   rgba(99, 102, 241, 0.25);
+  --color-border-strong: rgba(99, 102, 241, 0.3);
+  --color-border-active: var(--prim-color-indigo-400);
+  --color-border-glass:  var(--prim-color-white-12);
+
+  /* — Glows (for box-shadow color stops) — */
+  --color-glow-indigo-low:  rgba(99, 102, 241, 0.15);
+  --color-glow-indigo-mid:  rgba(99, 102, 241, 0.3);
+  --color-glow-indigo-high: rgba(99, 102, 241, 0.5);
+  --color-glow-cyan-low:    rgba(6, 182, 212, 0.15);
+  --color-glow-cyan-mid:    rgba(6, 182, 212, 0.3);
+  --color-glow-violet-low:  rgba(168, 85, 247, 0.15);
+  --color-glow-violet-mid:  rgba(168, 85, 247, 0.3);
+  --color-glow-green-mid:   rgba(74, 222, 128, 0.3);
+  --color-glow-red-mid:     rgba(239, 68, 68, 0.3);
+
+  /* — Status — */
+  --color-status-success:        var(--prim-color-green-400);
+  --color-status-success-bg:     rgba(74, 222, 128, 0.1);
+  --color-status-success-border: rgba(74, 222, 128, 0.3);
+  --color-status-error:          var(--prim-color-red-300);
+  --color-status-error-bg:       rgba(239, 68, 68, 0.1);
+  --color-status-error-border:   rgba(239, 68, 68, 0.3);
+
+  /* — Spacing aliases — */
+  --a11y-bar-height: 2rem;    /* 32px — accessibility controls bar (sits above main navbar) */
+  --main-nav-height: 3.5rem;  /* 56px — primary navigation bar */
+  --navbar-height:   calc(var(--a11y-bar-height) + var(--main-nav-height)); /* total: 88px; used by sections for padding-top */
+  --space-section-y: var(--prim-space-9);
+  --space-stack-sm:  var(--prim-space-3);
+  --space-stack-md:  var(--prim-space-4);
+  --space-stack-lg:  var(--prim-space-6);
+  --space-stack-xl:  var(--prim-space-7);
+
+  /* — Typography aliases — */
+  --text-eyebrow:    var(--prim-text-sm);
+  --text-body:       var(--prim-text-base);
+  --text-body-lg:    var(--prim-text-lg);
+  --text-heading-sm: var(--prim-text-xl);
+  --text-heading-md: var(--prim-text-2xl);
+  --text-heading-lg: var(--prim-text-4xl);
+  --text-hero:       var(--prim-text-hero);
+
+  /* — Radius aliases — */
+  --radius-card:    var(--prim-radius-xl);
+  --radius-card-lg: var(--prim-radius-3xl);
+  --radius-input:   var(--prim-radius-md);
+  --radius-button:  var(--prim-radius-pill);
+  --radius-badge:   var(--prim-radius-pill);
+  --radius-icon:    var(--prim-radius-lg);
+
+  /* — Shadow aliases — */
+  --shadow-cta:       0 4px 24px var(--color-glow-indigo-mid);
+  --shadow-cta-hover: 0 8px 32px var(--color-glow-indigo-high), 0 0 0 4px var(--color-glow-indigo-low);
+  --shadow-focus-ring: 0 0 0 3px var(--color-glow-indigo-low);
+
+  /* — Section background (auto-adapts via bg token chain) — */
+  --section-bg: linear-gradient(155deg, var(--color-bg-page) 0%, var(--color-bg-dark) 50%, var(--color-bg-subtle) 100%);
+
+  /* — Surface overlays — */
+  --color-surface-card: rgba(255,255,255,.03);
+  --color-surface-btn:  rgba(255,255,255,.05);
+
+  /* — Transition aliases — */
+  --transition-interactive: var(--prim-transition-fast);
+  --transition-layout:      var(--prim-transition-base);
+  --transition-motion:      var(--prim-transition-spring);
+
+  /* — Z-index aliases — */
+  --z-loader:  var(--prim-z-loader);
+  --z-navbar:  var(--prim-z-fixed);
+  --z-content: var(--prim-z-overlay);
+  --z-shapes:  var(--prim-z-content);
+
+  /* ── Decoration control ──
+     Consumed by grains; overridden by theme files only. */
+  --decorative-display:      block;
+  --grid-line-color:         rgba(99,102,241,.05);
+  --hero-grid-line-color:    rgba(99,102,241,.06);
+  --scanline-bg:             none;
+  --heading-extra-animation: none 0s;
+  --heading-shadow:          none;
+  --accent-filter:           drop-shadow(0 0 24px var(--color-glow-indigo-mid));
+}
+
+/* ============================================================
+   TIER 3 — COMPONENT TOKENS
+   Reference Tier 2. Provide defaults for JS-driven per-instance
+   overrides (e.g. --card-color set via inline style).
+   ============================================================ */
+
+/* — Navbar — */
+:root {
+  --navbar-bg:             rgba(7, 7, 26, 0.75);
+  --navbar-bg-scrolled:    rgba(7, 7, 26, 0.95);
+  --navbar-border:         var(--color-border-subtle);
+  --navbar-border-scrolled:var(--color-border-strong);
+  --navbar-link-color:     var(--color-text-white-60);
+  --navbar-link-hover-bg:  rgba(99, 102, 241, 0.1);
+  --navbar-link-active-color: var(--color-accent-indigo);
+  --navbar-z:              var(--z-navbar);
+}
+
+/* — Hero section — */
+:root {
+  --hero-bg-start:    #0a0a1a;
+  --hero-bg-mid:      #0d0d2b;
+  --hero-bg-end:      #070714;
+  --hero-canvas-z:    var(--prim-z-content);
+  --hero-content-z:   var(--prim-z-overlay);
+}
+
+/* — Cards (shared across Portfolio, ContactInfo, WorkExperience)
+     JS sets per-instance values via inline style; these are fallbacks — */
+:root {
+  --card-color:  var(--color-accent-indigo);
+  --card-glow:   var(--color-glow-indigo-mid);
+  --card-border: var(--color-border-strong);
+  --card-bg:     rgba(99, 102, 241, 0.08);
+  --card-surface:var(--color-surface-glass);
+  --card-radius: var(--radius-card);
+}
+
+/* — Work experience job items (JS-driven per-instance) — */
+:root {
+  --job-color:  var(--color-accent-indigo);
+  --job-glow:   var(--color-glow-indigo-mid);
+  --job-bg:     rgba(99, 102, 241, 0.08);
+  --job-border: var(--color-border-strong);
+}
+
+/* — Technology category cards (JS-driven per-instance) — */
+:root {
+  --cat-color:  var(--color-accent-indigo);
+  --cat-glow:   var(--color-glow-indigo-mid);
+  --cat-bg:     rgba(99, 102, 241, 0.08);
+  --cat-border: var(--color-border-subtle);
+}
+
+/* — Chips (WorkExperience, TechnologySection — JS-driven per-instance) — */
+:root {
+  --chip-color:  #fff;
+  --chip-bg:     rgba(99, 102, 241, 0.08);
+  --chip-border: var(--color-border-strong);
+}
+
+/* — Contact form — */
+:root {
+  --form-card-bg:            var(--color-surface-glass);
+  --form-card-border:        var(--color-border-base);
+  --form-card-radius:        var(--radius-card-lg);
+  --form-input-bg:           var(--color-surface-input);
+  --form-input-border:       rgba(99, 102, 241, 0.2);
+  --form-input-border-focus: rgba(99, 102, 241, 0.6);
+  --form-input-bg-focus:     var(--color-surface-input-focus);
+  --form-input-focus-ring:   var(--shadow-focus-ring);
+  --form-input-radius:       var(--radius-input);
+  --form-label-color:        var(--color-text-muted);
+  --form-error-color:        var(--color-status-error);
+  --form-submit-shadow:      var(--shadow-cta);
+  --form-submit-shadow-hover:var(--shadow-cta-hover);
+}
+
+/* — Preloader — */
+:root {
+  --loader-z:     var(--z-loader);
+  --loader-bg:    var(--color-bg-page);
+  --loader-color: var(--color-accent-indigo);
+}
+
+/* — Footer — */
+:root {
+  --footer-bg:     rgba(7, 7, 26, 0.95);
+  --footer-border: var(--color-border-subtle);
+  --footer-text:   var(--color-text-ghost);
+}
+
+/* ── Buttons ── */
+:root {
+  --btn-primary-padding:        12px 28px;
+  --btn-primary-font-size:      .95rem;
+  --btn-primary-font-weight:    var(--prim-weight-semibold);
+  --btn-primary-letter-spacing: .03em;
+  --btn-primary-border-color:   rgba(255,255,255,.1);
+  --btn-primary-radius:         var(--radius-button);
+  --btn-hover-lift:             translateY(-2px);
+  --btn-disabled-opacity:       .7;
+  --btn-icon-size:              46px;
+  --btn-icon-hover-lift:        translateY(-3px);
+  --btn-spinner-size:           14px;
+  --btn-spinner-border-width:   2px;
+  --btn-spinner-track:          rgba(255,255,255,.3);
+  --btn-spinner-gap:            8px;
+}
+
+/* ── Chip ── */
+:root {
+  --chip-list-gap:        8px;
+  --chip-padding:         3px 12px;
+  --chip-font-size:       .72rem;
+  --chip-font-weight:     var(--prim-weight-medium);
+  --chip-letter-spacing:  .02em;
+  --chip-radius:          var(--radius-badge);
+}
+
+/* ── Status badge ── */
+:root {
+  --badge-padding:        6px 16px;
+  --badge-font-size:      .85rem;
+  --badge-letter-spacing: .04em;
+  --badge-gap:            8px;
+  --badge-dot-size:       8px;
+}
+
+/* ── Filter bar ── */
+:root {
+  --filter-btn-padding:        8px 20px;
+  --filter-btn-font-size:      .85rem;
+  --filter-btn-font-weight:    var(--prim-weight-medium);
+  --filter-btn-letter-spacing: .03em;
+  --filter-btn-radius:         var(--radius-button);
+  --filter-btn-active-shadow:  0 0 16px var(--color-glow-indigo-mid);
+}
+
+/* ── Form (grain-level — sizing & typography; colors via existing form-* tokens) ── */
+:root {
+  --form-max-width:              600px;
+  --form-card-padding:           32px;
+  --form-card-blur:              12px;
+  --form-input-padding:          11px 16px;
+  --form-input-font-size:        .92rem;
+  --form-input-error-border:     rgba(239,68,68,.5);
+  --form-input-error-ring:       0 0 0 3px rgba(239,68,68,.12);
+  --form-textarea-min-height:    130px;
+  --form-label-font-size:        .78rem;
+  --form-label-font-weight:      var(--prim-weight-semibold);
+  --form-label-letter-spacing:   .05em;
+  --form-label-gap:              6px;
+  --form-field-error-font-size:  .75rem;
+  --form-field-error-gap:        4px;
+  --form-field-error-min-height: 18px;
+  --form-alert-radius:           12px;
+  --form-alert-padding:          14px 18px;
+  --form-alert-font-size:        .9rem;
+}
+
+/* ── Accordion / Work Experience ── */
+:root {
+  --accordion-radius:               var(--radius-card);
+  --accordion-hover-lift:           translateY(-3px);
+  --accordion-trigger-padding:      20px 24px;
+  --accordion-trigger-gap:          16px;
+  --accordion-company-gap:          10px;
+  --accordion-company-font-size:    1.1rem;
+  --accordion-badge-padding:        2px 10px;
+  --accordion-badge-font-size:      .65rem;
+  --accordion-badge-letter-spacing: .08em;
+  --accordion-meta-gap:             6px;
+  --accordion-position-font-size:   .88rem;
+  --accordion-period-font-size:     .82rem;
+  --accordion-body-padding:         20px 24px 24px;
+  --accordion-label-font-size:      .7rem;
+  --accordion-label-spacing:        .1em;
+  --accordion-label-gap:            12px;
+  --accordion-list-gap:             8px;
+  --accordion-list-font-size:       .9rem;
+  --accordion-list-item-gap:        10px;
+  --accordion-bullet-size:          6px;
+}
+
+/* ── Timeline ── */
+:root {
+  --timeline-max-width:      760px;
+  --timeline-padding-start:  36px;
+  --timeline-line-left:      10px;
+  --timeline-line-inset-y:   12px;
+  --timeline-line-width:     2px;
+  --timeline-item-gap:       24px;
+  --timeline-dot-offset:     -35px;
+  --timeline-dot-top:        22px;
+  --timeline-dot-size:       20px;
+  --timeline-dot-inner-size: 10px;
+  --timeline-ring-opacity:   .5;
+}
+
+/* ── Nav links ── */
+:root {
+  --nav-link-padding:          6px 14px;
+  --nav-link-radius:           var(--prim-radius-sm);
+  --nav-link-font-size:        .88rem;
+  --nav-link-font-weight:      var(--prim-weight-medium);
+  --nav-link-letter-spacing:   .03em;
+  --nav-link-underline-bottom: 2px;
+  --nav-link-underline-height: 2px;
+}
+
+/* ── Project card ── */
+:root {
+  --project-card-radius:             var(--radius-card);
+  --project-card-img-height:         220px;
+  --project-card-hover-lift:         translateY(-6px);
+  --project-card-hover-shadow:       0 20px 40px rgba(0,0,0,.4);
+  --project-img-hover-scale:         scale(1.07);
+  --project-overlay-bg:              linear-gradient(to top, rgba(7,7,26,.97) 0%, rgba(7,7,26,.75) 60%, transparent 100%);
+  --project-overlay-padding:         20px;
+  --project-content-offset:          16px;
+  --project-cat-font-size:           .65rem;
+  --project-cat-letter-spacing:      .1em;
+  --project-cat-padding:             2px 10px;
+  --project-title-font-size:         1rem;
+  --project-desc-font-size:          .78rem;
+  --project-links-gap:               10px;
+  --project-link-btn-size:           34px;
+  --project-link-btn-bg:             rgba(255,255,255,.08);
+  --project-link-btn-border:         rgba(255,255,255,.15);
+  --project-link-btn-color:          rgba(255,255,255,.8);
+  --project-link-btn-font-size:      .85rem;
+  --project-footer-padding:          14px 18px;
+  --project-footer-title-font-size:  .88rem;
+  --project-footer-cat-font-size:    .7rem;
+  --project-footer-cat-spacing:      .06em;
+}
+
+/* ── Stat card ── */
+:root {
+  --stat-card-radius:         var(--radius-icon);
+  --stat-card-padding:        12px 18px;
+  --stat-card-offset:         -16px;
+  --stat-num-font-size:       1.5rem;
+  --stat-label-font-size:     .68rem;
+  --stat-label-letter-spacing:.06em;
+  --stat-float-distance:      -8px;
+}
+
+/* ── 3D Hero Card ── */
+:root {
+  --card3d-size:           280px;
+  --card3d-perspective:    800px;
+  --card3d-radius:         var(--radius-card-lg);
+  --card3d-float-distance: -20px;
+  --card3d-orbit-1-size:   160px;
+  --card3d-orbit-2-size:   210px;
+  --card3d-orbit-3-size:   260px;
+  --card3d-orbit-dot-size: 8px;
+}
+
+/* ── Section header ── */
+:root {
+  --section-eyebrow-font-size:      .78rem;
+  --section-eyebrow-letter-spacing: .12em;
+  --section-eyebrow-line-width:     32px;
+  --section-eyebrow-line-bg:        linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-accent-indigo) 60%, transparent));
+  --section-eyebrow-line-bg-r:      linear-gradient(90deg, color-mix(in srgb, var(--color-accent-indigo) 60%, transparent), transparent);
+  --section-title-font-size:        clamp(2rem, 4vw, 3.2rem);
+  --section-subtitle-font-size:     1rem;
+  --section-subtitle-max-width:     34rem;
+}
+
+/* ── Scroll indicator ── */
+:root {
+  --scroll-indicator-bottom:    1.5rem;
+  --scroll-text-font-size:      .72rem;
+  --scroll-text-letter-spacing: .1em;
+  --scroll-text-gap:            6px;
+  --scroll-bounce-distance:     -12px;
+}
+
+/* ── Nav toggler / hamburger ── */
+:root {
+  --toggler-size:        40px;
+  --toggler-padding:     8px;
+  --toggler-gap:         5px;
+  --toggler-radius:      var(--prim-radius-sm);
+  --toggler-line-width:  18px;
+  --toggler-line-height: 1.5px;
+  --toggler-line-offset: 6.5px;
+}
+
+/* ── Brand ── */
+:root {
+  --brand-logo-size:      30px;
+  --brand-text-font-size: .95rem;
+  --brand-letter-spacing: .04em;
+}
+
+/* ── Theme dropdown ── */
+:root {
+  --dropdown-min-width:          188px;
+  --dropdown-padding:            10px 8px;
+  --dropdown-radius:             var(--prim-radius-lg);
+  --dropdown-trigger-padding:    7px 12px;
+  --dropdown-trigger-font-size:  .82rem;
+  --dropdown-label-font-size:    .65rem;
+  --dropdown-label-spacing:      .1em;
+  --dropdown-option-font-size:   .84rem;
+  --dropdown-option-padding:     7px 8px;
+  --dropdown-mode-btn-padding:   7px 6px;
+  --dropdown-mode-btn-font-size: .78rem;
+  --dropdown-swatch-size:        10px;
+  --dropdown-palette-swatch-size:12px;
+  --dropdown-divider-margin:     8px;
+}
+
+/* ── Mobile drawer ── */
+:root {
+  --drawer-width:             min(300px, 85vw);
+  --drawer-header-padding:    16px 20px;
+  --drawer-title-font-size:   .8rem;
+  --drawer-title-spacing:     .12em;
+  --drawer-close-size:        36px;
+  --drawer-close-radius:      var(--prim-radius-sm);
+  --drawer-close-font-size:   .9rem;
+  --drawer-list-gap:          4px;
+  --drawer-list-padding:      16px 12px;
+  --drawer-link-padding:      12px 16px;
+  --drawer-link-font-size:    .95rem;
+  --drawer-section-padding:   12px;
+  --drawer-label-font-size:   .65rem;
+  --drawer-label-spacing:     .1em;
+  --drawer-label-padding:     0 4px 10px;
+}
+
+/* ============================================================
+   THEMES — Accent color overrides
+   Applied via [data-theme] on <html>. Default (indigo) needs
+   no selector — it's the :root baseline above.
+   ============================================================ */
+
+/* ── Ocean (cyan / teal) ── */
+[data-palette="ocean"] {
+  --color-accent-indigo:        #38bdf8;
+  --color-accent-indigo-strong: #06b6d4;
+  --color-accent-indigo-deep:   #0891b2;
+  --color-accent-cyan:          #2dd4bf;
+  --color-text-accent:          #7dd3fc;
+  --color-border-subtle:        rgba(6, 182, 212, 0.15);
+  --color-border-base:          rgba(6, 182, 212, 0.25);
+  --color-border-strong:        rgba(6, 182, 212, 0.3);
+  --color-border-active:        #38bdf8;
+  --color-glow-indigo-low:      rgba(6, 182, 212, 0.15);
+  --color-glow-indigo-mid:      rgba(6, 182, 212, 0.3);
+  --color-glow-indigo-high:     rgba(6, 182, 212, 0.5);
+  --color-surface-input-focus:  rgba(6, 182, 212, 0.06);
+  --navbar-link-hover-bg:       rgba(6, 182, 212, 0.1);
+  --form-input-border:          rgba(6, 182, 212, 0.2);
+  --form-input-border-focus:    rgba(6, 182, 212, 0.6);
+  --card-bg:                    rgba(6, 182, 212, 0.08);
+  --job-bg:                     rgba(6, 182, 212, 0.08);
+  --cat-bg:                     rgba(6, 182, 212, 0.08);
+  --chip-bg:                    rgba(6, 182, 212, 0.08);
+}
+
+/* ── Aurora (violet / purple) ── */
+[data-palette="aurora"] {
+  --color-accent-indigo:        #c084fc;
+  --color-accent-indigo-strong: #a855f7;
+  --color-accent-indigo-deep:   #9333ea;
+  --color-accent-cyan:          #e879f9;
+  --color-text-accent:          #d8b4fe;
+  --color-border-subtle:        rgba(168, 85, 247, 0.15);
+  --color-border-base:          rgba(168, 85, 247, 0.25);
+  --color-border-strong:        rgba(168, 85, 247, 0.3);
+  --color-border-active:        #c084fc;
+  --color-glow-indigo-low:      rgba(168, 85, 247, 0.15);
+  --color-glow-indigo-mid:      rgba(168, 85, 247, 0.3);
+  --color-glow-indigo-high:     rgba(168, 85, 247, 0.5);
+  --color-surface-input-focus:  rgba(168, 85, 247, 0.06);
+  --navbar-link-hover-bg:       rgba(168, 85, 247, 0.1);
+  --form-input-border:          rgba(168, 85, 247, 0.2);
+  --form-input-border-focus:    rgba(168, 85, 247, 0.6);
+  --card-bg:                    rgba(168, 85, 247, 0.08);
+  --job-bg:                     rgba(168, 85, 247, 0.08);
+  --cat-bg:                     rgba(168, 85, 247, 0.08);
+  --chip-bg:                    rgba(168, 85, 247, 0.08);
+}
+
+/* ── Ember (orange / amber) ── */
+[data-palette="ember"] {
+  --color-accent-indigo:        #fb923c;
+  --color-accent-indigo-strong: #f97316;
+  --color-accent-indigo-deep:   #ea580c;
+  --color-accent-cyan:          #fbbf24;
+  --color-text-accent:          #fdba74;
+  --color-border-subtle:        rgba(249, 115, 22, 0.15);
+  --color-border-base:          rgba(249, 115, 22, 0.25);
+  --color-border-strong:        rgba(249, 115, 22, 0.3);
+  --color-border-active:        #fb923c;
+  --color-glow-indigo-low:      rgba(249, 115, 22, 0.15);
+  --color-glow-indigo-mid:      rgba(249, 115, 22, 0.3);
+  --color-glow-indigo-high:     rgba(249, 115, 22, 0.5);
+  --color-surface-input-focus:  rgba(249, 115, 22, 0.06);
+  --navbar-link-hover-bg:       rgba(249, 115, 22, 0.1);
+  --form-input-border:          rgba(249, 115, 22, 0.2);
+  --form-input-border-focus:    rgba(249, 115, 22, 0.6);
+  --card-bg:                    rgba(249, 115, 22, 0.08);
+  --job-bg:                     rgba(249, 115, 22, 0.08);
+  --cat-bg:                     rgba(249, 115, 22, 0.08);
+  --chip-bg:                    rgba(249, 115, 22, 0.08);
+}
+
+/* ============================================================
+   MODE: Light
+   Overrides backgrounds, text, and surfaces.
+   Comes after palette blocks so it wins equal-specificity ties
+   on shared tokens (e.g. --color-text-accent).
+   ============================================================ */
+[data-mode="light"] {
+  /* — Backgrounds — */
+  --color-bg-page:               #f0f4ff;
+  --color-bg-dark:               #e8eeff;
+  --color-bg-darker:             #e4eaff;
+  --color-bg-subtle:             #eef2ff;
+
+  /* — Text — */
+  --color-text-primary:          #0f172a;
+  --color-text-secondary:        #1e293b;
+  --color-text-muted:            #475569;
+  --color-text-faint:            #64748b;
+  --color-text-ghost:            #94a3b8;
+  --color-text-accent:           var(--color-accent-indigo-strong);
+  --color-text-white-60:         rgba(15, 23, 42, 0.6);
+  --color-text-white-70:         rgba(15, 23, 42, 0.7);
+  --color-text-white-80:         rgba(15, 23, 42, 0.8);
+
+  /* — Surfaces — */
+  --color-surface-glass:         rgba(255, 255, 255, 0.6);
+  --color-surface-glass-hover:   rgba(255, 255, 255, 0.8);
+  --color-surface-input:         rgba(255, 255, 255, 0.8);
+  --color-surface-input-focus:   rgba(255, 255, 255, 0.95);
+  --color-surface-card:          rgba(255, 255, 255, 0.65);
+  --color-surface-btn:           rgba(255, 255, 255, 0.5);
+  --color-surface-overlay:       rgba(255, 255, 255, 0.5);
+
+  /* — Borders — */
+  --color-border-glass:          rgba(0, 0, 0, 0.1);
+  --color-border-subtle:         color-mix(in srgb, var(--color-accent-indigo) 22%, transparent);
+  --color-border-base:           color-mix(in srgb, var(--color-accent-indigo) 35%, transparent);
+  --color-border-strong:         color-mix(in srgb, var(--color-accent-indigo) 48%, transparent);
+
+  /* — Form — */
+  --form-input-border:           color-mix(in srgb, var(--color-accent-indigo) 38%, transparent);
+  --form-input-border-focus:     color-mix(in srgb, var(--color-accent-indigo) 72%, transparent);
+
+  /* — Project cards — */
+  --project-overlay-bg:          linear-gradient(to top, rgba(224, 231, 255, 0.97) 0%, rgba(224, 231, 255, 0.78) 60%, transparent 100%);
+  --project-card-hover-shadow:   0 12px 32px rgba(0, 0, 0, 0.12);
+  --project-link-btn-bg:         rgba(0,0,0,.06);
+  --project-link-btn-border:     rgba(0,0,0,.14);
+  --project-link-btn-color:      var(--color-text-secondary);
+
+  /* — Navbar — */
+  --navbar-bg:                   rgba(240, 244, 255, 0.85);
+  --navbar-bg-scrolled:          rgba(248, 250, 255, 0.97);
+  --navbar-link-color:           rgba(15, 23, 42, 0.65);
+
+  /* — Footer — */
+  --footer-bg:                   rgba(240, 244, 255, 0.95);
+  --footer-text:                 var(--color-text-faint);
+}
+
+/* ── Light mode: project card overlay text ── */
+[data-mode="light"] .project-title {
+  color: var(--color-text-primary);
+}
+[data-mode="light"] .project-desc {
+  color: var(--color-text-muted);
+}
+[data-mode="light"] .project-cat {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+/* ── Accessibility bar (top fixed strip) ── */
+:root {
+  --a11y-bar-bg:     rgba(3, 3, 14, 0.92);   /* slightly darker than --navbar-bg */
+  --a11y-bar-border: rgba(255, 255, 255, 0.06);
+  --a11y-bar-z:      calc(var(--z-navbar) + 1); /* above main navbar */
+}
+
+/* — A11y bar: light mode — */
+[data-mode="light"] {
+  --a11y-bar-bg:     rgba(220, 228, 255, 0.94);
+  --a11y-bar-border: rgba(0, 0, 0, 0.08);
+}
+
+/* ── Accessibility toolbar ── */
+:root {
+  --a11y-btn-icon-size:    20px;
+  --a11y-btn-hit-expand:   12px;    /* inset on ::before → 20+24=44px touch target */
+  --a11y-btn-gap:          8px;
+  --a11y-btn-color:        var(--color-text-white-60);
+  --a11y-btn-hover-color:  var(--color-text-primary);
+  --a11y-btn-active-color: var(--color-accent-indigo);
+  --a11y-btn-active-bg:    var(--navbar-link-hover-bg);
+  --a11y-divider-color:    var(--color-border-glass);
+
+  /* Font scaling — JS sets --a11y-font-scale on <html> as inline custom property */
+  --a11y-font-scale: 1;
+
+  /* Focus ring (WCAG 2.4.11 Focus Appearance) */
+  --focus-ring-width:  3px;
+  --focus-ring-color:  var(--color-accent-indigo);
+  --focus-ring-offset: 2px;
+
+  /* Help dialogs */
+  --dialog-bg:        var(--navbar-bg-scrolled);
+  --dialog-border:    var(--color-border-base);
+  --dialog-radius:    var(--prim-radius-xl);
+  --dialog-max-width: 520px;
+  --dialog-padding:   28px;
+}

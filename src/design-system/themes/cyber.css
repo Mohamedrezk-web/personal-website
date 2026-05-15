@@ -1,0 +1,1531 @@
+/* ============================================================
+   THEME: Cyber  —  Neon / Terminal / Cyberpunk
+   Forces dark mode. Pure token overrides + component rules.
+   Aesthetic: hard neon edges, corner-clipped geometry, CRT
+   scanlines, glitch text, terminal monospace, hot-pink secondary.
+
+   Two-color neon system:
+     Primary  → palette-adaptive (indigo/ocean/aurora/ember)
+     Secondary → #ff2d78 (hot magenta, always fixed)
+   ============================================================ */
+
+/* ── KEYFRAMES ───────────────────────────────────────────── */
+
+/* Card glitch loop — plays while hovering */
+@keyframes cyberCardHover {
+  0%, 86%, 100% {
+    transform: translateY(-5px) skewX(-0.5deg);
+    filter: none;
+  }
+  88% {
+    transform: translateY(-5px) skewX(-3deg) translateX(4px);
+    filter: brightness(1.35) hue-rotate(25deg) saturate(1.4);
+  }
+  90% {
+    transform: translateY(-5px) skewX(1.5deg) translateX(-3px);
+    filter: brightness(0.8) hue-rotate(-25deg);
+  }
+  92% {
+    transform: translateY(-5px) skewX(-0.5deg) translateX(1px);
+    filter: brightness(1.1);
+  }
+  94% {
+    transform: translateY(-5px) skewX(-0.5deg);
+    filter: none;
+  }
+}
+
+/* Image chromatic aberration on hover */
+@keyframes cyberImgGlitch {
+  0%, 88%, 100% { filter: saturate(1.2) brightness(1.05); }
+  90% {
+    filter: saturate(1.8) brightness(1.2) hue-rotate(15deg);
+    transform: scale(1.04) translateX(2px);
+  }
+  92% {
+    filter: saturate(0.8) brightness(0.9) hue-rotate(-15deg);
+    transform: scale(1.04) translateX(-2px);
+  }
+  94% { filter: saturate(1.2) brightness(1.05); transform: scale(1.04); }
+}
+
+/* Overlay glitch reveal — replaces the slide-up-from-bottom on project card content */
+@keyframes cyberOverlayGlitch {
+  0%   { opacity: 0; clip-path: inset(100% 0 0 0); filter: none; transform: none; }
+  12%  { opacity: 1; clip-path: inset(52% 0 0 0); filter: hue-rotate(35deg) brightness(1.9) saturate(1.6); transform: skewX(-3deg) translateX(4px); }
+  24%  { opacity: 1; clip-path: inset(20% 0 45% 0); filter: hue-rotate(-25deg) brightness(0.7); transform: skewX(2deg) translateX(-3px); }
+  36%  { opacity: 1; clip-path: inset(65% 0 8% 0); filter: brightness(1.5) saturate(1.3); transform: skewX(-1deg) translateX(2px); }
+  50%  { opacity: 1; clip-path: inset(5% 0 20% 0); filter: hue-rotate(15deg); transform: skewX(1deg); }
+  70%  { opacity: 1; clip-path: inset(0 0 8% 0); filter: brightness(1.15); transform: none; }
+  85%  { opacity: 1; clip-path: inset(0 0 2% 0); filter: brightness(1.05); transform: none; }
+  100% { opacity: 1; clip-path: none; filter: none; transform: none; }
+}
+
+/* Accordion card glitch — left-right slam + filter, two bursts */
+/* Accordion card glitch — filter only, no transform so grid-template-rows expansion stays smooth */
+@keyframes glitchAccordionCard {
+  0%, 60%, 100% { filter: none; }
+  62%  { filter: brightness(2) hue-rotate(35deg) saturate(2); }
+  64%  { filter: brightness(0.35) hue-rotate(-40deg); }
+  66%  { filter: brightness(1.7) saturate(1.5); }
+  68%  { filter: brightness(1.2); }
+  70%  { filter: none; }
+  84%  { filter: none; }
+  86%  { filter: brightness(1.8) hue-rotate(25deg); }
+  88%  { filter: brightness(0.5) hue-rotate(-25deg); }
+  90%  { filter: none; }
+}
+
+/* Accordion trigger glitch — left-right slam + chromatic text split + hot-pink border, no background change */
+@keyframes glitchAccordionTrigger {
+  0%, 55%, 100% { transform: none; filter: none; border-color: var(--job-color); }
+  57%  { transform: translateX(-10px) skewX(-4deg); filter: brightness(1.8) saturate(1.6); border-color: #ff2d78; }
+  59%  { transform: translateX(12px)  skewX(3deg);  filter: brightness(0.55); border-color: var(--color-accent-indigo); }
+  61%  { transform: translateX(-6px)  skewX(-2deg); filter: brightness(1.4); border-color: #ff2d78; }
+  63%  { transform: translateX(5px);                filter: brightness(1.1); border-color: var(--job-color); }
+  65%  { transform: none; filter: none; border-color: var(--job-color); }
+}
+
+
+/* Flat glitch — cards that stay in place (no lift) */
+@keyframes glitchFlat {
+  0%, 78%, 100% { filter: none; transform: none; }
+  80% { filter: brightness(1.5) hue-rotate(25deg) saturate(1.5); transform: skewX(-3deg) translateX(4px); }
+  82% { filter: brightness(0.55) hue-rotate(-25deg); transform: skewX(1.5deg) translateX(-3px); }
+  84% { filter: brightness(1.2); transform: skewX(-1deg) translateX(1px); }
+  86% { filter: none; transform: none; }
+}
+
+/* Button glitch — includes translateY so the lift stays */
+@keyframes glitchBtn {
+  0%, 72%, 100% { filter: none; transform: translateY(-2px); }
+  74% { filter: brightness(2.2) hue-rotate(30deg) saturate(2); transform: translateY(-2px) skewX(-5deg) translateX(5px); }
+  76% { filter: brightness(0.35) hue-rotate(-30deg); transform: translateY(-2px) skewX(2.5deg) translateX(-4px); }
+  78% { filter: brightness(1.4); transform: translateY(-2px) skewX(-1deg); }
+  80% { filter: none; transform: translateY(-2px); }
+}
+
+/* Icon button glitch — filter only, avoids transform conflict with lift */
+@keyframes glitchIcon {
+  0%, 74%, 100% { filter: none; }
+  76% { filter: brightness(2.5) hue-rotate(30deg) saturate(2.5); }
+  78% { filter: brightness(0.3) hue-rotate(-30deg) saturate(0.3); }
+  80% { filter: brightness(1.5); }
+  82% { filter: none; }
+}
+
+/* Nav link glitch — chromatic aberration on text, no transform */
+@keyframes glitchText {
+  0%, 80%, 100% { filter: none; }
+  82% { filter: brightness(1.5); }
+  84% { filter: brightness(0.7); }
+  86% { filter: none; }
+}
+
+/* Filter button glitch — quick skew snap */
+@keyframes glitchFilterBtn {
+  0%, 74%, 100% { filter: none; transform: none; }
+  76% { filter: brightness(1.8) hue-rotate(20deg); transform: skewX(-3deg) translateX(3px); }
+  78% { filter: brightness(0.5) hue-rotate(-20deg); transform: skewX(1.5deg) translateX(-2px); }
+  80% { filter: none; transform: none; }
+}
+
+
+
+@keyframes cyberGlitch {
+  0%, 82%, 100% {
+    clip-path: none;
+    transform: none;
+    filter: none;
+  }
+  83% {
+    clip-path: inset(8% 0 72% 0);
+    transform: translateX(-8px) skewX(-2deg);
+    filter: hue-rotate(30deg) brightness(1.4);
+  }
+  84% {
+    clip-path: inset(60% 0 10% 0);
+    transform: translateX(8px) skewX(2deg);
+    filter: hue-rotate(-30deg);
+  }
+  85% {
+    clip-path: inset(35% 0 45% 0);
+    transform: translateX(-4px);
+    filter: brightness(1.6) saturate(2);
+  }
+  86% {
+    clip-path: inset(5% 0 88% 0);
+    transform: translateX(4px) skewX(-3deg);
+  }
+  87% {
+    clip-path: inset(78% 0 5% 0);
+    transform: translateX(-2px);
+  }
+  88% {
+    clip-path: none;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* Hero name chromatic glitch — always running */
+@keyframes heroNameGlitch {
+  0%, 82%, 100% { transform: none; filter: none; }
+  83%  { transform: skewX(-4deg) translateX(-5px); filter: brightness(1.35); }
+  84%  { transform: skewX(3deg)  translateX(7px);  filter: brightness(0.65) hue-rotate(20deg); }
+  85%  { transform: translateX(-3px) skewX(-1.5deg); filter: brightness(1.7) saturate(1.8); }
+  86%  { transform: translateX(3px); filter: none; }
+  87%  { transform: none; filter: none; }
+  /* second micro-burst */
+  88%  { transform: translateX(5px) skewX(2deg); filter: brightness(1.2); }
+  89%  { transform: none; filter: none; }
+}
+@keyframes heroNameGlitchR {
+  0%, 82%, 100% { opacity: 0; transform: none; clip-path: none; }
+  83%  { opacity: 0.8; transform: translateX(-9px); clip-path: inset(8%  0 58% 0); }
+  84%  { opacity: 0.7; transform: translateX(6px);  clip-path: inset(52% 0 12% 0); }
+  85%  { opacity: 0.9; transform: translateX(-5px); clip-path: inset(28% 0 38% 0); }
+  86%  { opacity: 0;   transform: none; clip-path: none; }
+  88%  { opacity: 0.6; transform: translateX(7px);  clip-path: inset(4%  0 82% 0); }
+  89%  { opacity: 0; }
+}
+@keyframes heroNameGlitchC {
+  0%, 82%, 100% { opacity: 0; transform: none; clip-path: none; }
+  83%  { opacity: 0.8; transform: translateX(9px);  clip-path: inset(52% 0 12% 0); }
+  84%  { opacity: 0.7; transform: translateX(-6px); clip-path: inset(8%  0 58% 0); }
+  85%  { opacity: 0.9; transform: translateX(5px);  clip-path: inset(42% 0 18% 0); }
+  86%  { opacity: 0;   transform: none; clip-path: none; }
+  88%  { opacity: 0.6; transform: translateX(-7px); clip-path: inset(72% 0 4%  0); }
+  89%  { opacity: 0; }
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow:
+      0 0  6px #ff2d78,
+      0 0 18px rgba(255,45,120,.5);
+  }
+  50% {
+    box-shadow:
+      0 0 10px #ff2d78,
+      0 0 36px rgba(255,45,120,.8),
+      0 0 70px rgba(255,45,120,.25);
+  }
+}
+
+@keyframes cursorBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes neonBorderPulse {
+  0%, 100% { opacity: .55; }
+  50%       { opacity: 1;   }
+}
+
+@keyframes cyberCornerGlow {
+  0%, 100% { opacity: .5;  filter: blur(0px); }
+  50%       { opacity: 1;   filter: blur(1px); }
+}
+
+/* ── TOKENS ──────────────────────────────────────────────── */
+
+[data-theme="cyber"] {
+  color-scheme: dark;
+
+  /* ── Shape: zero-radius — clip-path does the geometry ── */
+  --radius-card:         0px;
+  --radius-card-lg:      0px;
+  --radius-input:        0px;
+  --radius-button:       0px;
+  --radius-badge:        0px;
+  --radius-icon:         0px;
+  --accordion-radius:    0px;
+  --stat-card-radius:    0px;
+  --card3d-radius:       0px;
+  --form-card-radius:    0px;
+  --form-input-radius:   0px;
+  --filter-btn-radius:   0px;
+  --chip-radius:         2px;
+  --nav-link-radius:     0px;
+  --dropdown-radius:     0px;
+  --toggler-radius:      0px;
+  --drawer-close-radius: 0px;
+
+  /* ── Backgrounds: deep terminal void ── */
+  --color-bg-page:    #020812;
+  --color-bg-dark:    #040f1a;
+  --color-bg-darker:  #010609;
+  --color-bg-subtle:  #061220;
+  --hero-bg-start:    #020812;
+  --hero-bg-mid:      #040f1a;
+  --hero-bg-end:      #020812;
+  --section-bg:       transparent;
+
+  /* ── Text: stark terminal white ── */
+  --color-text-primary:   #f0f8ff;
+  --color-text-secondary: #b8d4f0;
+  --color-text-muted:     #7a9ab8;
+  --color-text-faint:     #4a6880;
+  --color-text-ghost:     #2a4860;
+  --color-text-white-60:  rgba(240,248,255,.6);
+  --color-text-white-70:  rgba(240,248,255,.7);
+  --color-text-white-80:  rgba(240,248,255,.8);
+  --navbar-link-color:    rgba(240,248,255,.6);
+
+  /* ── Surfaces: tinted glass ── */
+  --color-surface-card:        color-mix(in srgb, var(--color-accent-indigo)  4%, #020812);
+  --color-surface-glass:       color-mix(in srgb, var(--color-accent-indigo)  5%, #020812);
+  --color-surface-glass-hover: color-mix(in srgb, var(--color-accent-indigo) 10%, #020812);
+  --color-surface-input:       color-mix(in srgb, var(--color-accent-indigo)  5%, #020812);
+  --color-surface-input-focus: color-mix(in srgb, var(--color-accent-indigo) 10%, #020812);
+  --color-surface-btn:         color-mix(in srgb, var(--color-accent-indigo)  8%, transparent);
+
+  /* ── Glows: intense neon ── */
+  --color-glow-indigo-low:  color-mix(in srgb, var(--color-accent-indigo) 30%, transparent);
+  --color-glow-indigo-mid:  color-mix(in srgb, var(--color-accent-indigo) 60%, transparent);
+  --color-glow-indigo-high: color-mix(in srgb, var(--color-accent-indigo) 90%, transparent);
+  --color-glow-cyan-low:    color-mix(in srgb, var(--color-accent-cyan)   30%, transparent);
+  --color-glow-cyan-mid:    color-mix(in srgb, var(--color-accent-cyan)   60%, transparent);
+  --color-glow-violet-low:  color-mix(in srgb, var(--color-accent-violet) 30%, transparent);
+  --color-glow-violet-mid:  color-mix(in srgb, var(--color-accent-violet) 50%, transparent);
+
+  /* ── Borders: bright neon lines ── */
+  --color-border-subtle: color-mix(in srgb, var(--color-accent-indigo) 18%, transparent);
+  --color-border-base:   color-mix(in srgb, var(--color-accent-indigo) 35%, transparent);
+  --color-border-strong: color-mix(in srgb, var(--color-accent-indigo) 55%, transparent);
+  --color-border-active: var(--color-accent-indigo);
+  --color-border-glass:  color-mix(in srgb, var(--color-accent-indigo) 20%, transparent);
+
+  /* ── Shadows ── */
+  --shadow-cta:
+    0 0 12px color-mix(in srgb, var(--color-accent-indigo) 70%, transparent),
+    0 0 32px color-mix(in srgb, var(--color-accent-indigo) 35%, transparent),
+    0 0 64px color-mix(in srgb, var(--color-accent-indigo) 15%, transparent);
+  --shadow-cta-hover:
+    0 0 20px color-mix(in srgb, var(--color-accent-indigo) 90%, transparent),
+    0 0 60px color-mix(in srgb, var(--color-accent-indigo) 50%, transparent),
+    0 0 120px color-mix(in srgb, var(--color-accent-indigo) 20%, transparent);
+  --shadow-focus-ring: 0 0 0 2px var(--color-accent-indigo),
+                       0 0 12px var(--color-glow-indigo-mid);
+
+  /* ── Accent filter: neon drop-shadow ── */
+  --accent-filter:
+    drop-shadow(0 0 8px var(--color-accent-indigo))
+    drop-shadow(0 0 20px var(--color-glow-indigo-mid))
+    drop-shadow(0 0 40px var(--color-glow-indigo-low));
+
+  /* ── Heading glitch ── */
+  --heading-extra-animation: cyberGlitch 2s 0.3s infinite;
+  --heading-shadow: none;
+
+  /* ── Eyebrow lines ── */
+  --section-eyebrow-line-bg:   linear-gradient(90deg, transparent, var(--color-accent-indigo));
+  --section-eyebrow-line-bg-r: linear-gradient(90deg, var(--color-accent-indigo), transparent);
+
+  /* ── CRT scanlines + vignette ── */
+  --scanline-bg:
+    radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.65) 100%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,.3)  0px,
+      rgba(0,0,0,.3)  1px,
+      transparent     1px,
+      color-mix(in srgb, var(--color-accent-indigo) 2%, transparent) 3px,
+      transparent     3px,
+      transparent     4px
+    );
+
+  /* ── Grid: neon ── */
+  --grid-line-color:      color-mix(in srgb, var(--color-accent-indigo) 10%, transparent);
+  --hero-grid-line-color: color-mix(in srgb, var(--color-accent-indigo) 13%, transparent);
+
+  /* ── Navbar ── */
+  --navbar-bg:            rgba(2,8,18,.88);
+  --navbar-bg-scrolled:   rgba(2,8,18,.98);
+  --navbar-link-hover-bg: color-mix(in srgb, var(--color-accent-indigo) 10%, transparent);
+  --navbar-border:        color-mix(in srgb, var(--color-accent-indigo) 20%, transparent);
+
+  /* ── Footer ── */
+  --footer-bg:     rgba(2,8,18,.98);
+  --footer-border: color-mix(in srgb, var(--color-accent-indigo) 20%, transparent);
+
+  /* ── Form ── */
+  --form-input-border:       color-mix(in srgb, var(--color-accent-indigo) 35%, transparent);
+  --form-input-border-focus: var(--color-accent-indigo);
+  --form-card-border:        color-mix(in srgb, var(--color-accent-indigo) 25%, transparent);
+
+  /* ── Typography ── */
+  --section-title-font-size:        clamp(2.5rem, 5vw, 4.5rem);
+  --section-eyebrow-letter-spacing: .25em;
+  --section-eyebrow-font-size:      .68rem;
+  --nav-link-letter-spacing:        .08em;
+  --brand-letter-spacing:           .12em;
+
+  /* ── Buttons ── */
+  --btn-primary-padding:        11px 32px;
+  --btn-primary-font-size:      .8rem;
+  --btn-primary-letter-spacing: .14em;
+  --btn-primary-border-color:   var(--color-accent-indigo);
+  --btn-hover-lift:             translateY(-2px);
+  --btn-icon-hover-lift:        translateY(-2px);
+
+  /* ── Filter bar ── */
+  --filter-btn-padding:        6px 18px;
+  --filter-btn-letter-spacing: .1em;
+  --filter-btn-active-shadow:
+    0 0 16px color-mix(in srgb, var(--color-accent-indigo) 60%, transparent),
+    0 0 32px color-mix(in srgb, var(--color-accent-indigo) 30%, transparent);
+
+  /* ── Accordion ── */
+  --accordion-trigger-padding: 16px 20px;
+  --accordion-body-padding:    16px 20px 20px;
+  --accordion-hover-lift:      translateY(-2px);
+
+  /* ── Cards ── */
+  --project-card-hover-lift:   translateY(-4px);
+  --project-card-hover-shadow:
+    0 0 24px color-mix(in srgb, var(--color-accent-indigo) 50%, transparent),
+    0 0 60px color-mix(in srgb, var(--color-accent-indigo) 20%, transparent);
+
+  /* ── Chip ── */
+  --chip-letter-spacing: .05em;
+
+  /* ── Spacing ── */
+  --space-section-y: var(--prim-space-9);
+}
+
+/* ── COMPONENT OVERRIDES ─────────────────────────────────── */
+
+/* Monospace font on terminal elements */
+[data-theme="cyber"] h1,
+[data-theme="cyber"] h2,
+[data-theme="cyber"] .section-eyebrow,
+[data-theme="cyber"] .nav-brand-text,
+[data-theme="cyber"] .role-text,
+[data-theme="cyber"] .filter-btn,
+[data-theme="cyber"] .accordion-company,
+[data-theme="cyber"] .accordion-period {
+  font-family: 'Courier New', 'Consolas', 'Lucida Console', monospace;
+}
+
+/* Heading neon glow */
+[data-theme="cyber"] .hero-title,
+[data-theme="cyber"] .section-title {
+  text-shadow: var(--heading-shadow);
+}
+
+/* Section eyebrow — neon colored + prefix decoration */
+[data-theme="cyber"] .section-eyebrow {
+  color: var(--color-accent-indigo);
+  text-shadow: 0 0 12px var(--color-glow-indigo-mid);
+}
+[data-theme="cyber"] .section-eyebrow span:not(.eyebrow-line)::before {
+  content: '// ';
+  opacity: .7;
+  letter-spacing: 0;
+}
+
+/* ── Terminal cursor on role text ── */
+[data-theme="cyber"] .role-text {
+  border-left: 2px solid var(--color-accent-indigo);
+  box-shadow: -3px 0 12px var(--color-glow-indigo-mid);
+  text-shadow: 0 0 10px var(--color-glow-indigo-mid);
+}
+[data-theme="cyber"] .role-text::after {
+  content: '_';
+  display: inline-block;
+  margin-left: 3px;
+  color: var(--color-accent-indigo);
+  animation: cursorBlink .8s step-end infinite;
+}
+
+/* ── Status badge — angular HUD chip + hot-pink dot ── */
+[data-theme="cyber"] .status-badge {
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  border-radius: 0;
+  font-family: 'Courier New', monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-size: .72rem;
+  border-color: #ff2d78;
+  background: rgba(255,45,120,.08);
+}
+[data-theme="cyber"] .badge-dot {
+  background: #ff2d78;
+  box-shadow: 0 0 6px #ff2d78, 0 0 18px rgba(255,45,120,.6);
+  animation: neonPulse 2s ease-in-out infinite;
+}
+
+/* ── Buttons — top-right corner cut ── */
+[data-theme="cyber"] .btn--primary {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+}
+
+/* ── Project cards — corner clip + neon border glow ── */
+[data-theme="cyber"] .project-card {
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+  border-radius: 0 !important;
+  box-shadow:
+    0 0 0 1px var(--color-border-strong),
+    0 0 20px var(--color-glow-indigo-low);
+  transition: transform .25s ease, box-shadow .25s ease;
+  position: relative;
+}
+[data-theme="cyber"] .project-card:hover {
+  box-shadow:
+    0 0 0 1px var(--color-border-active),
+    0 0 30px var(--color-glow-indigo-mid),
+    0 0 60px var(--color-glow-indigo-low);
+}
+
+/* Corner bracket decorators on project cards */
+[data-theme="cyber"] .project-card::before,
+[data-theme="cyber"] .project-card::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--color-accent-indigo);
+  z-index: 10;
+  pointer-events: none;
+  animation: cyberCornerGlow 2.5s ease-in-out infinite;
+}
+[data-theme="cyber"] .project-card::before {
+  top: 2px; left: 2px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+[data-theme="cyber"] .project-card::after {
+  bottom: 2px; right: 2px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
+
+/* ── Tech section cards ── */
+[data-theme="cyber"] .ts-card {
+  border-radius: 0 !important;
+  box-shadow: 0 0 0 1px var(--color-border-base);
+  /* override the spring transform transition — only animate what we change */
+  transition: box-shadow .3s ease, border-color .3s ease, background .3s ease;
+}
+[data-theme="cyber"] .ts-card-glow { display: none; }
+
+/* ── Accordion — neon border when open ── */
+[data-theme="cyber"] .accordion-trigger[aria-expanded="true"] {
+  box-shadow: 0 0 18px var(--color-glow-indigo-low);
+}
+[data-theme="cyber"] .accordion-body-inner {
+  box-shadow: inset 0 0 20px color-mix(in srgb, var(--color-accent-indigo) 4%, transparent);
+}
+/* Kill fadeUp on timeline items */
+[data-theme="cyber"] .timeline-item {
+  animation: none;
+  opacity: 1;
+}
+
+/* Kill spring on card, snap transitions on trigger + glow */
+[data-theme="cyber"] .accordion-card {
+  transition: none;
+}
+[data-theme="cyber"] .accordion-card-glow {
+  transition: opacity .05s steps(1);
+}
+[data-theme="cyber"] .accordion-trigger {
+  transition: background .05s steps(1), border-color .05s steps(1), border-radius .05s steps(1);
+}
+
+/* ── "Current" badge — hot pink ── */
+[data-theme="cyber"] .current-badge {
+  color: #ff2d78;
+  background: rgba(255,45,120,.08);
+  border-color: rgba(255,45,120,.4);
+  box-shadow: 0 0 10px rgba(255,45,120,.3);
+  font-family: 'Courier New', monospace;
+  letter-spacing: .1em;
+}
+
+/* ── Filter buttons — uppercase monospace ── */
+[data-theme="cyber"] .filter-btn {
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+/* ── Active nav link — > indicator ── */
+[data-theme="cyber"] .nav-link-active::before {
+  content: '> ';
+  color: var(--color-accent-indigo);
+  font-family: 'Courier New', monospace;
+  font-size: .75em;
+}
+
+/* ── Footer name — hot pink neon ── */
+[data-theme="cyber"] .footer-name {
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: #ff2d78;
+  background-clip: unset;
+  color: #ff2d78;
+  text-shadow: 0 0 10px rgba(255,45,120,.6);
+}
+
+/* ── Hero 3D card — more intense ── */
+[data-theme="cyber"] .card-face {
+  box-shadow:
+    0 0 40px color-mix(in srgb, var(--color-accent-indigo) 35%, transparent),
+    0 0 80px color-mix(in srgb, var(--color-accent-indigo) 15%, transparent),
+    inset 0 0 30px color-mix(in srgb, var(--color-accent-indigo) 6%, transparent);
+  border-color: var(--color-border-strong);
+}
+
+/* ── Form card — corner clip ── */
+[data-theme="cyber"] .form-card {
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+  box-shadow:
+    0 0 0 1px var(--color-border-base),
+    0 0 30px var(--color-glow-indigo-low);
+}
+
+/* ── Chip — glitch only, no neon glow ── */
+[data-theme="cyber"] .chip:hover {
+  animation: glitchAccordionCard 1.3s linear infinite;
+}
+
+/* ── HOVER OVERRIDES — distinctly cyber interactions ──────── */
+
+/* Project card: glitch loop instead of smooth spring lift */
+[data-theme="cyber"] .project-card:hover {
+  animation: cyberCardHover 1.6s ease-in-out infinite;
+  transform: translateY(-5px) skewX(-0.5deg);
+  box-shadow:
+    0 0 0 1px var(--color-border-active),
+    0 0 30px var(--color-glow-indigo-mid),
+    0 0 60px var(--color-glow-indigo-low);
+}
+/* Image: chromatic glitch loop */
+[data-theme="cyber"] .project-card:hover .project-img {
+  animation: cyberImgGlitch 1.6s ease-in-out infinite;
+}
+
+/* Kill the slide-up-from-bottom; glitch reveal instead */
+[data-theme="cyber"] .project-card-content {
+  transform: none;
+  transition: none;
+}
+[data-theme="cyber"] .project-card:hover .project-card-content {
+  transform: none;
+}
+[data-theme="cyber"] .project-card-overlay {
+  transition: none;
+}
+[data-theme="cyber"] .project-card:hover .project-card-overlay {
+  opacity: 1;
+  animation: cyberOverlayGlitch 0.38s linear forwards;
+}
+
+/* Overlay: terminal readout look instead of dark gradient */
+[data-theme="cyber"] {
+  --project-overlay-bg:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,.18) 0px,
+      rgba(0,0,0,.18) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in srgb, var(--color-accent-indigo) 8%, rgba(2,8,18,.5)) 40%,
+      color-mix(in srgb, var(--color-accent-indigo) 15%, rgba(2,8,18,.97)) 100%
+    );
+}
+
+/* Nav link: hard-cut underline + chromatic glitch on hover */
+[data-theme="cyber"] .app-navbar .nav-link::after {
+  background: var(--color-accent-indigo);
+  box-shadow: 0 0 8px var(--color-accent-indigo),
+              0 0 20px var(--color-glow-indigo-mid);
+  height: 2px;
+  transition: left .08s steps(2), right .08s steps(2);
+}
+[data-theme="cyber"] .app-navbar .nav-link:hover {
+  background: color-mix(in srgb, var(--color-accent-indigo) 8%, transparent);
+  animation: glitchText 1.6s ease-in-out infinite;
+}
+[data-theme="cyber"] .app-navbar .nav-link.nav-link-active {
+  background: color-mix(in srgb, var(--color-accent-indigo) 8%, transparent);
+  text-shadow: 0 0 10px var(--color-glow-indigo-mid);
+}
+
+/* Filter buttons: hard-cut snap + glitch on hover */
+[data-theme="cyber"] .filter-btn {
+  transition: color .08s steps(1), border-color .08s steps(1),
+              background .08s steps(1), box-shadow .08s steps(1);
+}
+[data-theme="cyber"] .filter-btn:hover {
+  border-color: var(--color-accent-indigo);
+  color: var(--color-accent-indigo);
+  box-shadow: 0 0 12px var(--color-glow-indigo-low),
+              inset 0 0 8px color-mix(in srgb, var(--color-accent-indigo) 5%, transparent);
+  animation: glitchFilterBtn 1.2s ease-in-out infinite;
+}
+[data-theme="cyber"] .filter-btn--active {
+  text-shadow: 0 0 14px var(--color-glow-indigo-mid);
+}
+
+/* Primary button: glitch loop with lift baked in */
+[data-theme="cyber"] .btn--primary:hover {
+  animation: glitchBtn 1.2s ease-in-out infinite;
+  box-shadow: var(--shadow-cta-hover);
+}
+
+/* Icon button: pink neon + filter glitch */
+[data-theme="cyber"] .btn--icon:hover {
+  border-color: #ff2d78;
+  color: #ff2d78;
+  box-shadow: 0 0 12px rgba(255,45,120,.5),
+              0 0 28px rgba(255,45,120,.2);
+  background: rgba(255,45,120,.08);
+  animation: glitchIcon 1.1s ease-in-out infinite;
+}
+
+/* Accordion card: filter-only glitch — no transform so body expansion stays smooth */
+[data-theme="cyber"] .accordion-card:hover {
+  transform: none;
+  animation: glitchAccordionCard 1.3s linear infinite;
+}
+[data-theme="cyber"] .accordion-card:hover .accordion-card-glow {
+  opacity: 0;
+}
+/* Accordion trigger: left-right slam + chromatic border — no background change */
+[data-theme="cyber"] .accordion-trigger:hover {
+  background: var(--color-surface-card);
+  animation: glitchAccordionTrigger 1.3s linear infinite;
+}
+
+/* Kill fadeUp base so un-hover doesn't restart the entrance animation from opacity:0 */
+[data-theme="cyber"] .ts-card {
+  animation: none;
+  opacity: 1;
+}
+
+/* Tech cards: no lift, no neon glow — unified filter glitch */
+[data-theme="cyber"] .ts-card:hover {
+  transform: none;
+  border-color: var(--color-border-active);
+  animation: glitchAccordionCard 1.3s linear infinite;
+}
+[data-theme="cyber"] .ts-card:hover .ts-icon-wrap {
+  border-color: var(--color-border-active);
+}
+
+/* Contact cards: kill spring, go full glitch */
+[data-theme="cyber"] .contact-card {
+  transition: none;
+}
+[data-theme="cyber"] .contact-card-inner {
+  transition: border-color .05s steps(1), background .05s steps(1);
+}
+[data-theme="cyber"] .contact-card-arrow {
+  transition: opacity .05s steps(1), transform .05s steps(1);
+}
+[data-theme="cyber"] .contact-card:hover {
+  transform: none;
+  animation: glitchAccordionCard 1.3s linear infinite;
+}
+[data-theme="cyber"] .contact-card:hover .contact-card-inner {
+  border-color: var(--color-border-active);
+}
+[data-theme="cyber"] .contact-card-glow {
+  transition: opacity .05s steps(1);
+}
+[data-theme="cyber"] .contact-card:hover .contact-card-glow {
+  opacity: 0;
+}
+[data-theme="cyber"] .contact-card:hover .contact-icon-wrap {
+  border-color: var(--color-border-active);
+}
+[data-theme="cyber"] .contact-card:hover .icon-ping {
+  animation: none;
+}
+
+/* ── Project link buttons: digital snap instead of smooth fill ── */
+[data-theme="cyber"] .project-link-btn {
+  transition: background .05s steps(1), border-color .05s steps(1),
+              box-shadow .05s steps(1), color .05s steps(1);
+}
+
+/* ── About bio paragraphs: instant neon border + glitch glow ── */
+[data-theme="cyber"] .ab-bio p {
+  transition: border-color .05s steps(1), color .05s steps(1);
+}
+[data-theme="cyber"] .ab-bio p:hover {
+  border-left-color: var(--color-accent-indigo);
+  color: var(--color-text-secondary);
+  text-shadow: 0 0 8px var(--color-glow-indigo-low);
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   CYBER HERO CARD — Terminal HUD Redesign
+   ════════════════════════════════════════════════════════════ */
+
+@keyframes cctScanLine {
+  0%   { top: -2px; }
+  100% { top: calc(100% + 2px); }
+}
+
+@keyframes cctProgress {
+  from { width: 0; }
+  to   { width: 87%; }
+}
+
+@keyframes cctTextReveal {
+  from { opacity: 0; letter-spacing: .3em; }
+  to   { opacity: 1; letter-spacing: .1em; }
+}
+
+@keyframes cctCardGlitch {
+  0%, 88%, 100% { transform: none; filter: none; }
+  90% { transform: translateX(-4px) skewX(-1deg); filter: hue-rotate(25deg) brightness(1.35) saturate(1.4); }
+  92% { transform: translateX(4px)  skewX(1deg);  filter: hue-rotate(-25deg) brightness(0.75); }
+  94% { transform: translateX(-1px);               filter: brightness(1.1); }
+  96% { transform: none;                            filter: none; }
+}
+
+/* ── Card wrapper: corner bracket decorators ── */
+[data-theme="cyber"] .hero-card-3d {
+  position: relative;
+}
+[data-theme="cyber"] .hero-card-3d::before,
+[data-theme="cyber"] .hero-card-3d::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--color-accent-indigo);
+  z-index: 10;
+  pointer-events: none;
+  animation: cyberCornerGlow 2s ease-in-out infinite;
+}
+[data-theme="cyber"] .hero-card-3d::before {
+  top: -5px;
+  left: -5px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+[data-theme="cyber"] .hero-card-3d::after {
+  bottom: -5px;
+  right: -5px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+  animation-delay: 1s;
+}
+
+/* ── Card face: angular terminal panel ── */
+[data-theme="cyber"] .card-face {
+  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+  border-radius: 0;
+  transform-style: flat;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, .18) 0px, rgba(0, 0, 0, .18) 1px,
+      transparent 1px, transparent 4px
+    ),
+    linear-gradient(160deg, #030d1a 0%, #020812 100%);
+  border-color: var(--color-border-active);
+  padding: 0;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow: hidden;
+  animation: cctCardGlitch 8s 2s ease-in-out infinite;
+  box-shadow:
+    0 0 0 1px var(--color-border-strong),
+    0 0 40px color-mix(in srgb, var(--color-accent-indigo) 35%, transparent),
+    0 0 80px color-mix(in srgb, var(--color-accent-indigo) 15%, transparent),
+    0 0 8px rgba(255, 45, 120, .12),
+    inset 0 0 60px color-mix(in srgb, var(--color-accent-indigo) 3%, transparent);
+}
+
+/* Scan line that sweeps down the card */
+[data-theme="cyber"] .card-face::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--color-accent-indigo) 35%,
+    rgba(255, 45, 120, .85) 65%,
+    transparent 100%);
+  top: 0;
+  animation: cctScanLine 3.5s linear infinite;
+  z-index: 10;
+  opacity: .7;
+  pointer-events: none;
+}
+
+/* Bottom-right inner corner bracket */
+[data-theme="cyber"] .card-face::after {
+  content: '';
+  position: absolute;
+  bottom: 30px;
+  right: 3px;
+  width: 14px;
+  height: 14px;
+  border-bottom: 2px solid rgba(255, 45, 120, .55);
+  border-right: 2px solid rgba(255, 45, 120, .55);
+  z-index: 10;
+  pointer-events: none;
+  animation: cyberCornerGlow 2.5s ease-in-out infinite .5s;
+}
+
+/* Hide default card elements in cyber */
+[data-theme="cyber"] .card-icon,
+[data-theme="cyber"] .card-glow,
+[data-theme="cyber"] .card-orbit { display: none; }
+
+/* Show the terminal */
+[data-theme="cyber"] .card-cyber-terminal { display: flex; }
+
+/* ── Terminal header bar ── */
+[data-theme="cyber"] .cct-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  background: color-mix(in srgb, var(--color-accent-indigo) 10%, rgba(2, 8, 18, 1));
+  border-bottom: 1px solid var(--color-border-strong);
+  flex-shrink: 0;
+}
+
+[data-theme="cyber"] .cct-dots {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+[data-theme="cyber"] .cct-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+[data-theme="cyber"] .cct-dots span:nth-child(1) {
+  background: #ff2d78;
+  box-shadow: 0 0 5px #ff2d78, 0 0 12px rgba(255, 45, 120, .5);
+}
+[data-theme="cyber"] .cct-dots span:nth-child(2) {
+  background: #fbbf24;
+  box-shadow: 0 0 5px #fbbf24, 0 0 12px rgba(251, 191, 36, .4);
+}
+[data-theme="cyber"] .cct-dots span:nth-child(3) {
+  background: var(--color-accent-indigo);
+  box-shadow: 0 0 5px var(--color-accent-indigo), 0 0 12px var(--color-glow-indigo-mid);
+}
+
+[data-theme="cyber"] .cct-title {
+  flex: 1;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  font-size: .62rem;
+  color: var(--color-accent-indigo);
+  letter-spacing: .1em;
+  text-shadow: 0 0 8px var(--color-glow-indigo-mid);
+  animation: cctTextReveal .5s ease-out .3s both;
+}
+
+[data-theme="cyber"] .cct-ping {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff2d78;
+  box-shadow: 0 0 6px #ff2d78;
+  flex-shrink: 0;
+  animation: neonPulse 2s ease-in-out infinite;
+}
+
+/* ── Terminal body ── */
+[data-theme="cyber"] .cct-body {
+  flex: 1;
+  padding: 11px 14px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow: hidden;
+}
+
+[data-theme="cyber"] .cct-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: .66rem;
+  line-height: 1.4;
+}
+
+[data-theme="cyber"] .cct-key {
+  color: var(--color-text-muted);
+  min-width: 74px;
+  flex-shrink: 0;
+}
+
+[data-theme="cyber"] .cct-sep {
+  color: var(--color-border-strong);
+  flex-shrink: 0;
+}
+
+[data-theme="cyber"] .cct-val {
+  color: var(--color-accent-cyan);
+  text-shadow: 0 0 6px var(--color-glow-cyan-low);
+}
+
+[data-theme="cyber"] .cct-online {
+  color: #4ade80;
+  text-shadow: 0 0 8px rgba(74, 222, 128, .5);
+}
+[data-theme="cyber"] .cct-online::after {
+  content: ' ●';
+  animation: cursorBlink 1.4s step-end infinite;
+}
+
+[data-theme="cyber"] .cct-divider {
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--color-border-base),
+    var(--color-border-subtle),
+    transparent);
+  margin: 3px 0;
+  flex-shrink: 0;
+}
+
+[data-theme="cyber"] .cct-tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  padding-left: 12px;
+}
+[data-theme="cyber"] .cct-tags span {
+  font-family: 'Courier New', monospace;
+  font-size: .58rem;
+  padding: 2px 6px;
+  border: 1px solid var(--color-border-base);
+  color: var(--color-accent-indigo);
+  background: color-mix(in srgb, var(--color-accent-indigo) 8%, transparent);
+  letter-spacing: .04em;
+  text-shadow: 0 0 6px var(--color-glow-indigo-low);
+}
+
+[data-theme="cyber"] .cct-metric {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 2px;
+}
+[data-theme="cyber"] .cct-metric-label {
+  font-family: 'Courier New', monospace;
+  font-size: .57rem;
+  color: var(--color-text-muted);
+  letter-spacing: .05em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+[data-theme="cyber"] .cct-progress {
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, .06);
+  overflow: hidden;
+}
+[data-theme="cyber"] .cct-progress-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--color-accent-indigo), #ff2d78);
+  box-shadow: 0 0 6px var(--color-accent-indigo), 0 0 12px rgba(255, 45, 120, .3);
+  animation: cctProgress 1.8s cubic-bezier(.4, 0, .2, 1) 1s forwards;
+}
+[data-theme="cyber"] .cct-metric-val {
+  font-family: 'Courier New', monospace;
+  font-size: .62rem;
+  color: #ff2d78;
+  text-shadow: 0 0 6px rgba(255, 45, 120, .5);
+  flex-shrink: 0;
+}
+
+/* ── Terminal footer ── */
+[data-theme="cyber"] .cct-footer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  border-top: 1px solid var(--color-border-subtle);
+  background: color-mix(in srgb, var(--color-accent-indigo) 4%, rgba(2, 8, 18, .8));
+  flex-shrink: 0;
+}
+[data-theme="cyber"] .cct-prompt {
+  font-family: 'Courier New', monospace;
+  font-size: .68rem;
+  color: #ff2d78;
+  text-shadow: 0 0 6px rgba(255, 45, 120, .6);
+}
+[data-theme="cyber"] .cct-cursor-block {
+  font-family: 'Courier New', monospace;
+  font-size: .68rem;
+  color: var(--color-accent-indigo);
+  text-shadow: 0 0 8px var(--color-glow-indigo-mid);
+  animation: cursorBlink .8s step-end infinite;
+}
+
+/* ── Hero card hover — intensify glow + hot-pink edge ── */
+[data-theme="cyber"] .hero-card-3d:hover .card-face {
+  box-shadow:
+    0 0 0 1px var(--color-border-active),
+    0 0 60px color-mix(in srgb, var(--color-accent-indigo) 55%, transparent),
+    0 0 120px color-mix(in srgb, var(--color-accent-indigo) 25%, transparent),
+    0 0 18px rgba(255, 45, 120, .25),
+    inset 0 0 40px color-mix(in srgb, var(--color-accent-indigo) 7%, transparent);
+  border-color: var(--color-accent-indigo);
+}
+[data-theme="cyber"] .hero-card-3d:hover::before,
+[data-theme="cyber"] .hero-card-3d:hover::after {
+  opacity: 1;
+  box-shadow: 0 0 10px var(--color-accent-indigo);
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   CYBER BACKGROUND — Enhanced neon atmosphere
+   ════════════════════════════════════════════════════════════ */
+
+/* Main container: replace flat gradient with layered neon atmosphere */
+[data-theme="cyber"] .home-container {
+  background:
+    radial-gradient(ellipse 100% 30% at 50% 100%,
+      color-mix(in srgb, var(--color-accent-indigo) 16%, transparent),
+      transparent 65%),
+    radial-gradient(ellipse 55% 40% at 0% 0%,
+      color-mix(in srgb, var(--color-accent-indigo) 7%, transparent),
+      transparent 70%),
+    linear-gradient(180deg, #010609 0%, #020812 40%, #030f1c 100%);
+}
+
+/* Hero section: hot-pink top-right + indigo bottom-left accent glows */
+[data-theme="cyber"] .hero-section {
+  background:
+    radial-gradient(ellipse 38% 28% at 97% 6%, rgba(255, 45, 120, .07), transparent 70%),
+    radial-gradient(ellipse 42% 32% at 3% 92%, color-mix(in srgb, var(--color-accent-indigo) 10%, transparent), transparent 70%),
+    transparent;
+}
+
+/* Unified neon grid — hero and every section share the same treatment */
+[data-theme="cyber"] .hero-grid,
+[data-theme="cyber"] .section-grid {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--color-accent-indigo) 20%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-accent-indigo) 20%, transparent) 1px, transparent 1px),
+    linear-gradient(color-mix(in srgb, var(--color-accent-indigo) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-accent-indigo) 8%, transparent) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 20px 20px, 20px 20px;
+  mask-image: none;
+  -webkit-mask-image: none;
+  opacity: .8;
+}
+
+
+
+/* ════════════════════════════════════════════════════════════
+   CYBER HOVER ADDITIONS — New interactions
+   ════════════════════════════════════════════════════════════ */
+
+/* Stat card: no neon glow — unified filter glitch */
+[data-theme="cyber"] .stat-card {
+  transition: border-color .05s steps(1);
+}
+[data-theme="cyber"] .stat-card:hover {
+  border-color: var(--color-border-active);
+  animation: glitchAccordionCard 1.3s linear infinite;
+}
+
+/* Brand logo: chromatic glitch on hover */
+[data-theme="cyber"] .nav-brand:hover .nav-brand-text {
+  text-shadow:
+    0 0 12px var(--color-glow-indigo-mid),
+    2px 0 rgba(255, 45, 120, .45),
+    -2px 0 rgba(0, 229, 255, .45);
+  animation: glitchText 1.3s ease-in-out infinite;
+}
+
+/* Status badge: glitch only, no neon glow */
+[data-theme="cyber"] .status-badge:hover {
+  animation: glitchAccordionCard 1.3s linear infinite;
+  cursor: default;
+}
+
+/* Scroll indicator: snap to hot-pink neon */
+[data-theme="cyber"] .scroll-indicator {
+  transition: color .05s steps(1), text-shadow .05s steps(1);
+}
+[data-theme="cyber"] .scroll-indicator:hover {
+  color: #ff2d78;
+  text-shadow: 0 0 10px rgba(255, 45, 120, .7);
+}
+[data-theme="cyber"] .scroll-indicator:hover .bounce {
+  animation-play-state: paused;
+}
+
+/* Chip tag: enhanced neon border + glitch */
+[data-theme="cyber"] .cct-tags span:hover {
+  border-color: var(--color-accent-indigo);
+  background: color-mix(in srgb, var(--color-accent-indigo) 16%, transparent);
+  box-shadow: 0 0 8px var(--color-glow-indigo-mid);
+  animation: glitchIcon 1.4s ease-in-out infinite;
+}
+
+/* Kill fadeUp base on hero title — same reason as ts-card */
+[data-theme="cyber"] .hero-title {
+  animation: none;
+  opacity: 1;
+}
+
+/* Hero title: glitch on hover */
+[data-theme="cyber"] .hero-title:hover {
+  animation: cyberGlitch 0.9s .1s infinite;
+}
+
+/* Hero name: chromatic split glitch — always running */
+[data-theme="cyber"] .hero-name {
+  position: relative;
+  display: inline-block;
+  filter: none !important;
+  animation: heroNameGlitch 1.8s infinite;
+}
+[data-theme="cyber"] .hero-name::before,
+[data-theme="cyber"] .hero-name::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  opacity: 0;
+  pointer-events: none;
+}
+[data-theme="cyber"] .hero-name::before {
+  -webkit-text-fill-color: #ff2d78 !important;
+  color: #ff2d78;
+  animation: heroNameGlitchR 1.8s infinite;
+}
+[data-theme="cyber"] .hero-name::after {
+  -webkit-text-fill-color: #00e5ff !important;
+  color: #00e5ff;
+  animation: heroNameGlitchC 1.8s infinite;
+}
+
+/* Footer link: hot-pink neon on hover */
+[data-theme="cyber"] .footer-copy a:hover,
+[data-theme="cyber"] .footer-name:hover {
+  text-shadow: 0 0 14px rgba(255, 45, 120, .8);
+  animation: glitchText 1.2s ease-in-out infinite;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   CYBER HERO — HUD VISUAL SYSTEM (legacy, unused)
+   ════════════════════════════════════════════════════════════ */
+
+.cy-hud { display: none; }
+[data-theme="cyber"] .cy-hud {
+  display: block;
+  position: relative;
+  width: 420px;
+  height: 400px;
+  flex-shrink: 0;
+}
+
+[data-theme="cyber"] .cy-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Radar rings */
+[data-theme="cyber"] .cy-ring {
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-accent-indigo) 16%, transparent);
+  stroke-width: 0.8;
+}
+[data-theme="cyber"] .cy-ring--outer {
+  stroke: color-mix(in srgb, var(--color-accent-indigo) 8%, transparent);
+  stroke-dasharray: 3 5;
+}
+
+/* Circuit wires */
+[data-theme="cyber"] .cy-wire {
+  fill: none;
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+  animation: cy-wire-flow 2s linear infinite;
+}
+[data-theme="cyber"] .cy-wire--a,
+[data-theme="cyber"] .cy-wire--b {
+  stroke: color-mix(in srgb, var(--color-accent-indigo) 55%, transparent);
+}
+[data-theme="cyber"] .cy-wire--c,
+[data-theme="cyber"] .cy-wire--d {
+  stroke: color-mix(in srgb, #ff2d78 45%, transparent);
+  animation-delay: -1s;
+}
+@keyframes cy-wire-flow {
+  to { stroke-dashoffset: -14; }
+}
+
+/* Node squares */
+[data-theme="cyber"] .cy-node { animation: cy-node-blink 2s ease-in-out infinite; }
+[data-theme="cyber"] .cy-node--a,
+[data-theme="cyber"] .cy-node--b { fill: var(--color-accent-indigo); }
+[data-theme="cyber"] .cy-node--c,
+[data-theme="cyber"] .cy-node--d { fill: #ff2d78; animation-delay: -1s; }
+@keyframes cy-node-blink {
+  0%,100% { opacity: 0.9; }
+  50%     { opacity: 0.3; }
+}
+
+/* ── Radar core ── */
+[data-theme="cyber"] .cy-core {
+  position: absolute;
+  width: 150px; height: 150px;
+  top: 120px; left: 135px;
+  background: color-mix(in srgb, var(--color-accent-indigo) 6%, #020812);
+  border: 1px solid var(--color-border-strong);
+  overflow: hidden;
+  z-index: 4;
+  box-shadow:
+    0 0 30px color-mix(in srgb, var(--color-accent-indigo) 22%, transparent),
+    0 0 8px rgba(255,45,120,.08);
+}
+[data-theme="cyber"] .cy-core::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent-indigo), rgba(255,45,120,.8), transparent);
+  animation: cctScanLine 3.5s linear infinite;
+  z-index: 8;
+  opacity: .45;
+  pointer-events: none;
+}
+
+[data-theme="cyber"] .cy-radar-sweep {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 0deg,
+    color-mix(in srgb, var(--color-accent-indigo) 28%, transparent) 0deg,
+    color-mix(in srgb, var(--color-accent-indigo)  5%, transparent) 40deg,
+    transparent 60deg,
+    transparent 360deg
+  );
+  animation: cy-spin 4s linear infinite;
+}
+[data-theme="cyber"] .cy-radar-arm {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: calc(50% - 8px);
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--color-accent-indigo), transparent);
+  transform-origin: left center;
+  box-shadow: 0 0 8px var(--color-accent-indigo);
+  animation: cy-spin 4s linear infinite;
+  z-index: 1;
+}
+@keyframes cy-spin {
+  to { transform: rotate(360deg); }
+}
+
+[data-theme="cyber"] .cy-core-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  z-index: 2;
+}
+[data-theme="cyber"] .cy-core-id {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  color: var(--color-accent-indigo);
+  text-shadow: 0 0 6px var(--color-glow-indigo-mid);
+  letter-spacing: .08em;
+}
+[data-theme="cyber"] .cy-core-icon {
+  font-size: 1.4rem;
+  color: var(--color-accent-indigo);
+  filter: drop-shadow(0 0 8px var(--color-accent-indigo));
+  z-index: 2;
+}
+[data-theme="cyber"] .cy-core-status {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+[data-theme="cyber"] .cy-led {
+  display: inline-block;
+  width: 5px; height: 5px;
+  background: #4ade80;
+  box-shadow: 0 0 5px #4ade80;
+  animation: cy-blink 1.5s step-end infinite;
+}
+@keyframes cy-blink {
+  0%,49% { opacity: 1; }
+  50%,100% { opacity: 0; }
+}
+[data-theme="cyber"] .cy-core-status-text {
+  font-family: 'Courier New', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: #4ade80;
+  text-shadow: 0 0 5px rgba(74,222,128,.5);
+}
+
+/* Corner brackets inside core */
+[data-theme="cyber"] .cy-corner {
+  position: absolute;
+  width: 10px; height: 10px;
+  pointer-events: none;
+  animation: cyberCornerGlow 2.5s ease-in-out infinite;
+  z-index: 5;
+}
+[data-theme="cyber"] .cy-corner--tl { top: 5px; left: 5px;
+  border-top: 1.5px solid var(--color-accent-indigo); border-left: 1.5px solid var(--color-accent-indigo); }
+[data-theme="cyber"] .cy-corner--tr { top: 5px; right: 5px; animation-delay: .6s;
+  border-top: 1.5px solid var(--color-accent-indigo); border-right: 1.5px solid var(--color-accent-indigo); }
+[data-theme="cyber"] .cy-corner--bl { bottom: 5px; left: 5px; animation-delay: 1.2s;
+  border-bottom: 1.5px solid #ff2d78; border-left: 1.5px solid #ff2d78; }
+[data-theme="cyber"] .cy-corner--br { bottom: 5px; right: 5px; animation-delay: 1.8s;
+  border-bottom: 1.5px solid #ff2d78; border-right: 1.5px solid #ff2d78; }
+
+/* ── Panels ── */
+[data-theme="cyber"] .cy-panel {
+  position: absolute;
+  background: color-mix(in srgb, var(--color-accent-indigo) 4%, #020812);
+  border: 1px solid var(--color-border-base);
+  border-top-color: var(--color-accent-indigo);
+  padding: 8px 10px;
+  z-index: 3;
+}
+[data-theme="cyber"] .cy-panel--left  { width: 100px; top: 145px; left: 5px; }
+[data-theme="cyber"] .cy-panel--right { width: 100px; top: 145px; left: 315px; }
+[data-theme="cyber"] .cy-panel--bl    { width: 100px; top: 305px; left: 10px; }
+[data-theme="cyber"] .cy-panel--br    { width: 100px; top: 305px; left: 310px; }
+
+[data-theme="cyber"] .cy-panel-hdr {
+  font-family: 'Courier New', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--color-accent-indigo);
+  text-shadow: 0 0 5px var(--color-glow-indigo-low);
+  margin-bottom: 7px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+[data-theme="cyber"] .cy-prompt {
+  color: #ff2d78;
+  text-shadow: 0 0 5px rgba(255,45,120,.6);
+}
+
+[data-theme="cyber"] .cy-brow {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 6px;
+}
+[data-theme="cyber"] .cy-bkey {
+  font-family: 'Courier New', monospace;
+  font-size: 7.5px;
+  color: var(--color-text-muted);
+  min-width: 22px;
+  flex-shrink: 0;
+  letter-spacing: .04em;
+}
+[data-theme="cyber"] .cy-btrack {
+  flex: 1;
+  height: 3px;
+  background: color-mix(in srgb, var(--color-accent-indigo) 12%, transparent);
+  overflow: hidden;
+}
+[data-theme="cyber"] .cy-bfill {
+  height: 100%;
+  width: 0;
+  background: var(--color-accent-indigo);
+  box-shadow: 0 0 6px var(--color-accent-indigo);
+  animation: cy-bar-grow 1.5s cubic-bezier(.4,0,.2,1) .6s forwards;
+}
+[data-theme="cyber"] .cy-bfill--pk {
+  background: #ff2d78;
+  box-shadow: 0 0 6px rgba(255,45,120,.7);
+}
+@keyframes cy-bar-grow {
+  to { width: var(--f); }
+}
+
+[data-theme="cyber"] .cy-panel-foot {
+  font-family: 'Courier New', monospace;
+  font-size: 7px;
+  color: var(--color-text-muted);
+  letter-spacing: .06em;
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: 5px;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+[data-theme="cyber"] .cy-chips {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+[data-theme="cyber"] .cy-chips span {
+  font-family: 'Courier New', monospace;
+  font-size: 7px;
+  padding: 2px 5px;
+  border: 1px solid var(--color-border-base);
+  color: var(--color-accent-indigo);
+  background: color-mix(in srgb, var(--color-accent-indigo) 8%, transparent);
+  letter-spacing: .04em;
+  text-shadow: 0 0 5px var(--color-glow-indigo-low);
+}
+
+/* ── Kill all text-shadow site-wide in cyber theme ── */
+[data-theme="cyber"],
+[data-theme="cyber"] * {
+  text-shadow: none !important;
+}
+
+/* Scanline overlay */
+[data-theme="cyber"] .cy-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,.1) 0px,
+    rgba(0,0,0,.1) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
