@@ -104,6 +104,11 @@
   border-color: var(--color-border-base);
   color: var(--color-accent-indigo);
 }
+.mode-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 
 .palette-option {
   display: flex; align-items: center; gap: 10px;

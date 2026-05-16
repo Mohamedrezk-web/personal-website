@@ -2,6 +2,7 @@
 .accordion-card {
   position: relative;
   border-radius: var(--accordion-radius);
+  overflow: hidden;
   transition: transform .3s cubic-bezier(.34,1.56,.64,1);
 }
 .accordion-card:hover { transform: var(--accordion-hover-lift); }
@@ -27,18 +28,15 @@
   padding: var(--accordion-trigger-padding);
   background: var(--color-surface-card);
   border: 1px solid var(--job-border);
-  border-radius: var(--accordion-radius);
   cursor: pointer;
   text-align: left;
   position: relative;
   z-index: 1;
-  transition: background .3s ease, border-color .3s ease, border-radius .2s ease;
+  transition: background .3s ease, border-color .3s ease;
 }
 .accordion-trigger[aria-expanded="true"] {
   background: var(--job-bg);
   border-color: var(--job-color);
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
 }
 .accordion-trigger:hover {
   background: var(--job-bg);
@@ -97,6 +95,9 @@
   transition: transform .3s ease;
 }
 .accordion-trigger[aria-expanded="true"] .accordion-chevron { transform: rotate(180deg); }
+.accordion-trigger[aria-expanded="true"] + .accordion-body .accordion-body-inner {
+  border-color: var(--job-color);
+}
 
 .accordion-body {
   display: grid;
@@ -116,8 +117,6 @@
   background: color-mix(in srgb, var(--color-text-primary) 2%, transparent);
   border: 1px solid var(--job-border);
   border-top: none;
-  border-bottom-left-radius: var(--accordion-radius);
-  border-bottom-right-radius: var(--accordion-radius);
 }
 
 .content-label {

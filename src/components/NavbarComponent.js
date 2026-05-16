@@ -140,6 +140,7 @@ handleClickOutside(event) {
     unloadThemeCSS();
     if (id !== 'default') loadCSS(`src/design-system/themes/${id}.css`);
     this.updateThemeUI();
+    this.updateModeUI();
   }
 
   applyPalette(id) {
@@ -151,6 +152,7 @@ handleClickOutside(event) {
   }
 
   applyMode(mode) {
+    if (mode === 'light' && this.theme === 'cyber') return;
     this.mode = mode;
     localStorage.setItem('color-mode', mode);
     document.documentElement.setAttribute('data-mode', mode);
@@ -175,8 +177,18 @@ handleClickOutside(event) {
   }
 
   updateModeUI() {
+    const isCyber = this.theme === 'cyber';
     this.querySelectorAll('.mode-btn').forEach(btn => {
       btn.classList.toggle('mode-btn--active', btn.dataset.mode === this.mode);
+      if (btn.dataset.mode === 'light') {
+        btn.disabled = isCyber;
+        btn.setAttribute('aria-disabled', isCyber);
+        if (isCyber) {
+          btn.setAttribute('title', 'Light mode unavailable in Cyber theme');
+        } else {
+          btn.removeAttribute('title');
+        }
+      }
     });
   }
 
@@ -535,6 +547,7 @@ const nav = document.createElement('nav');
             <li><a class="nav-link" href="/about"     data-section="about">About</a></li>
             <li><a class="nav-link" href="/portfolio" data-section="portfolio">Portfolio</a></li>
             <li><a class="nav-link" href="/contact"   data-section="contact">Contact</a></li>
+            <li><a class="nav-link" href="/docs"      data-section="docs">Docs</a></li>
             <li class="nav-item-theme">
               <div class="theme-dropdown">
 
@@ -553,7 +566,8 @@ const nav = document.createElement('nav');
                       <span>Dark</span>
                     </button>
                     <button class="mode-btn${this.mode === 'light' ? ' mode-btn--active' : ''}" data-mode="light"
-                      aria-label="Light mode" aria-pressed="${this.mode === 'light'}">
+                      aria-label="Light mode" aria-pressed="${this.mode === 'light'}"
+                      ${this.theme === 'cyber' ? 'disabled aria-disabled="true" title="Light mode unavailable in Cyber theme"' : ''}>
                       ${renderIcon('sun')}
                       <span>Light</span>
                     </button>

@@ -12,6 +12,7 @@ this.handleRoute();
 
 handleRoute() {
     const path = window.location.pathname;
+    if (path === this.currentPath) return;
     this.currentPath = path;
     const route = this.routes[path] || this.routes['/'];
     route();

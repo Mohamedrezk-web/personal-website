@@ -23,6 +23,7 @@ const TITLES = {
   about:     'About Muhammad Rezk — Senior Frontend Developer',
   portfolio: 'Portfolio — Muhammad Rezk | Frontend Projects',
   contact:   'Contact Muhammad Rezk — Senior Frontend Developer',
+  docs:      'Docs — Muhammad Rezk | How This Site Was Built',
 };
 
 let firstRender = true;
@@ -127,6 +128,19 @@ export const router = new Router({
     ]);
     define('app-contact', ContactComponent);
     handleRouteChange(ContactComponent, 'contact');
+  },
+
+  '/docs': async () => {
+    const [[{ DocsComponent }]] = await Promise.all([
+      Promise.all([import('./components/DocsComponent.js')]),
+      loadAllCSS([
+        'src/design-system/components/docs.css',
+        'src/design-system/grains/code-block.css',
+        'src/design-system/grains/section-header.css',
+      ]),
+    ]);
+    define('app-docs', DocsComponent);
+    handleRouteChange(DocsComponent, 'docs');
   },
 });
 
