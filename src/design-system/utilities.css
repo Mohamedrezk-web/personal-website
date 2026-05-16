@@ -1,55 +1,40 @@
-/* ============================================================
-   UTILITY CLASSES
-   Display, spacing, position, overflow, text, a11y, spinner.
-   Prefix: .ds-
-   ============================================================ */
 
-/* — Display — */
+
 .ds-hidden       { display: none !important; }
 .ds-block        { display: block; }
 .ds-inline-flex  { display: inline-flex; align-items: center; }
 
-/* — Size — */
 .ds-w-100        { width: 100%; }
 .ds-h-100        { height: 100%; }
 .ds-min-vh-100   { min-height: 100vh; }
 
-/* — Margin bottom — */
 .ds-mb-1 { margin-bottom: var(--prim-space-2); }
 .ds-mb-2 { margin-bottom: var(--prim-space-3); }
 .ds-mb-3 { margin-bottom: var(--prim-space-4); }
 .ds-mb-4 { margin-bottom: var(--prim-space-6); }
 .ds-mb-5 { margin-bottom: var(--prim-space-9); }
 
-/* — Margin inline-start — */
 .ds-ms-2    { margin-inline-start: var(--prim-space-2); }
 .ds-ms-auto { margin-inline-start: auto; }
 
-/* — Margin inline-end — */
 .ds-me-2 { margin-inline-end: var(--prim-space-2); }
 
-/* — Padding block (section vertical rhythm) — */
 .ds-py-5 { padding-block: var(--space-section-y); }
 
-/* — Position — */
 .ds-position-relative { position: relative; }
 .ds-position-absolute { position: absolute; }
 .ds-position-fixed    { position: fixed; }
 .ds-inset-0           { inset: 0; }
 
-/* — Section inner layer (sits above absolute decorative layers) — */
 .section-layer {
   position: relative;
   z-index: 2;
 }
 
-/* — Overflow — */
 .ds-overflow-hidden { overflow: hidden; }
 
-/* — Text — */
 .ds-text-center { text-align: center; }
 
-/* — Accessibility: visually hidden — */
 .ds-sr-only {
   position: absolute;
   width: 1px;
@@ -62,7 +47,6 @@
   border: 0;
 }
 
-/* — Spinner (replaces Bootstrap's spinner-border) — */
 .ds-spinner {
   display: inline-block;
   border-radius: 50%;
@@ -75,13 +59,11 @@
   to { transform: rotate(360deg); }
 }
 
-/* ── Shared entrance animation ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important;

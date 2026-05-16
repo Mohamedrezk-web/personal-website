@@ -1,9 +1,5 @@
-/* ============================================================
-   BASE — Global element styles
-   Replaces inline styles on #preloader, #app, footer, etc.
-   ============================================================ */
 
-/* — Preloader — */
+
 #preloader {
   position: fixed;
   inset: 0;
@@ -19,14 +15,12 @@
   height: 3rem;
 }
 
-/* — Main content — */
 #app {
   position: relative;
   z-index: 1;
   min-height: 100vh;
 }
 
-/* — Footer — */
 footer {
   position: relative;
   z-index: 1;
@@ -49,41 +43,31 @@ footer {
   font-weight: 600;
 }
 
-/* ── Full-page background canvas ── */
-
-/* Dark base beneath the canvas for non-JS fallback and other themes */
 html { background-color: var(--color-bg-page); }
 
 #bg-canvas {
   position: fixed;
   inset: 0;
-  z-index: 0;     /* sits above html bg but below #app (z-index:1) */
+  z-index: 0;     
   pointer-events: none;
 }
 
-/* Hide in modes/themes that provide their own bg treatment */
 [data-theme="minimal"] #bg-canvas { display: none; }
 
-/* Default theme: transparent sections so bg-canvas shows through every page */
 html:not([data-theme]) { --section-bg: transparent; }
 
-/* Default theme: hero canvas removed — bg-canvas already fills that area */
 html:not([data-theme]) #hero-canvas { display: none; }
 
-/* Default theme: hide floating shapes and grid overlays — bg-canvas is the sole bg */
 html:not([data-theme]) .hero-shapes,
 html:not([data-theme]) .hero-grid,
 html:not([data-theme]) .section-shapes,
 html:not([data-theme]) .section-grid { display: none; }
 
-/* Cyber theme: transparent sections so bg-canvas rain shows through every page */
 [data-theme="cyber"] { --section-bg: transparent; }
 
-/* Cyber theme: hide floating shapes — rain is the sole bg decoration */
 [data-theme="cyber"] .hero-shapes,
 [data-theme="cyber"] .section-shapes { display: none; }
 
-/* ── Mobile: left-align all text ── */
 @media (max-width: 767px) {
   .section-head,
   .section-title,
@@ -100,7 +84,10 @@ html:not([data-theme]) .section-grid { display: none; }
 
 }
 
-/* — Theme overlay layer (scanlines, vignettes, etc.) — */
+.icon { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; }
+.icon-lg { width: 1.25em; height: 1.25em; }
+.icon-3x { width: 3em; height: 3em; }
+
 body::after {
   content: "";
   position: fixed;

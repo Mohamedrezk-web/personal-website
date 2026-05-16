@@ -1,20 +1,9 @@
-/* ============================================================
-   THEME: Minimal  —  Sharp & Editorial
-   Pure token overrides. No structural selectors.
-   Aesthetic: Swiss/Bauhaus — flat surfaces, zero curves,
-   wide letter-spacing, stark horizontal rules, no decoration.
 
-   Cascade note: single-attribute selector [data-theme="minimal"]
-   wins over [data-palette] and [data-mode="light"] at equal
-   specificity because theme files load last. Use the 2-attribute
-   combined selector below for light-mode background restoration.
-   ============================================================ */
 
 [data-theme="minimal"] {
   color-scheme: light dark;
 
-  /* ── Shape: gently rounded — editorial, not bubbly ── */
-  --radius-card:         4px;
+--radius-card:         4px;
   --radius-card-lg:      6px;
   --radius-input:        4px;
   --radius-button:       4px;
@@ -32,8 +21,7 @@
   --toggler-radius:      4px;
   --drawer-close-radius: 4px;
 
-  /* ── Backgrounds: flat solid dark ── */
-  --color-bg-page:    #0f0f13;
+--color-bg-page:    #0f0f13;
   --color-bg-dark:    #0f0f13;
   --color-bg-darker:  #0b0b0f;
   --color-bg-subtle:  #111116;
@@ -42,23 +30,20 @@
   --hero-bg-mid:      #0f0f13;
   --hero-bg-end:      #0b0b0f;
 
-  /* ── Surfaces: transparent cards, border-only treatment ── */
-  --color-surface-card:        transparent;
+--color-surface-card:        transparent;
   --color-surface-glass:       transparent;
   --color-surface-glass-hover: color-mix(in srgb, var(--color-accent-indigo) 5%, transparent);
   --color-surface-input:       transparent;
   --color-surface-input-focus: transparent;
   --color-surface-btn:         transparent;
 
-  /* ── Borders: razor-thin matte (palette-adaptive) ── */
-  --color-border-subtle: color-mix(in srgb, var(--color-accent-indigo) 12%, transparent);
+--color-border-subtle: color-mix(in srgb, var(--color-accent-indigo) 12%, transparent);
   --color-border-base:   color-mix(in srgb, var(--color-accent-indigo) 22%, transparent);
   --color-border-strong: color-mix(in srgb, var(--color-accent-indigo) 32%, transparent);
   --color-border-active: var(--color-accent-indigo);
   --color-border-glass:  color-mix(in srgb, var(--color-accent-indigo) 14%, transparent);
 
-  /* ── Glows and shadows: entirely eliminated ── */
-  --color-glow-indigo-low:  transparent;
+--color-glow-indigo-low:  transparent;
   --color-glow-indigo-mid:  transparent;
   --color-glow-indigo-high: transparent;
   --color-glow-cyan-low:    transparent;
@@ -72,25 +57,21 @@
   --shadow-focus-ring:      0 0 0 2px var(--color-accent-indigo);
   --accent-filter:          none;
 
-  /* ── Decoration: all off ── */
-  --decorative-display:      none;
+--decorative-display:      none;
   --badge-dot-animation:     none;
   --heading-extra-animation: none;
   --grid-line-color:         transparent;
   --hero-grid-line-color:    transparent;
 
-  /* ── Eyebrow lines: solid instead of gradient fade ── */
-  --section-eyebrow-line-bg:   var(--color-accent-indigo);
+--section-eyebrow-line-bg:   var(--color-accent-indigo);
   --section-eyebrow-line-bg-r: var(--color-accent-indigo);
 
-  /* ── Typography: editorial wide spacing ── */
-  --section-title-font-size:         clamp(2.5rem, 5vw, 4rem);
+--section-title-font-size:         clamp(2.5rem, 5vw, 4rem);
   --section-eyebrow-letter-spacing:  .22em;
   --section-eyebrow-font-size:       .7rem;
   --section-subtitle-font-size:      .95rem;
 
-  /* ── Buttons: wide padding, editorial feel ── */
-  --btn-primary-padding:        14px 52px;
+--btn-primary-padding:        14px 52px;
   --btn-primary-font-size:      .78rem;
   --btn-primary-font-weight:    600;
   --btn-primary-letter-spacing: .12em;
@@ -101,33 +82,22 @@
   --filter-btn-letter-spacing:  .06em;
   --chip-letter-spacing:        .05em;
 
-  /* ── Navigation: palette-adaptive hover ── */
-  --nav-link-letter-spacing:   .06em;
+--nav-link-letter-spacing:   .06em;
   --brand-letter-spacing:      .15em;
   --navbar-link-hover-bg:      color-mix(in srgb, var(--color-accent-indigo) 8%, transparent);
   --navbar-bg:                 rgba(15,15,19,.92);
   --navbar-bg-scrolled:        rgba(15,15,19,.98);
 
-  /* ── Form: palette-adaptive borders ── */
-  --form-input-border:       color-mix(in srgb, var(--color-accent-indigo) 22%, transparent);
+--form-input-border:       color-mix(in srgb, var(--color-accent-indigo) 22%, transparent);
   --form-input-border-focus: color-mix(in srgb, var(--color-accent-indigo) 55%, transparent);
 
-  /* ── Hover effects: flat — */
-  --accordion-hover-lift:       none;
+--accordion-hover-lift:       none;
   --project-card-hover-lift:    translateY(-2px);
   --project-card-hover-shadow:  0 4px 16px rgba(0,0,0,.2);
 
-  /* ── Spacing: generous vertical rhythm ── */
-  --space-section-y: var(--prim-space-10);
+--space-section-y: var(--prim-space-10);
 }
 
-/* ============================================================
-   MINIMAL — Component-level color & effect neutralization
-   These rules override inline CSS custom properties (requires
-   !important) and component hover/glow states.
-   ============================================================ */
-
-/* ── Neutralize per-card inline color variables ── */
 [data-theme="minimal"] .project-card {
   --card-border: var(--color-border-base) !important;
 }
@@ -154,7 +124,6 @@
   --card-border: var(--color-border-base) !important;
 }
 
-/* ── Neutralize element colors not driven by CSS vars ── */
 [data-theme="minimal"] .timeline-dot-inner {
   background: var(--color-text-muted);
   box-shadow: none;
@@ -170,7 +139,6 @@
   box-shadow: none;
 }
 
-/* ── Neutralize gradient/accent text ── */
 [data-theme="minimal"] .section-title-accent,
 [data-theme="minimal"] .hero-name {
   background: none;
@@ -186,13 +154,11 @@
   color: var(--color-text-muted);
 }
 
-/* ── Neutralize eyebrow lines to plain grey ── */
 [data-theme="minimal"] {
   --section-eyebrow-line-bg:   var(--color-border-strong);
   --section-eyebrow-line-bg-r: var(--color-border-strong);
 }
 
-/* ── Icon buttons: no colour shift, no glow, no lift ── */
 [data-theme="minimal"] .btn--icon:hover {
   transform: none;
   box-shadow: none;
@@ -201,7 +167,6 @@
   border-color: var(--color-border-base);
 }
 
-/* ── Kill hover lifts, glows and overlays — except project cards ── */
 [data-theme="minimal"] .project-link-btn:hover {
   background: var(--color-border-base);
   border-color: var(--color-border-strong);
@@ -224,7 +189,6 @@
   box-shadow: none;
 }
 
-/* ── Filter buttons: no accent colour, border-only shift ── */
 [data-theme="minimal"] .filter-btn:hover {
   color: var(--color-text-secondary);
   background: color-mix(in srgb, var(--color-text-primary) 4%, transparent);
@@ -234,7 +198,6 @@
   box-shadow: none;
 }
 
-/* ── Nav links: instant underline snap, muted bg ── */
 [data-theme="minimal"] .app-navbar .nav-link::after {
   background: var(--color-border-strong);
   transition: left .08s steps(1), right .08s steps(1);
@@ -244,7 +207,6 @@
   background: color-mix(in srgb, var(--color-text-primary) 4%, transparent);
 }
 
-/* ── About bio paragraphs: suppress border reveal ── */
 [data-theme="minimal"] .ab-bio p:hover {
   border-left-color: transparent;
   color: var(--color-text-faint);
@@ -273,12 +235,8 @@
   border-color: var(--color-border-base);
 }
 
-/* ── Hide hero visual entirely in minimal theme ── */
 [data-theme="minimal"] .hero-col-visual { display: none; }
 
-/* ── Light mode + minimal: restore bright backgrounds ──
-   Combined selector has 2-attribute specificity (0-2-0), beating
-   both [data-mode="light"] and [data-theme="minimal"] at 0-1-0.  */
 [data-mode="light"][data-theme="minimal"] {
   --color-bg-page:    #f6f6f8;
   --color-bg-dark:    #f6f6f8;
@@ -289,29 +247,24 @@
   --hero-bg-mid:      #f6f6f8;
   --hero-bg-end:      #f0f0f4;
 
-  /* Light surfaces */
-  --color-surface-card:        rgba(255,255,255,.9);
+--color-surface-card:        rgba(255,255,255,.9);
   --color-surface-glass:       rgba(255,255,255,.7);
   --color-surface-glass-hover: rgba(255,255,255,.9);
   --color-surface-input:       rgba(255,255,255,.8);
   --color-surface-input-focus: rgba(255,255,255,.98);
   --color-surface-btn:         rgba(255,255,255,.5);
 
-  /* Light borders — boosted over the 12-32% minimal defaults */
-  --color-border-glass:  rgba(0,0,0,.1);
+--color-border-glass:  rgba(0,0,0,.1);
   --color-border-subtle: color-mix(in srgb, var(--color-accent-indigo) 22%, transparent);
   --color-border-base:   color-mix(in srgb, var(--color-accent-indigo) 36%, transparent);
   --color-border-strong: color-mix(in srgb, var(--color-accent-indigo) 52%, transparent);
 
-  /* Light form */
-  --form-input-border:       color-mix(in srgb, var(--color-accent-indigo) 38%, transparent);
+--form-input-border:       color-mix(in srgb, var(--color-accent-indigo) 38%, transparent);
   --form-input-border-focus: color-mix(in srgb, var(--color-accent-indigo) 72%, transparent);
 
-  /* Light project overlay */
-  --project-overlay-bg:        linear-gradient(to top, rgba(246,246,248,.97) 0%, rgba(246,246,248,.78) 60%, transparent 100%);
+--project-overlay-bg:        linear-gradient(to top, rgba(246,246,248,.97) 0%, rgba(246,246,248,.78) 60%, transparent 100%);
   --project-card-hover-shadow: 0 8px 24px rgba(0,0,0,.1);
 
-  /* Light navbar */
-  --navbar-bg:          rgba(246,246,248,.92);
+--navbar-bg:          rgba(246,246,248,.92);
   --navbar-bg-scrolled: rgba(246,246,248,.98);
 }

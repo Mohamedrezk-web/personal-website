@@ -1,35 +1,23 @@
-/* ============================================================
-   DESIGN SYSTEM TOKENS
-   Three tiers: Primitive → Semantic → Component
-   ============================================================ */
 
-/* ============================================================
-   TIER 1 — PRIMITIVES
-   Raw named values. No semantic meaning.
-   Never reference these directly in component CSS.
-   ============================================================ */
+
 :root {
-  /* — Color: Indigo scale — */
+  
   --prim-color-indigo-300: #a5b4fc;
   --prim-color-indigo-400: #818cf8;
   --prim-color-indigo-500: #6366f1;
   --prim-color-indigo-600: #4f46e5;
 
-  /* — Color: Cyan scale — */
-  --prim-color-cyan-400: #38bdf8;
+--prim-color-cyan-400: #38bdf8;
   --prim-color-cyan-500: #06b6d4;
 
-  /* — Color: Violet scale — */
-  --prim-color-violet-400: #c084fc;
+--prim-color-violet-400: #c084fc;
   --prim-color-violet-500: #a855f7;
 
-  /* — Color: Slate (neutral text) scale — */
-  --prim-color-slate-400: #94a3b8;
+--prim-color-slate-400: #94a3b8;
   --prim-color-slate-500: #64748b;
   --prim-color-slate-600: #475569;
 
-  /* — Color: Status — */
-  --prim-color-green-400: #4ade80;
+--prim-color-green-400: #4ade80;
   --prim-color-red-300: #f87171;
   --prim-color-red-400: #ef4444;
   --prim-color-amber-400: #fbbf24;
@@ -37,8 +25,7 @@
   --prim-color-teal-400: #2dd4bf;
   --prim-color-yellow-400: #facc15;
 
-  /* — Color: Dark surface scale — */
-  --prim-color-surface-900: #07071a;
+--prim-color-surface-900: #07071a;
   --prim-color-surface-850: #0a0a1a;
   --prim-color-surface-800: #0a0d2b;
   --prim-color-surface-780: #0b0d2e;
@@ -46,8 +33,7 @@
   --prim-color-surface-750: #0d0d2b;
   --prim-color-surface-700: #070a18;
 
-  /* — Color: White overlays — */
-  --prim-color-white-03: rgba(255, 255, 255, 0.03);
+--prim-color-white-03: rgba(255, 255, 255, 0.03);
   --prim-color-white-04: rgba(255, 255, 255, 0.04);
   --prim-color-white-05: rgba(255, 255, 255, 0.05);
   --prim-color-white-06: rgba(255, 255, 255, 0.06);
@@ -61,20 +47,18 @@
   --prim-color-white-90: rgba(255, 255, 255, 0.9);
   --prim-color-white-95: rgba(255, 255, 255, 0.95);
 
-  /* — Spacing scale — */
-  --prim-space-1:  0.25rem;   /*  4px */
-  --prim-space-2:  0.5rem;    /*  8px */
-  --prim-space-3:  0.75rem;   /* 12px */
-  --prim-space-4:  1rem;      /* 16px */
-  --prim-space-5:  1.25rem;   /* 20px */
-  --prim-space-6:  1.5rem;    /* 24px */
-  --prim-space-7:  2rem;      /* 32px */
-  --prim-space-8:  2.5rem;    /* 40px */
-  --prim-space-9:  3rem;      /* 48px */
-  --prim-space-10: 4rem;      /* 64px */
+--prim-space-1:  0.25rem;   
+  --prim-space-2:  0.5rem;    
+  --prim-space-3:  0.75rem;   
+  --prim-space-4:  1rem;      
+  --prim-space-5:  1.25rem;   
+  --prim-space-6:  1.5rem;    
+  --prim-space-7:  2rem;      
+  --prim-space-8:  2.5rem;    
+  --prim-space-9:  3rem;      
+  --prim-space-10: 4rem;      
 
-  /* — Typography: Font sizes — */
-  --prim-text-xs:   0.72rem;
+--prim-text-xs:   0.72rem;
   --prim-text-sm:   0.78rem;
   --prim-text-base: 1rem;
   --prim-text-lg:   1.05rem;
@@ -84,24 +68,21 @@
   --prim-text-4xl:  3.2rem;
   --prim-text-hero: clamp(2.2rem, 5vw, 4rem);
 
-  /* — Typography: Font weights — */
-  --prim-weight-light:     300;
+--prim-weight-light:     300;
   --prim-weight-normal:    400;
   --prim-weight-medium:    500;
   --prim-weight-semibold:  600;
   --prim-weight-bold:      700;
   --prim-weight-extrabold: 800;
 
-  /* — Typography: Line heights — */
-  --prim-leading-tight:   1.15;
+--prim-leading-tight:   1.15;
   --prim-leading-snug:    1.2;
   --prim-leading-normal:  1.5;
   --prim-leading-relaxed: 1.6;
   --prim-leading-loose:   1.7;
   --prim-leading-prose:   1.8;
 
-  /* — Border radii — */
-  --prim-radius-sm:   8px;
+--prim-radius-sm:   8px;
   --prim-radius-md:   10px;
   --prim-radius-lg:   14px;
   --prim-radius-xl:   16px;
@@ -110,15 +91,13 @@
   --prim-radius-pill: 50px;
   --prim-radius-full: 9999px;
 
-  /* — Transitions — */
-  --prim-transition-fast:      0.25s ease;
+--prim-transition-fast:      0.25s ease;
   --prim-transition-base:      0.3s ease;
   --prim-transition-slow:      0.4s ease;
   --prim-transition-spring:    0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   --prim-transition-accordion: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* — Z-index scale — */
-  --prim-z-below:   -1;
+--prim-z-below:   -1;
   --prim-z-base:     0;
   --prim-z-content:  1;
   --prim-z-overlay:  2;
@@ -127,31 +106,22 @@
   --prim-z-modal:    1000;
   --prim-z-loader:   9999;
 
-  /* Breakpoints are media-query-only — documented here for reference:
-     sm: 576px | md: 768px | lg: 992px | xl: 1200px | container: 1140px */
 }
 
-/* ============================================================
-   TIER 2 — SEMANTIC
-   Reference Tier 1 via var(). Express role/meaning.
-   These are the tokens to use in component CSS.
-   ============================================================ */
 :root {
-  /* — Backgrounds — */
+  
   --color-bg-page:   var(--prim-color-surface-900);
   --color-bg-dark:   var(--prim-color-surface-800);
   --color-bg-darker: var(--prim-color-surface-750);
   --color-bg-subtle: var(--prim-color-surface-700);
 
-  /* — Surfaces (glass / overlay effects) — */
-  --color-surface-glass:       var(--prim-color-white-03);
+--color-surface-glass:       var(--prim-color-white-03);
   --color-surface-glass-hover: var(--prim-color-white-05);
   --color-surface-overlay:     var(--prim-color-white-04);
   --color-surface-input:       var(--prim-color-white-04);
   --color-surface-input-focus: rgba(99, 102, 241, 0.06);
 
-  /* — Text — */
-  --color-text-primary:  var(--prim-color-white-90);
+--color-text-primary:  var(--prim-color-white-90);
   --color-text-secondary:var(--prim-color-white-80);
   --color-text-muted:    var(--prim-color-slate-400);
   --color-text-faint:    var(--prim-color-slate-500);
@@ -160,8 +130,7 @@
   --color-text-white-60: var(--prim-color-white-60);
   --color-text-white-70: var(--prim-color-white-70);
 
-  /* — Accent colors — */
-  --color-accent-indigo:        var(--prim-color-indigo-400);
+--color-accent-indigo:        var(--prim-color-indigo-400);
   --color-accent-indigo-strong: var(--prim-color-indigo-500);
   --color-accent-indigo-deep:   var(--prim-color-indigo-600);
   --color-accent-cyan:          var(--prim-color-cyan-400);
@@ -169,25 +138,21 @@
   --color-accent-violet:        var(--prim-color-violet-400);
   --color-accent-violet-strong: var(--prim-color-violet-500);
 
-  /* — Primary / secondary convenience aliases (palette-aware) — */
-  --color-primary:   var(--color-accent-indigo);
+--color-primary:   var(--color-accent-indigo);
   --color-secondary: var(--color-accent-cyan);
   --color-tertiary:  var(--color-accent-violet);
 
-  /* — Gradients — */
-  --gradient-accent:      linear-gradient(135deg, var(--color-accent-indigo), var(--color-accent-cyan));
+--gradient-accent:      linear-gradient(135deg, var(--color-accent-indigo), var(--color-accent-cyan));
   --gradient-accent-full: linear-gradient(135deg, var(--color-accent-indigo) 0%, var(--color-accent-cyan) 50%, var(--color-accent-violet) 100%);
   --gradient-cta:         linear-gradient(135deg, var(--color-accent-indigo-strong), var(--color-accent-indigo-deep));
 
-  /* — Borders — */
-  --color-border-subtle: rgba(99, 102, 241, 0.15);
+--color-border-subtle: rgba(99, 102, 241, 0.15);
   --color-border-base:   rgba(99, 102, 241, 0.25);
   --color-border-strong: rgba(99, 102, 241, 0.3);
   --color-border-active: var(--prim-color-indigo-400);
   --color-border-glass:  var(--prim-color-white-12);
 
-  /* — Glows (for box-shadow color stops) — */
-  --color-glow-indigo-low:  rgba(99, 102, 241, 0.15);
+--color-glow-indigo-low:  rgba(99, 102, 241, 0.15);
   --color-glow-indigo-mid:  rgba(99, 102, 241, 0.3);
   --color-glow-indigo-high: rgba(99, 102, 241, 0.5);
   --color-glow-cyan-low:    rgba(6, 182, 212, 0.15);
@@ -197,26 +162,23 @@
   --color-glow-green-mid:   rgba(74, 222, 128, 0.3);
   --color-glow-red-mid:     rgba(239, 68, 68, 0.3);
 
-  /* — Status — */
-  --color-status-success:        var(--prim-color-green-400);
+--color-status-success:        var(--prim-color-green-400);
   --color-status-success-bg:     rgba(74, 222, 128, 0.1);
   --color-status-success-border: rgba(74, 222, 128, 0.3);
   --color-status-error:          var(--prim-color-red-300);
   --color-status-error-bg:       rgba(239, 68, 68, 0.1);
   --color-status-error-border:   rgba(239, 68, 68, 0.3);
 
-  /* — Spacing aliases — */
-  --a11y-bar-height: 2rem;    /* 32px — accessibility controls bar (sits above main navbar) */
-  --main-nav-height: 3.5rem;  /* 56px — primary navigation bar */
-  --navbar-height:   calc(var(--a11y-bar-height) + var(--main-nav-height)); /* total: 88px; used by sections for padding-top */
+--a11y-bar-height: 2rem;    
+  --main-nav-height: 3.5rem;  
+  --navbar-height:   calc(var(--a11y-bar-height) + var(--main-nav-height)); 
   --space-section-y: var(--prim-space-9);
   --space-stack-sm:  var(--prim-space-3);
   --space-stack-md:  var(--prim-space-4);
   --space-stack-lg:  var(--prim-space-6);
   --space-stack-xl:  var(--prim-space-7);
 
-  /* — Typography aliases — */
-  --text-eyebrow:    var(--prim-text-sm);
+--text-eyebrow:    var(--prim-text-sm);
   --text-body:       var(--prim-text-base);
   --text-body-lg:    var(--prim-text-lg);
   --text-heading-sm: var(--prim-text-xl);
@@ -224,40 +186,32 @@
   --text-heading-lg: var(--prim-text-4xl);
   --text-hero:       var(--prim-text-hero);
 
-  /* — Radius aliases — */
-  --radius-card:    var(--prim-radius-xl);
+--radius-card:    var(--prim-radius-xl);
   --radius-card-lg: var(--prim-radius-3xl);
   --radius-input:   var(--prim-radius-md);
   --radius-button:  var(--prim-radius-pill);
   --radius-badge:   var(--prim-radius-pill);
   --radius-icon:    var(--prim-radius-lg);
 
-  /* — Shadow aliases — */
-  --shadow-cta:       0 4px 24px var(--color-glow-indigo-mid);
+--shadow-cta:       0 4px 24px var(--color-glow-indigo-mid);
   --shadow-cta-hover: 0 8px 32px var(--color-glow-indigo-high), 0 0 0 4px var(--color-glow-indigo-low);
   --shadow-focus-ring: 0 0 0 3px var(--color-glow-indigo-low);
 
-  /* — Section background (auto-adapts via bg token chain) — */
-  --section-bg: linear-gradient(155deg, var(--color-bg-page) 0%, var(--color-bg-dark) 50%, var(--color-bg-subtle) 100%);
+--section-bg: linear-gradient(155deg, var(--color-bg-page) 0%, var(--color-bg-dark) 50%, var(--color-bg-subtle) 100%);
 
-  /* — Surface overlays — */
-  --color-surface-card: rgba(255,255,255,.03);
+--color-surface-card: rgba(255,255,255,.03);
   --color-surface-btn:  rgba(255,255,255,.05);
 
-  /* — Transition aliases — */
-  --transition-interactive: var(--prim-transition-fast);
+--transition-interactive: var(--prim-transition-fast);
   --transition-layout:      var(--prim-transition-base);
   --transition-motion:      var(--prim-transition-spring);
 
-  /* — Z-index aliases — */
-  --z-loader:  var(--prim-z-loader);
+--z-loader:  var(--prim-z-loader);
   --z-navbar:  var(--prim-z-fixed);
   --z-content: var(--prim-z-overlay);
   --z-shapes:  var(--prim-z-content);
 
-  /* ── Decoration control ──
-     Consumed by grains; overridden by theme files only. */
-  --decorative-display:      block;
+--decorative-display:      block;
   --grid-line-color:         rgba(99,102,241,.05);
   --hero-grid-line-color:    rgba(99,102,241,.06);
   --scanline-bg:             none;
@@ -266,13 +220,6 @@
   --accent-filter:           drop-shadow(0 0 24px var(--color-glow-indigo-mid));
 }
 
-/* ============================================================
-   TIER 3 — COMPONENT TOKENS
-   Reference Tier 2. Provide defaults for JS-driven per-instance
-   overrides (e.g. --card-color set via inline style).
-   ============================================================ */
-
-/* — Navbar — */
 :root {
   --navbar-bg:             rgba(7, 7, 26, 0.75);
   --navbar-bg-scrolled:    rgba(7, 7, 26, 0.95);
@@ -284,7 +231,6 @@
   --navbar-z:              var(--z-navbar);
 }
 
-/* — Hero section — */
 :root {
   --hero-bg-start:    #0a0a1a;
   --hero-bg-mid:      #0d0d2b;
@@ -293,8 +239,6 @@
   --hero-content-z:   var(--prim-z-overlay);
 }
 
-/* — Cards (shared across Portfolio, ContactInfo, WorkExperience)
-     JS sets per-instance values via inline style; these are fallbacks — */
 :root {
   --card-color:  var(--color-accent-indigo);
   --card-glow:   var(--color-glow-indigo-mid);
@@ -304,7 +248,6 @@
   --card-radius: var(--radius-card);
 }
 
-/* — Work experience job items (JS-driven per-instance) — */
 :root {
   --job-color:  var(--color-accent-indigo);
   --job-glow:   var(--color-glow-indigo-mid);
@@ -312,7 +255,6 @@
   --job-border: var(--color-border-strong);
 }
 
-/* — Technology category cards (JS-driven per-instance) — */
 :root {
   --cat-color:  var(--color-accent-indigo);
   --cat-glow:   var(--color-glow-indigo-mid);
@@ -320,14 +262,12 @@
   --cat-border: var(--color-border-subtle);
 }
 
-/* — Chips (WorkExperience, TechnologySection — JS-driven per-instance) — */
 :root {
   --chip-color:  #fff;
   --chip-bg:     rgba(99, 102, 241, 0.08);
   --chip-border: var(--color-border-strong);
 }
 
-/* — Contact form — */
 :root {
   --form-card-bg:            var(--color-surface-glass);
   --form-card-border:        var(--color-border-base);
@@ -344,21 +284,18 @@
   --form-submit-shadow-hover:var(--shadow-cta-hover);
 }
 
-/* — Preloader — */
 :root {
   --loader-z:     var(--z-loader);
   --loader-bg:    var(--color-bg-page);
   --loader-color: var(--color-accent-indigo);
 }
 
-/* — Footer — */
 :root {
   --footer-bg:     rgba(7, 7, 26, 0.95);
   --footer-border: var(--color-border-subtle);
   --footer-text:   var(--color-text-ghost);
 }
 
-/* ── Buttons ── */
 :root {
   --btn-primary-padding:        12px 28px;
   --btn-primary-font-size:      .95rem;
@@ -376,7 +313,6 @@
   --btn-spinner-gap:            8px;
 }
 
-/* ── Chip ── */
 :root {
   --chip-list-gap:        8px;
   --chip-padding:         3px 12px;
@@ -386,7 +322,6 @@
   --chip-radius:          var(--radius-badge);
 }
 
-/* ── Status badge ── */
 :root {
   --badge-padding:        6px 16px;
   --badge-font-size:      .85rem;
@@ -395,7 +330,6 @@
   --badge-dot-size:       8px;
 }
 
-/* ── Filter bar ── */
 :root {
   --filter-btn-padding:        8px 20px;
   --filter-btn-font-size:      .85rem;
@@ -405,7 +339,6 @@
   --filter-btn-active-shadow:  0 0 16px var(--color-glow-indigo-mid);
 }
 
-/* ── Form (grain-level — sizing & typography; colors via existing form-* tokens) ── */
 :root {
   --form-max-width:              600px;
   --form-card-padding:           32px;
@@ -427,7 +360,6 @@
   --form-alert-font-size:        .9rem;
 }
 
-/* ── Accordion / Work Experience ── */
 :root {
   --accordion-radius:               var(--radius-card);
   --accordion-hover-lift:           translateY(-3px);
@@ -451,7 +383,6 @@
   --accordion-bullet-size:          6px;
 }
 
-/* ── Timeline ── */
 :root {
   --timeline-max-width:      760px;
   --timeline-padding-start:  36px;
@@ -466,7 +397,6 @@
   --timeline-ring-opacity:   .5;
 }
 
-/* ── Nav links ── */
 :root {
   --nav-link-padding:          6px 14px;
   --nav-link-radius:           var(--prim-radius-sm);
@@ -477,7 +407,6 @@
   --nav-link-underline-height: 2px;
 }
 
-/* ── Project card ── */
 :root {
   --project-card-radius:             var(--radius-card);
   --project-card-img-height:         220px;
@@ -504,7 +433,6 @@
   --project-footer-cat-spacing:      .06em;
 }
 
-/* ── Stat card ── */
 :root {
   --stat-card-radius:         var(--radius-icon);
   --stat-card-padding:        12px 18px;
@@ -515,7 +443,6 @@
   --stat-float-distance:      -8px;
 }
 
-/* ── 3D Hero Card ── */
 :root {
   --card3d-size:           280px;
   --card3d-perspective:    800px;
@@ -527,7 +454,6 @@
   --card3d-orbit-dot-size: 8px;
 }
 
-/* ── Section header ── */
 :root {
   --section-eyebrow-font-size:      .78rem;
   --section-eyebrow-letter-spacing: .12em;
@@ -539,7 +465,6 @@
   --section-subtitle-max-width:     34rem;
 }
 
-/* ── Scroll indicator ── */
 :root {
   --scroll-indicator-bottom:    1.5rem;
   --scroll-text-font-size:      .72rem;
@@ -548,7 +473,6 @@
   --scroll-bounce-distance:     -12px;
 }
 
-/* ── Nav toggler / hamburger ── */
 :root {
   --toggler-size:        40px;
   --toggler-padding:     8px;
@@ -559,14 +483,12 @@
   --toggler-line-offset: 6.5px;
 }
 
-/* ── Brand ── */
 :root {
   --brand-logo-size:      30px;
   --brand-text-font-size: .95rem;
   --brand-letter-spacing: .04em;
 }
 
-/* ── Theme dropdown ── */
 :root {
   --dropdown-min-width:          188px;
   --dropdown-padding:            10px 8px;
@@ -584,7 +506,6 @@
   --dropdown-divider-margin:     8px;
 }
 
-/* ── Mobile drawer ── */
 :root {
   --drawer-width:             min(300px, 85vw);
   --drawer-header-padding:    16px 20px;
@@ -603,13 +524,6 @@
   --drawer-label-padding:     0 4px 10px;
 }
 
-/* ============================================================
-   THEMES — Accent color overrides
-   Applied via [data-theme] on <html>. Default (indigo) needs
-   no selector — it's the :root baseline above.
-   ============================================================ */
-
-/* ── Ocean (cyan / teal) ── */
 [data-palette="ocean"] {
   --color-accent-indigo:        #38bdf8;
   --color-accent-indigo-strong: #06b6d4;
@@ -633,7 +547,6 @@
   --chip-bg:                    rgba(6, 182, 212, 0.08);
 }
 
-/* ── Aurora (violet / purple) ── */
 [data-palette="aurora"] {
   --color-accent-indigo:        #c084fc;
   --color-accent-indigo-strong: #a855f7;
@@ -657,7 +570,6 @@
   --chip-bg:                    rgba(168, 85, 247, 0.08);
 }
 
-/* ── Ember (orange / amber) ── */
 [data-palette="ember"] {
   --color-accent-indigo:        #fb923c;
   --color-accent-indigo-strong: #f97316;
@@ -681,21 +593,14 @@
   --chip-bg:                    rgba(249, 115, 22, 0.08);
 }
 
-/* ============================================================
-   MODE: Light
-   Overrides backgrounds, text, and surfaces.
-   Comes after palette blocks so it wins equal-specificity ties
-   on shared tokens (e.g. --color-text-accent).
-   ============================================================ */
 [data-mode="light"] {
-  /* — Backgrounds — */
+  
   --color-bg-page:               #f0f4ff;
   --color-bg-dark:               #e8eeff;
   --color-bg-darker:             #e4eaff;
   --color-bg-subtle:             #eef2ff;
 
-  /* — Text — */
-  --color-text-primary:          #0f172a;
+--color-text-primary:          #0f172a;
   --color-text-secondary:        #1e293b;
   --color-text-muted:            #475569;
   --color-text-faint:            #64748b;
@@ -705,8 +610,7 @@
   --color-text-white-70:         rgba(15, 23, 42, 0.7);
   --color-text-white-80:         rgba(15, 23, 42, 0.8);
 
-  /* — Surfaces — */
-  --color-surface-glass:         rgba(255, 255, 255, 0.6);
+--color-surface-glass:         rgba(255, 255, 255, 0.6);
   --color-surface-glass-hover:   rgba(255, 255, 255, 0.8);
   --color-surface-input:         rgba(255, 255, 255, 0.8);
   --color-surface-input-focus:   rgba(255, 255, 255, 0.95);
@@ -714,34 +618,28 @@
   --color-surface-btn:           rgba(255, 255, 255, 0.5);
   --color-surface-overlay:       rgba(255, 255, 255, 0.5);
 
-  /* — Borders — */
-  --color-border-glass:          rgba(0, 0, 0, 0.1);
+--color-border-glass:          rgba(0, 0, 0, 0.1);
   --color-border-subtle:         color-mix(in srgb, var(--color-accent-indigo) 22%, transparent);
   --color-border-base:           color-mix(in srgb, var(--color-accent-indigo) 35%, transparent);
   --color-border-strong:         color-mix(in srgb, var(--color-accent-indigo) 48%, transparent);
 
-  /* — Form — */
-  --form-input-border:           color-mix(in srgb, var(--color-accent-indigo) 38%, transparent);
+--form-input-border:           color-mix(in srgb, var(--color-accent-indigo) 38%, transparent);
   --form-input-border-focus:     color-mix(in srgb, var(--color-accent-indigo) 72%, transparent);
 
-  /* — Project cards — */
-  --project-overlay-bg:          linear-gradient(to top, rgba(224, 231, 255, 0.97) 0%, rgba(224, 231, 255, 0.78) 60%, transparent 100%);
+--project-overlay-bg:          linear-gradient(to top, rgba(224, 231, 255, 0.97) 0%, rgba(224, 231, 255, 0.78) 60%, transparent 100%);
   --project-card-hover-shadow:   0 12px 32px rgba(0, 0, 0, 0.12);
   --project-link-btn-bg:         rgba(0,0,0,.06);
   --project-link-btn-border:     rgba(0,0,0,.14);
   --project-link-btn-color:      var(--color-text-secondary);
 
-  /* — Navbar — */
-  --navbar-bg:                   rgba(240, 244, 255, 0.85);
+--navbar-bg:                   rgba(240, 244, 255, 0.85);
   --navbar-bg-scrolled:          rgba(248, 250, 255, 0.97);
   --navbar-link-color:           rgba(15, 23, 42, 0.65);
 
-  /* — Footer — */
-  --footer-bg:                   rgba(240, 244, 255, 0.95);
+--footer-bg:                   rgba(240, 244, 255, 0.95);
   --footer-text:                 var(--color-text-faint);
 }
 
-/* ── Light mode: project card overlay text ── */
 [data-mode="light"] .project-title {
   color: var(--color-text-primary);
 }
@@ -752,23 +650,20 @@
   background: rgba(255, 255, 255, 0.55);
 }
 
-/* ── Accessibility bar (top fixed strip) ── */
 :root {
-  --a11y-bar-bg:     rgba(3, 3, 14, 0.92);   /* slightly darker than --navbar-bg */
+  --a11y-bar-bg:     rgba(3, 3, 14, 0.92);   
   --a11y-bar-border: rgba(255, 255, 255, 0.06);
-  --a11y-bar-z:      calc(var(--z-navbar) + 1); /* above main navbar */
+  --a11y-bar-z:      calc(var(--z-navbar) + 1); 
 }
 
-/* — A11y bar: light mode — */
 [data-mode="light"] {
   --a11y-bar-bg:     rgba(220, 228, 255, 0.94);
   --a11y-bar-border: rgba(0, 0, 0, 0.08);
 }
 
-/* ── Accessibility toolbar ── */
 :root {
   --a11y-btn-icon-size:    20px;
-  --a11y-btn-hit-expand:   12px;    /* inset on ::before → 20+24=44px touch target */
+  --a11y-btn-hit-expand:   12px;    
   --a11y-btn-gap:          8px;
   --a11y-btn-color:        var(--color-text-white-60);
   --a11y-btn-hover-color:  var(--color-text-primary);
@@ -776,16 +671,13 @@
   --a11y-btn-active-bg:    var(--navbar-link-hover-bg);
   --a11y-divider-color:    var(--color-border-glass);
 
-  /* Font scaling — JS sets --a11y-font-scale on <html> as inline custom property */
-  --a11y-font-scale: 1;
+--a11y-font-scale: 1;
 
-  /* Focus ring (WCAG 2.4.11 Focus Appearance) */
-  --focus-ring-width:  3px;
+--focus-ring-width:  3px;
   --focus-ring-color:  var(--color-accent-indigo);
   --focus-ring-offset: 2px;
 
-  /* Help dialogs */
-  --dialog-bg:        var(--navbar-bg-scrolled);
+--dialog-bg:        var(--navbar-bg-scrolled);
   --dialog-border:    var(--color-border-base);
   --dialog-radius:    var(--prim-radius-xl);
   --dialog-max-width: 520px;

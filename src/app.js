@@ -1,59 +1,23 @@
-/**
- * Main application entry point.
- * Sets up routing, state management, and component registration.
- */
-
-import { initBgCanvas } from './utils/bgCanvas.js';
 import { Router } from './Router.js';
 import { Store } from './Store.js';
-import { HomeComponent } from './components/HomeComponent.js';
-import { AboutComponent } from './components/AboutComponent.js';
-import { PortfolioComponent } from './components/PortfolioComponent.js';
-import { ContactComponent } from './components/ContactComponent.js';
 import { NavbarComponent } from './components/NavbarComponent.js';
-import { HeroSection } from './components/home/HeroSection.js';
-import { WorkExperience } from './components/home/WorkExperience.js';
-import { TechnologySection } from './components/home/TechnologySection.js';
-import { ContactInfo } from './components/home/ContactInfo.js';
+import { loadCSS, loadAllCSS } from './utils/loadCSS.js';
 
-// Create global state store
 export const store = new Store({
   currentSection: 'home',
 });
 
-// Define custom elements to register
-const components = [
-  ['app-home', HomeComponent],
-  ['app-about', AboutComponent],
-  ['app-portfolio', PortfolioComponent],
-  ['app-contact', ContactComponent],
-  ['app-navbar', NavbarComponent],
-  ['hero-section', HeroSection],
-  ['work-experience', WorkExperience],
-  ['technology-section', TechnologySection],
-  ['contact-info', ContactInfo],
-];
-
-// Register custom elements with error handling
-for (const [name, Component] of components) {
-  if (!customElements.get(name)) {
-    try {
-      customElements.define(name, Component);
-      console.debug(`Registered component: ${name}`);
-    } catch (error) {
-      console.warn(`Failed to register ${name}:`, error.message);
-    }
-  } else {
-    console.debug(`Component ${name} already registered`);
-  }
+function define(name, Cls) {
+  if (!customElements.get(name)) customElements.define(name, Cls);
 }
 
-/**
- * Handles route changes by swapping main content and updating state.
- * Uses requestAnimationFrame for smooth transitions.
- * @param {CustomElementConstructor} component - Component to render
- * @param {string} section - Section identifier for state tracking
- */
+define('app-navbar', NavbarComponent);
+
+const savedTheme = localStorage.getItem('ds-theme');
+if (savedTheme && savedTheme !== 'default') {
+  loadCSS(`src/design-system/themes/${savedTheme}.css`);
+}
+
 const TITLES = {
   home:      'Muhammad Rezk — Senior Frontend Developer | Angular · TypeScript · React',
   about:     'About Muhammad Rezk — Senior Frontend Developer',
@@ -61,53 +25,114 @@ const TITLES = {
   contact:   'Contact Muhammad Rezk — Senior Frontend Developer',
 };
 
+let firstRender = true;
+
 const handleRouteChange = (component, section) => {
   requestAnimationFrame(() => {
     store.state.currentSection = section;
     document.title = TITLES[section] || TITLES.home;
 
     const main = document.querySelector('#main-content');
+    while (main.firstChild) main.removeChild(main.firstChild);
+    main.appendChild(new component());
 
-    // Clear existing content
-    while (main.firstChild) {
-      main.removeChild(main.firstChild);
-    }
-
-    // Mount new component
-    const newComponent = new component();
-    main.appendChild(newComponent);
-
-    // Announce route change to screen readers
     const announcer = document.getElementById('a11y-announcer');
     if (announcer) announcer.textContent = `Page loaded: ${TITLES[section] || section}`;
 
-    // Move focus to main content for keyboard/SR users
     main.setAttribute('tabindex', '-1');
     main.focus({ preventScroll: true });
-
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+if (firstRender) {
+      firstRender = false;
+      const preloader = document.getElementById('preloader');
+      if (preloader) {
+        preloader.style.transition = 'opacity 0.5s ease';
+        preloader.style.opacity = '0';
+        setTimeout(() => { preloader.style.display = 'none'; }, 500);
+      }
+    }
   });
 };
 
-// Configure router with route handlers
 export const router = new Router({
-  '/': () => handleRouteChange(HomeComponent, 'home'),
-  '/about': () => handleRouteChange(AboutComponent, 'about'),
-  '/portfolio': () => handleRouteChange(PortfolioComponent, 'portfolio'),
-  '/contact': () => handleRouteChange(ContactComponent, 'contact'),
+  '/': async () => {
+    const [[{ HomeComponent }, { HeroSection }, { WorkExperience }, { TechnologySection }, { ContactInfo }]] = await Promise.all([
+      Promise.all([
+        import('./components/HomeComponent.js'),
+        import('./components/home/HeroSection.js'),
+        import('./components/home/WorkExperience.js'),
+        import('./components/home/TechnologySection.js'),
+        import('./components/home/ContactInfo.js'),
+      ]),
+      loadAllCSS([
+        'src/design-system/components/home.css',
+        'src/design-system/components/hero.css',
+        'src/design-system/components/work-experience.css',
+        'src/design-system/components/technology.css',
+        'src/design-system/components/contact-info.css',
+        'src/design-system/grains/grid-overlay.css',
+        'src/design-system/grains/hero-text.css',
+        'src/design-system/grains/status-badge.css',
+        'src/design-system/grains/scroll-indicator.css',
+        'src/design-system/grains/timeline.css',
+        'src/design-system/grains/accordion.css',
+        'src/design-system/grains/chip.css',
+        'src/design-system/grains/card-3d.css',
+        'src/design-system/grains/stat-card.css',
+      ]),
+    ]);
+    define('hero-section', HeroSection);
+    define('work-experience', WorkExperience);
+    define('technology-section', TechnologySection);
+    define('contact-info', ContactInfo);
+    define('app-home', HomeComponent);
+    handleRouteChange(HomeComponent, 'home');
+  },
+
+  '/about': async () => {
+    const [[{ AboutComponent }]] = await Promise.all([
+      Promise.all([import('./components/AboutComponent.js')]),
+      loadAllCSS([
+        'src/design-system/components/about.css',
+        'src/design-system/grains/stat-card.css',
+        'src/design-system/grains/chip.css',
+      ]),
+    ]);
+    define('app-about', AboutComponent);
+    handleRouteChange(AboutComponent, 'about');
+  },
+
+  '/portfolio': async () => {
+    const [[{ PortfolioComponent }]] = await Promise.all([
+      Promise.all([import('./components/PortfolioComponent.js')]),
+      loadAllCSS([
+        'src/design-system/components/portfolio.css',
+        'src/design-system/grains/project-card.css',
+        'src/design-system/grains/filter-bar.css',
+        'src/design-system/grains/chip.css',
+      ]),
+    ]);
+    define('app-portfolio', PortfolioComponent);
+    handleRouteChange(PortfolioComponent, 'portfolio');
+  },
+
+  '/contact': async () => {
+    const [[{ ContactComponent }]] = await Promise.all([
+      Promise.all([import('./components/ContactComponent.js')]),
+      loadAllCSS([
+        'src/design-system/components/contact.css',
+        'src/design-system/grains/form.css',
+      ]),
+    ]);
+    define('app-contact', ContactComponent);
+    handleRouteChange(ContactComponent, 'contact');
+  },
 });
 
-// Hide preloader and stamp copyright year once everything has loaded
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
+  const { initBgCanvas } = await import('./utils/bgCanvas.js');
   initBgCanvas();
-
-  const loader = document.getElementById('preloader');
-  if (loader) {
-    loader.style.transition = 'opacity 0.5s ease';
-    loader.style.opacity = '0';
-    setTimeout(() => { loader.style.display = 'none'; }, 500);
-  }
-
   const yearEl = document.getElementById('copyright-year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 });

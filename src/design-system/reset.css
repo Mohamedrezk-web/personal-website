@@ -1,7 +1,4 @@
-/* ============================================================
-   CSS RESET
-   Minimal modern reset replacing Bootstrap's reboot.
-   ============================================================ */
+
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -56,7 +53,6 @@ button {
   border: none;
 }
 
-/* Focus ring — replaces Bootstrap's focus styles */
 *:focus-visible {
   outline: 2px solid var(--color-accent-indigo);
   outline-offset: 3px;

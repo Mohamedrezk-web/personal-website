@@ -1,4 +1,5 @@
 import { Component } from "../../Component.js";
+import { renderIcon } from "../../utils/icons.js";
 
 export class ContactInfo extends Component {
   constructor() {
@@ -46,7 +47,7 @@ export class ContactInfo extends Component {
         ">
           <div class="contact-card-inner">
             <div class="contact-icon-wrap" aria-hidden="true">
-              <i class="fas fa-${info.icon}"></i>
+              ${renderIcon(info.icon)}
               <div class="icon-ping"></div>
             </div>
             <div class="contact-card-body">
@@ -54,7 +55,7 @@ export class ContactInfo extends Component {
               <div class="contact-text">${info.text}</div>
             </div>
             <div class="contact-card-arrow" aria-hidden="true">
-              <i class="fas fa-arrow-right"></i>
+              ${renderIcon('arrow-right')}
             </div>
           </div>
           <div class="contact-card-glow"></div>
@@ -68,14 +69,11 @@ export class ContactInfo extends Component {
     this.innerHTML = `
       <section class="ci-section" id="contact">
 
-        <!-- Ambient glows -->
-        <div class="section-ambient" aria-hidden="true"></div>
+<div class="section-ambient" aria-hidden="true"></div>
 
-        <!-- Grid -->
-        <div class="section-grid" aria-hidden="true"></div>
+<div class="section-grid" aria-hidden="true"></div>
 
-        <!-- Floating shapes -->
-        <div class="section-shapes" aria-hidden="true">
+<div class="section-shapes" aria-hidden="true">
           <div class="section-shape shape-cube shape-1"></div>
           <div class="section-shape shape-cube shape-2"></div>
           <div class="section-shape shape-ring shape-3"></div>
@@ -84,8 +82,7 @@ export class ContactInfo extends Component {
 
         <div class="ds-container section-layer">
 
-          <!-- Section header -->
-          <div class="section-head">
+<div class="section-head">
             <div class="section-eyebrow">
               <span class="eyebrow-line"></span>
               <span>Get In Touch</span>
@@ -99,8 +96,7 @@ export class ContactInfo extends Component {
             </p>
           </div>
 
-          <!-- Cards -->
-          <div class="ci-cards-wrap">
+<div class="ci-cards-wrap">
             ${this.renderContactCards()}
           </div>
 

@@ -1,4 +1,4 @@
-/* ── PROJECT GRID ── */
+
 .project-grid {
   display: grid;
   grid-template-columns: repeat(var(--ds-cols, 1), minmax(0, 1fr));
@@ -7,13 +7,11 @@
 @media (min-width: 768px) { .project-grid { --ds-cols: 2; } }
 @media (min-width: 992px) { .project-grid { --ds-cols: 3; } }
 
-/* ── PROJECT ITEM ── */
 .project-item { animation: fadeUp .7s ease both; }
 .project-item:nth-child(1) { animation-delay: .3s; }
 .project-item:nth-child(2) { animation-delay: .4s; }
 .project-item:nth-child(3) { animation-delay: .5s; }
 
-/* ── CARD ── */
 .project-card {
   border-radius: var(--project-card-radius);
   overflow: hidden;
@@ -28,7 +26,6 @@
   border-color: var(--card-color);
 }
 
-/* ── IMAGE ── */
 .project-card-image {
   position: relative;
   overflow: hidden;
@@ -41,7 +38,6 @@
 }
 .project-card:hover .project-img { transform: var(--project-img-hover-scale); }
 
-/* ── OVERLAY ── */
 .project-card-overlay {
   position: absolute; inset: 0;
   background: var(--project-overlay-bg);
@@ -104,7 +100,6 @@
   box-shadow: 0 0 14px var(--card-glow);
 }
 
-/* ── CARD FOOTER ── */
 .project-card-footer {
   display: flex; align-items: center; justify-content: space-between;
   padding: var(--project-footer-padding);

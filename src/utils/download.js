@@ -1,8 +1,4 @@
-/**
- * Handles the download of CV file
- * @param {Event} e - The event object
- * @returns {Promise<void>}
- */
+
 export const handleDownloadCV = (e) => {
   e.preventDefault();
   const cvPath = '/uploads/documents/cv.pdf';

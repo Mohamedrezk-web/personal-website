@@ -1,4 +1,4 @@
-/* ── FORM LAYOUT ── */
+
 .form-row {
   display: flex;
   justify-content: center;
@@ -21,7 +21,6 @@
   margin-top: var(--prim-space-6);
 }
 
-/* ── FORM CARD ── */
 .form-card {
   background: var(--color-surface-card);
   border: 1px solid var(--form-card-border);
@@ -31,7 +30,6 @@
   animation: fadeUp .7s ease .3s both;
 }
 
-/* ── LABEL ── */
 .form-label {
   display: block;
   font-size: var(--form-label-font-size);
@@ -42,7 +40,6 @@
   margin-bottom: var(--form-label-gap);
 }
 
-/* ── INPUT / TEXTAREA ── */
 .form-input {
   width: 100%;
   background: var(--form-input-bg);
@@ -67,7 +64,6 @@
 }
 .form-textarea { resize: vertical; min-height: var(--form-textarea-min-height); }
 
-/* ── FIELD ERROR ── */
 .field-error {
   font-size: var(--form-field-error-font-size);
   color: var(--color-status-error);
@@ -75,7 +71,6 @@
   min-height: var(--form-field-error-min-height);
 }
 
-/* ── ALERTS ── */
 .form-alert {
   border-radius: var(--form-alert-radius);
   padding: var(--form-alert-padding);

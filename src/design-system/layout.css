@@ -1,10 +1,5 @@
-/* ============================================================
-   LAYOUT UTILITIES
-   Container, CSS Grid, Flexbox, Gap.
-   Prefix: .ds-
-   ============================================================ */
 
-/* — Container — */
+
 .ds-container {
   width: 100%;
   max-width: 1140px;
@@ -12,8 +7,6 @@
   padding-inline: var(--prim-space-4);
 }
 
-/* — Grid system —
-   Override --ds-cols and --ds-gap on the element for custom layouts */
 .ds-grid {
   display: grid;
   grid-template-columns: repeat(var(--ds-cols, 1), minmax(0, 1fr));
@@ -24,12 +17,10 @@
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 
-/* 2-column: 1 on mobile → 2 on md+ */
 @media (min-width: 768px) {
   .ds-grid--2 { --ds-cols: 2; }
 }
 
-/* 3-column: 1 on mobile → 2 on md → 3 on lg */
 @media (min-width: 768px) {
   .ds-grid--3 { --ds-cols: 2; }
 }
@@ -37,7 +28,6 @@
   .ds-grid--3 { --ds-cols: 3; }
 }
 
-/* 4-column: 1 on mobile → 2 on md → 4 on lg */
 @media (min-width: 768px) {
   .ds-grid--4 { --ds-cols: 2; }
 }
@@ -45,7 +35,6 @@
   .ds-grid--4 { --ds-cols: 4; }
 }
 
-/* — Flexbox — */
 .ds-flex {
   display: flex;
 }
@@ -82,9 +71,8 @@
   flex-wrap: nowrap;
 }
 
-/* — Gap utilities (work on both grid and flex parents) — */
-.ds-gap-1 { gap: var(--prim-space-2); }   /*  8px */
-.ds-gap-2 { gap: var(--prim-space-3); }   /* 12px */
-.ds-gap-3 { gap: var(--prim-space-4); }   /* 16px */
-.ds-gap-4 { gap: var(--prim-space-6); }   /* 24px */
-.ds-gap-5 { gap: var(--prim-space-9); }   /* 48px */
+.ds-gap-1 { gap: var(--prim-space-2); }   
+.ds-gap-2 { gap: var(--prim-space-3); }   
+.ds-gap-3 { gap: var(--prim-space-4); }   
+.ds-gap-4 { gap: var(--prim-space-6); }   
+.ds-gap-5 { gap: var(--prim-space-9); }   

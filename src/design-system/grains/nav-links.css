@@ -1,5 +1,5 @@
 
-        /* ── NAV LINKS ── */
+        
         .app-navbar .nav-link {
           color: var(--navbar-link-color) !important;
           font-size: var(--nav-link-font-size);
@@ -34,8 +34,7 @@
           background: var(--navbar-link-hover-bg);
         }
 
-        /* ── DESKTOP NAV MENU ── */
-        .nav-menu { display: flex; flex: 1; }
+.nav-menu { display: flex; flex: 1; }
         .nav-list {
           display: flex;
           align-items: center;

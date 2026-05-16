@@ -1,4 +1,4 @@
-/* ── ACCORDION CARD ── */
+
 .accordion-card {
   position: relative;
   border-radius: var(--accordion-radius);
@@ -18,7 +18,6 @@
   pointer-events: none;
 }
 
-/* ── ACCORDION TRIGGER (header button) ── */
 .accordion-trigger {
   width: 100%;
   display: flex;
@@ -99,7 +98,6 @@
 }
 .accordion-trigger[aria-expanded="true"] .accordion-chevron { transform: rotate(180deg); }
 
-/* ── ACCORDION BODY ── */
 .accordion-body {
   display: grid;
   grid-template-rows: 0fr;
@@ -122,7 +120,6 @@
   border-bottom-right-radius: var(--accordion-radius);
 }
 
-/* ── CONTENT LABELS & LISTS ── */
 .content-label {
   font-size: var(--accordion-label-font-size);
   text-transform: uppercase;

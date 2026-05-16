@@ -1,9 +1,4 @@
-/**
- * Full-page background canvas.
- * Default theme: connected nodes (palette/mode-aware, mouse-interactive).
- * Cyber theme: Matrix-style code rain.
- * Hidden in minimal theme via CSS.
- */
+
 
 const isCyber     = () => document.documentElement.dataset.theme === 'cyber';
 const isLightMode = () => document.documentElement.dataset.mode  === 'light';
@@ -52,8 +47,7 @@ export function initBgCanvas() {
   let mx = -9999, my = -9999;
   const nodes = [];
 
-  // Rain state
-  let rainCols, rainDrops;
+let rainCols, rainDrops;
 
   class Node {
     constructor() {

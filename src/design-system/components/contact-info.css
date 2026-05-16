@@ -1,11 +1,10 @@
-/* ── BASE ── */
+
 .ci-section {
   background: transparent;
   position: relative;
   padding-block: var(--space-section-y);
 }
 
-/* ── CARDS WRAP ── */
 .ci-cards-wrap {
   display: flex;
   flex-direction: column;
@@ -23,7 +22,6 @@
   }
 }
 
-/* ── CONTACT CARD ── */
 .contact-card {
   position: relative;
   border-radius: var(--radius-card);
@@ -68,7 +66,6 @@
   z-index: 0;
 }
 
-/* ── ICON WRAP ── */
 .contact-icon-wrap {
   position: relative;
   width: 52px; height: 52px;
@@ -97,7 +94,6 @@
   100% { opacity: 0;  transform: scale(1.4); }
 }
 
-/* ── CARD BODY ── */
 .contact-card-body { flex: 1; }
 .contact-label {
   font-size: .72rem;
@@ -113,7 +109,6 @@
   font-weight: 500;
 }
 
-/* ── ARROW ── */
 .contact-card-arrow {
   color: var(--card-color);
   font-size: .85rem;

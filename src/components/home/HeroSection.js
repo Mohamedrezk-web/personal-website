@@ -1,5 +1,6 @@
 import { Component } from "../../Component.js";
 import { handleDownloadCV } from "../../utils/download.js";
+import { renderIcon } from "../../utils/icons.js";
 
 export class HeroSection extends Component {
   constructor() {
@@ -29,7 +30,7 @@ export class HeroSection extends Component {
           class="btn btn--icon"
           aria-label="${link.label}"
         >
-          <i class="fab fa-${link.icon} fa-lg" aria-hidden="true"></i>
+          ${renderIcon(link.icon, { cls: 'icon-lg' })}
         </a>
       `,
       )
@@ -40,14 +41,11 @@ export class HeroSection extends Component {
     this.innerHTML = `
       <section class="hero-section" id="hero">
 
-        <!-- Particle canvas -->
-        <canvas id="hero-canvas" aria-hidden="true"></canvas>
+<canvas id="hero-canvas" aria-hidden="true"></canvas>
 
-        <!-- Grid overlay -->
-        <div class="hero-grid" aria-hidden="true"></div>
+<div class="hero-grid" aria-hidden="true"></div>
 
-        <!-- 3D Floating Shapes -->
-        <div class="hero-shapes" aria-hidden="true">
+<div class="hero-shapes" aria-hidden="true">
           <div class="shape shape-cube shape-1"></div>
           <div class="shape shape-cube shape-2"></div>
           <div class="shape shape-ring shape-3"></div>
@@ -59,8 +57,7 @@ export class HeroSection extends Component {
         <div class="ds-container hero-content">
           <div class="hero-cols">
 
-            <!-- Text column -->
-            <div class="hero-col-text">
+<div class="hero-col-text">
               <div class="status-badge">
                 <span class="badge-dot"></span>
                 <span>Available for Work</span>
@@ -82,7 +79,7 @@ export class HeroSection extends Component {
               <div class="hero-actions">
                 <a href="#" class="btn btn--primary download-cv" aria-label="Download CV (PDF)">
                   <span>Download CV</span>
-                  <i class="fas fa-download" aria-hidden="true"></i>
+                  ${renderIcon('download')}
                 </a>
                 <div class="social-row">
                   ${this.renderSocialLinks()}
@@ -90,35 +87,32 @@ export class HeroSection extends Component {
               </div>
             </div>
 
-            <!-- Visual column -->
-            <div class="hero-col-visual">
+<div class="hero-col-visual">
 
-              <!-- Default theme: orbital system -->
-              <div class="hv-scene" aria-hidden="true">
+<div class="hv-scene" aria-hidden="true">
                 <svg class="hv-svg" viewBox="0 0 420 400" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Orbital ellipses -->
+                  
                   <ellipse class="hv-ellipse hv-ellipse--a" cx="210" cy="200" rx="135" ry="48" transform="rotate(15 210 200)"/>
                   <ellipse class="hv-ellipse hv-ellipse--b" cx="210" cy="200" rx="175" ry="57" transform="rotate(-32 210 200)"/>
                   <ellipse class="hv-ellipse hv-ellipse--c" cx="210" cy="200" rx="92"  ry="30" transform="rotate(60 210 200)"/>
-                  <!-- Connection paths -->
+                  
                   <path class="hv-path hv-path--1" d="M 210,200 Q 285,95 312,47"/>
                   <path class="hv-path hv-path--2" d="M 210,200 Q 278,280 300,327"/>
                   <path class="hv-path hv-path--3" d="M 210,200 Q 118,185 47,197"/>
-                  <!-- Node dots -->
+                  
                   <circle class="hv-node hv-node--1"   cx="312" cy="47"  r="3"/>
                   <circle class="hv-node hv-node--2"   cx="300" cy="327" r="3"/>
                   <circle class="hv-node hv-node--3"   cx="47"  cy="197" r="3"/>
                   <circle class="hv-node hv-node--hub" cx="210" cy="200" r="4.5"/>
                 </svg>
 
-                <!-- Hub -->
-                <div class="hv-hub">
+<div class="hv-hub">
                   <div class="hv-hub-pulse"></div>
                   <div class="hv-hub-pulse hv-hub-pulse--b"></div>
                   <div class="hv-hub-ring"></div>
                   <div class="hv-hub-ring hv-hub-ring--b"></div>
                   <div class="hv-hub-face">
-                    <i class="fas fa-code hv-hub-icon" aria-hidden="true"></i>
+                    ${renderIcon('code', { cls: 'hv-hub-icon' })}
                     <div class="hv-hub-meta">
                       <span class="hv-hub-led"></span>
                       <span class="hv-hub-status-text">Active</span>
@@ -126,8 +120,7 @@ export class HeroSection extends Component {
                   </div>
                 </div>
 
-                <!-- Satellite skill cards -->
-                <div class="hv-sat hv-sat--1">
+<div class="hv-sat hv-sat--1">
                   <div class="hv-donut">
                     <svg viewBox="0 0 40 40" aria-hidden="true">
                       <circle cx="20" cy="20" r="15" fill="none" stroke-width="3" class="hv-donut-bg"/>
@@ -163,19 +156,17 @@ export class HeroSection extends Component {
                   <span class="hv-sat-name">CSS</span>
                 </div>
 
-                <!-- Floating badges -->
-                <div class="hv-badge hv-badge--1"><i class="fas fa-bolt" aria-hidden="true"></i><span>ES2024</span></div>
-                <div class="hv-badge hv-badge--2"><i class="fas fa-layer-group" aria-hidden="true"></i><span>APIs</span></div>
-                <div class="hv-badge hv-badge--3"><i class="fas fa-tachometer-alt" aria-hidden="true"></i><span>Perf</span></div>
-                <div class="hv-badge hv-badge--4"><i class="fas fa-code-branch" aria-hidden="true"></i><span>Git</span></div>
+<div class="hv-badge hv-badge--1">${renderIcon('bolt')}<span>ES2024</span></div>
+                <div class="hv-badge hv-badge--2">${renderIcon('layer-group')}<span>APIs</span></div>
+                <div class="hv-badge hv-badge--3">${renderIcon('tachometer-alt')}<span>Perf</span></div>
+                <div class="hv-badge hv-badge--4">${renderIcon('code-branch')}<span>Git</span></div>
               </div>
 
-              <!-- Cyber theme: terminal card -->
-              <div class="hero-card-3d" aria-hidden="true">
+<div class="hero-card-3d" aria-hidden="true">
                 <div class="card-face">
                   <div class="card-glow"></div>
                   <div class="card-icon">
-                    <i class="fas fa-code fa-3x"></i>
+                    ${renderIcon('code', { cls: 'icon-3x' })}
                   </div>
                   <div class="card-cyber-terminal">
                     <div class="cct-bar">
@@ -230,11 +221,10 @@ export class HeroSection extends Component {
           </div>
         </div>
 
-        <!-- Scroll Indicator -->
-        <div class="scroll-indicator" aria-hidden="true">
+<div class="scroll-indicator" aria-hidden="true">
           <div class="scroll-text">Scroll Down</div>
           <div class="bounce">
-            <i class="fas fa-chevron-down fa-lg"></i>
+            ${renderIcon('chevron-down', { cls: 'icon-lg' })}
           </div>
         </div>
 

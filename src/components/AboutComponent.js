@@ -1,5 +1,6 @@
 import { Component } from "../Component.js";
 import { handleDownloadCV } from "../utils/download.js";
+import { renderIcon } from "../utils/icons.js";
 
 export class AboutComponent extends Component {
   constructor() {
@@ -20,14 +21,12 @@ export class AboutComponent extends Component {
     section.className = "about-section";
 
     section.innerHTML = `
-      <!-- Ambient glow -->
+      
       <div class="section-ambient" aria-hidden="true"></div>
 
-      <!-- Grid overlay -->
-      <div class="section-grid" aria-hidden="true"></div>
+<div class="section-grid" aria-hidden="true"></div>
 
-      <!-- Floating shapes -->
-      <div class="section-shapes" aria-hidden="true">
+<div class="section-shapes" aria-hidden="true">
         <div class="section-shape shape-cube shape-1"></div>
         <div class="section-shape shape-cube shape-2"></div>
         <div class="section-shape shape-ring shape-3"></div>
@@ -37,8 +36,7 @@ export class AboutComponent extends Component {
       <div class="ds-container section-layer">
         <div class="ab-cols">
 
-          <!-- Image column -->
-          <div class="ab-img-col">
+<div class="ab-img-col">
             <div class="ab-image-wrap">
               <div class="ab-image-frame">
                 <img
@@ -48,7 +46,7 @@ export class AboutComponent extends Component {
                 >
                 <div class="ab-image-glow"></div>
               </div>
-              <!-- Floating stat cards -->
+              
               <div class="stat-card stat-card--1">
                 <span class="stat-num">6+</span>
                 <span class="stat-label">Years Exp.</span>
@@ -60,8 +58,7 @@ export class AboutComponent extends Component {
             </div>
           </div>
 
-          <!-- Text column -->
-          <div class="ab-text-col">
+<div class="ab-text-col">
             <div class="section-eyebrow">
               <span class="eyebrow-line"></span>
               <span>Who I Am</span>
@@ -86,7 +83,7 @@ export class AboutComponent extends Component {
 
             <a href="#" class="btn btn--primary download-cv mt-4">
               <span>Download CV</span>
-              <i class="fas fa-download"></i>
+              ${renderIcon("download")}
             </a>
           </div>
 

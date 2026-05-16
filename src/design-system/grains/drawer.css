@@ -1,9 +1,8 @@
-/* ── DRAWER-ONLY ELEMENTS (hidden on desktop) ── */
-.drawer-header      { display: none; }
-.drawer-theme-label { display: none; }
-.drawer-backdrop    { display: none; }
 
-/* ── MOBILE SIDE DRAWER ── */
+.drawer-header       { display: none; }
+.drawer-backdrop     { display: none; }
+.drawer-a11y-section { display: none; }
+
 @media (max-width: 991px) {
   .nav-toggler { display: flex; }
 
@@ -88,25 +87,20 @@
   }
   .nav-menu .nav-link::after { display: none; }
 
+  .drawer-a11y-section { display: block; }
+
   .nav-item-theme {
     margin-inline-start: 0;
     padding: var(--drawer-section-padding);
     border-top: 1px solid var(--color-border-glass);
     flex-shrink: 0;
   }
-  .drawer-theme-label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: var(--drawer-label-font-size);
-    text-transform: uppercase;
-    letter-spacing: var(--drawer-label-spacing);
-    color: var(--color-text-ghost);
-    font-weight: 600;
-    padding: var(--drawer-label-padding);
+  .nav-menu.show .nav-item-theme {
+    padding: 0;
+    margin: 0;
   }
 
-  .td-trigger { display: none; }
+  .nav-menu .td-trigger { display: none; }
   .td-panel {
     position: static !important;
     transform: none !important;

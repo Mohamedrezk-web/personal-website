@@ -1,4 +1,5 @@
 import { Component } from "../../Component.js";
+import { renderIcon } from "../../utils/icons.js";
 
 export class WorkExperience extends Component {
   constructor() {
@@ -110,15 +111,13 @@ export class WorkExperience extends Component {
         (job, index) => `
         <div class="timeline-item" style="--job-color:${job.color};--job-glow:${job.glow};--job-bg:${job.bg};--job-border:${job.border};" data-index="${index}">
 
-          <!-- Timeline dot -->
-          <div class="timeline-dot">
+<div class="timeline-dot">
             <div class="timeline-dot-inner"></div>
             <div class="timeline-dot-ring"></div>
           </div>
 
-          <!-- Card -->
-          <div class="accordion-card">
-            <!-- Accordion trigger -->
+<div class="accordion-card">
+            
             <button
               class="accordion-trigger"
               aria-expanded="${index === 0 ? "true" : "false"}"
@@ -133,17 +132,16 @@ export class WorkExperience extends Component {
                   <span class="accordion-position">${job.position}</span>
                   <span class="meta-sep">·</span>
                   <span class="accordion-period">
-                    <i class="fas fa-calendar-alt cal-icon" aria-hidden="true"></i>${job.period}
+                    ${renderIcon('calendar-alt', { cls: 'cal-icon' })}${job.period}
                   </span>
                 </div>
               </div>
               <div class="accordion-chevron" aria-hidden="true">
-                <i class="fas fa-chevron-down"></i>
+                ${renderIcon('chevron-down')}
               </div>
             </button>
 
-            <!-- Accordion body -->
-            <div class="accordion-body${index === 0 ? " is-open" : ""}">
+<div class="accordion-body${index === 0 ? " is-open" : ""}">
               <div class="accordion-body-inner">
 
                 <div class="content-label">Key Responsibilities</div>
@@ -180,14 +178,11 @@ export class WorkExperience extends Component {
     this.innerHTML = `
       <section class="we-section" id="experience">
 
-        <!-- Ambient -->
-        <div class="section-ambient" aria-hidden="true"></div>
+<div class="section-ambient" aria-hidden="true"></div>
 
-        <!-- Grid -->
-        <div class="section-grid" aria-hidden="true"></div>
+<div class="section-grid" aria-hidden="true"></div>
 
-        <!-- Shapes -->
-        <div class="section-shapes" aria-hidden="true">
+<div class="section-shapes" aria-hidden="true">
           <div class="section-shape shape-cube shape-1"></div>
           <div class="section-shape shape-cube shape-2"></div>
           <div class="section-shape shape-ring shape-3"></div>
@@ -196,8 +191,7 @@ export class WorkExperience extends Component {
 
         <div class="ds-container section-layer">
 
-          <!-- Header -->
-          <div class="section-head">
+<div class="section-head">
             <div class="section-eyebrow">
               <span class="eyebrow-line"></span>
               <span>Career Journey</span>
@@ -211,8 +205,7 @@ export class WorkExperience extends Component {
             </p>
           </div>
 
-          <!-- Timeline -->
-          <div class="timeline">
+<div class="timeline">
             <div class="timeline-line"></div>
             ${this.renderJobs()}
           </div>

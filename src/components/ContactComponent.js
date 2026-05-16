@@ -1,4 +1,5 @@
 import { Component } from '../Component.js';
+import { renderIcon } from '../utils/icons.js';
 
 export class ContactComponent extends Component {
   constructor() {
@@ -111,12 +112,11 @@ export class ContactComponent extends Component {
     section.className = 'cc-section';
 
     section.innerHTML = `
-      <!-- Ambient -->
+      
       <div class="section-ambient" aria-hidden="true"></div>
       <div class="section-grid"   aria-hidden="true"></div>
 
-      <!-- Shapes -->
-      <div class="section-shapes" aria-hidden="true">
+<div class="section-shapes" aria-hidden="true">
         <div class="section-shape shape-cube shape-1"></div>
         <div class="section-shape shape-cube shape-2"></div>
         <div class="section-shape shape-ring shape-3"></div>
@@ -125,8 +125,7 @@ export class ContactComponent extends Component {
 
       <div class="ds-container section-layer">
 
-        <!-- Header -->
-        <div class="section-head">
+<div class="section-head">
           <div class="section-eyebrow">
             <span class="eyebrow-line"></span>
             <span>Get In Touch</span>
@@ -143,14 +142,12 @@ export class ContactComponent extends Component {
         <div class="form-row">
           <div class="form-inner">
 
-            <!-- Success -->
-            <div id="success-message" class="form-alert form-alert--success ds-hidden" role="alert">
-              <i class="fas fa-check-circle" aria-hidden="true"></i>
+<div id="success-message" class="form-alert form-alert--success ds-hidden" role="alert">
+              ${renderIcon('check-circle')}
               Message sent! I'll get back to you soon.
             </div>
 
-            <!-- Error -->
-            <div id="error-message" class="form-alert form-alert--error ds-hidden" role="alert"></div>
+<div id="error-message" class="form-alert form-alert--error ds-hidden" role="alert"></div>
 
             <div class="form-card">
               <form id="contactForm" novalidate>
@@ -185,7 +182,7 @@ export class ContactComponent extends Component {
                 <div class="submit-wrap">
                   <button type="submit" class="btn btn--primary" aria-live="polite">
                     <span>Send Message</span>
-                    <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                    ${renderIcon('paper-plane')}
                   </button>
                 </div>
               </form>

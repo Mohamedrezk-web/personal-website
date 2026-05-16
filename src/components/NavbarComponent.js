@@ -1,5 +1,7 @@
 import { Component } from '../Component.js';
 import { store, router } from '../app.js';
+import { loadCSS, unloadThemeCSS } from '../utils/loadCSS.js';
+import { renderIcon } from '../utils/icons.js';
 
 const PALETTES = [
   { id: 'indigo', label: 'Indigo', swatch: '#818cf8' },
@@ -9,7 +11,7 @@ const PALETTES = [
 ];
 
 const THEMES = [
-  { id: 'default', label: 'Default', icon: 'circle-half-stroke' },
+  { id: 'default', label: 'Default', icon: 'adjust' },
   { id: 'minimal', label: 'Minimal', icon: 'minus-square' },
   { id: 'cyber',   label: 'Cyber',   icon: 'bolt' },
 ];
@@ -27,8 +29,7 @@ export class NavbarComponent extends Component {
   constructor() {
     super();
 
-    /* ── Existing theme / palette / mode preferences ── */
-    const savedPalette = localStorage.getItem('accent-palette');
+const savedPalette = localStorage.getItem('accent-palette');
     const savedMode    = localStorage.getItem('color-mode');
     const savedTheme   = localStorage.getItem('ds-theme') || 'default';
     this.palette = PALETTES.find(t => t.id === savedPalette)?.id || 'indigo';
@@ -47,15 +48,13 @@ export class NavbarComponent extends Component {
       document.documentElement.setAttribute('data-mode', 'dark');
     }
 
-    /* ── Accessibility preferences ── */
-    this.a11yContrast   = localStorage.getItem('a11y-contrast')  || 'off';
+this.a11yContrast   = localStorage.getItem('a11y-contrast')  || 'off';
     this.a11yDyslexia   = localStorage.getItem('a11y-dyslexia')  || 'off';
     this.a11yMotion     = localStorage.getItem('a11y-motion')     || 'off';
     this.a11yColorblind = localStorage.getItem('a11y-colorblind') || 'none';
     this.a11yFontScale  = parseFloat(localStorage.getItem('a11y-font-scale')) || 1;
 
-    /* Apply persisted a11y settings immediately — before first render — to avoid flash */
-    this._applyA11yToDOM();
+this._applyA11yToDOM();
   }
 
   connectedCallback() {
@@ -72,9 +71,7 @@ export class NavbarComponent extends Component {
     document.body.style.overflow = '';
   }
 
-  /* ── EXISTING METHODS — UNCHANGED ── */
-
-  handleClickOutside(event) {
+handleClickOutside(event) {
     if (this.dropdownOpen) {
       const dropdown = this.querySelector('.theme-dropdown');
       if (dropdown && !dropdown.contains(event.target)) {
@@ -140,6 +137,8 @@ export class NavbarComponent extends Component {
     if (id === 'cyber') this.applyMode('dark');
     if (id !== 'minimal') this._resetA11y();
     localStorage.setItem('ds-theme', id);
+    unloadThemeCSS();
+    if (id !== 'default') loadCSS(`src/design-system/themes/${id}.css`);
     this.updateThemeUI();
   }
 
@@ -205,16 +204,14 @@ export class NavbarComponent extends Component {
     if (trigger) trigger.setAttribute('aria-expanded', 'false');
   }
 
-  /* ── ACCESSIBILITY METHODS ── */
-
-  _applyA11yToDOM() {
+_applyA11yToDOM() {
     const html = document.documentElement;
     html.setAttribute('data-a11y-contrast',   this.a11yContrast);
     html.setAttribute('data-a11y-dyslexia',   this.a11yDyslexia);
     html.setAttribute('data-a11y-motion',     this.a11yMotion);
     html.setAttribute('data-a11y-colorblind', this.a11yColorblind);
     html.style.setProperty('--a11y-font-scale', this.a11yFontScale);
-    /* Apply colorblind filter to body — not html — to avoid breaking position:fixed stacking */
+    
     document.body.style.filter = CB_FILTERS[this.a11yColorblind] || 'none';
   }
 
@@ -268,7 +265,7 @@ export class NavbarComponent extends Component {
       'motion':     () => this.a11yMotion === 'on',
       'colorblind': () => this.a11yColorblind !== 'none',
     };
-    /* Syncs both the a11y bar AND the drawer buttons simultaneously */
+    
     this.querySelectorAll('.a11y-btn[data-a11y]').forEach(btn => {
       const key    = btn.dataset.a11y;
       const active = stateMap[key]?.() ?? false;
@@ -358,9 +355,7 @@ export class NavbarComponent extends Component {
     this.updateA11yUI();
   }
 
-  /* ── SHARED A11Y BUTTON CLICK HANDLER ── */
-
-  _handleA11yClick(action) {
+_handleA11yClick(action) {
     const isFeature = !['keyboard-help', 'sr-help'].includes(action);
     if (isFeature && this.theme !== 'minimal') {
       this.applyTheme('minimal');
@@ -403,9 +398,7 @@ export class NavbarComponent extends Component {
     }
   }
 
-  /* ── A11Y BUTTON TEMPLATE HELPERS ── */
-
-  _a11yBtnHTML({ action, iconClass, svgIcon, ariaLabel, pressed, haspopup }) {
+_a11yBtnHTML({ action, iconClass, svgIcon, ariaLabel, pressed, haspopup }) {
     const activeClass = pressed ? ' a11y-btn--active' : '';
     const pressedAttr = pressed !== undefined ? `aria-pressed="${pressed}"` : '';
     const popupAttr   = haspopup ? `aria-haspopup="${haspopup}"` : '';
@@ -434,46 +427,42 @@ export class NavbarComponent extends Component {
     const svgIncrease = `<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><text x="1" y="13" font-size="10" fill="currentColor" font-weight="700">A</text><text x="9" y="10" font-size="7" fill="currentColor" font-weight="700">+</text></svg>`;
     const svgDecrease = `<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><text x="1" y="13" font-size="10" fill="currentColor" font-weight="700">A</text><text x="9" y="10" font-size="7" fill="currentColor" font-weight="700">−</text></svg>`;
     return [
-      { action: 'contrast',       iconClass: 'fas fa-adjust',
+      { action: 'contrast',       svgIcon: renderIcon('adjust'),
         ariaLabel: 'High contrast mode',           pressed: this.a11yContrast   === 'on', label: 'Contrast' },
       { action: 'font-increase',  svgIcon: svgIncrease,
         ariaLabel: 'Increase text size',           pressed: undefined,                    label: 'Text +' },
       { action: 'font-decrease',  svgIcon: svgDecrease,
         ariaLabel: 'Decrease text size',           pressed: undefined,                    label: 'Text −' },
-      { action: 'dyslexia',       iconClass: 'fas fa-font',
+      { action: 'dyslexia',       svgIcon: renderIcon('font'),
         ariaLabel: 'Dyslexia-friendly font',       pressed: this.a11yDyslexia   === 'on', label: 'Dyslexia' },
-      { action: 'motion',         iconClass: 'fas fa-running',
+      { action: 'motion',         svgIcon: renderIcon('running'),
         ariaLabel: 'Reduce motion',                pressed: this.a11yMotion     === 'on', label: 'Motion' },
-      { action: 'colorblind',     iconClass: 'fas fa-eye',
+      { action: 'colorblind',     svgIcon: renderIcon('eye'),
         ariaLabel: `Color-blind safe mode: ${this.a11yColorblind === 'none' ? 'off' : this.a11yColorblind}`,
         pressed: this.a11yColorblind !== 'none',   label: 'Colour' },
-      { action: 'keyboard-help',  iconClass: 'fas fa-keyboard',
+      { action: 'keyboard-help',  svgIcon: renderIcon('keyboard'),
         ariaLabel: 'Keyboard navigation help',     haspopup: 'dialog', label: 'Keys' },
-      { action: 'sr-help',        iconClass: 'fas fa-universal-access',
+      { action: 'sr-help',        svgIcon: renderIcon('universal-access'),
         ariaLabel: 'Screen reader accessibility guide', haspopup: 'dialog', label: 'Screen Reader' },
     ];
   }
 
-  /* ── RENDER ── */
-
-  render() {
+render() {
     const current  = PALETTES.find(t => t.id === this.palette);
     const btnDefs  = this._getA11yBtnDefs();
 
-    /* Split at index 6 — first 6 are toggles, last 2 are help buttons */
-    const toggleBtns = btnDefs.slice(0, 6).map(d => this._a11yBtnHTML(d)).join('');
+const toggleBtns = btnDefs.slice(0, 6).map(d => this._a11yBtnHTML(d)).join('');
     const helpBtns   = btnDefs.slice(6).map(d => this._a11yBtnHTML(d)).join('');
     const drawerBtns = btnDefs.map(d => this._a11yBtnDrawerHTML(d)).join('');
 
-    /* ── Accessibility Bar (top strip) ── */
-    const a11yBar = document.createElement('div');
+const a11yBar = document.createElement('div');
     a11yBar.className = 'a11y-bar';
     a11yBar.setAttribute('role', 'region');
     a11yBar.setAttribute('aria-label', 'Accessibility controls');
     a11yBar.innerHTML = `
       <div class="ds-container a11y-bar-inner">
         <div class="a11y-bar-label">
-          <i class="fas fa-universal-access" aria-hidden="true"></i>
+          ${renderIcon('universal-access')}
           <span>Accessibility</span>
         </div>
         <div class="a11y-toolbar" role="toolbar" aria-label="Accessibility controls">
@@ -484,8 +473,7 @@ export class NavbarComponent extends Component {
       </div>
     `;
 
-    /* ── Main Navigation Bar ── */
-    const nav = document.createElement('nav');
+const nav = document.createElement('nav');
     nav.setAttribute('aria-label', 'Main navigation');
     nav.className = 'app-navbar';
     nav.innerHTML = `
@@ -538,7 +526,7 @@ export class NavbarComponent extends Component {
           <div class="drawer-header">
             <span class="drawer-title" aria-hidden="true">Menu</span>
             <button class="drawer-close" type="button" aria-label="Close navigation menu">
-              <i class="fas fa-times" aria-hidden="true"></i>
+              ${renderIcon('times')}
             </button>
           </div>
 
@@ -553,25 +541,20 @@ export class NavbarComponent extends Component {
                 <button class="td-trigger" aria-label="Customize theme" aria-expanded="false" aria-haspopup="true">
                   <span class="td-swatch" style="background:${current.swatch}"></span>
                   <span class="td-label">Theme</span>
-                  <i class="td-chevron fas fa-chevron-down" aria-hidden="true"></i>
+                  ${renderIcon('chevron-down', { cls: 'td-chevron' })}
                 </button>
-
-                <div class="drawer-theme-label">
-                  <i class="fas fa-palette" aria-hidden="true"></i>
-                  Theme
-                </div>
 
                 <div class="td-panel" role="dialog" aria-label="Theme settings">
                   <div class="td-section-label">Appearance</div>
                   <div class="td-mode-row">
                     <button class="mode-btn${this.mode === 'dark'  ? ' mode-btn--active' : ''}" data-mode="dark"
                       aria-label="Dark mode" aria-pressed="${this.mode === 'dark'}">
-                      <i class="fas fa-moon" aria-hidden="true"></i>
+                      ${renderIcon('moon')}
                       <span>Dark</span>
                     </button>
                     <button class="mode-btn${this.mode === 'light' ? ' mode-btn--active' : ''}" data-mode="light"
                       aria-label="Light mode" aria-pressed="${this.mode === 'light'}">
-                      <i class="fas fa-sun" aria-hidden="true"></i>
+                      ${renderIcon('sun')}
                       <span>Light</span>
                     </button>
                   </div>
@@ -590,7 +573,7 @@ export class NavbarComponent extends Component {
                       >
                         <span class="palette-swatch" style="background:${t.swatch}"></span>
                         <span class="palette-label">${t.label}</span>
-                        <i class="palette-check fas fa-check" aria-hidden="true"></i>
+                        ${renderIcon('check', { cls: 'palette-check' })}
                       </button>
                     `).join('')}
                   </div>
@@ -606,7 +589,7 @@ export class NavbarComponent extends Component {
                         aria-label="${t.label} theme"
                         aria-pressed="${t.id === this.theme}"
                       >
-                        <i class="fas fa-${t.icon}" aria-hidden="true"></i>
+                        ${renderIcon(t.icon)}
                         <span>${t.label}</span>
                       </button>
                     `).join('')}
@@ -617,10 +600,9 @@ export class NavbarComponent extends Component {
             </li>
           </ul>
 
-          <!-- Mobile-only: accessibility settings (mirrors the desktop a11y bar) -->
-          <div class="drawer-a11y-section" aria-label="Accessibility controls">
+<div class="drawer-a11y-section" aria-label="Accessibility controls">
             <div class="drawer-a11y-label">
-              <i class="fas fa-universal-access" aria-hidden="true"></i>
+              ${renderIcon('universal-access')}
               Accessibility
             </div>
             <div class="drawer-a11y-grid" role="toolbar" aria-label="Accessibility controls">
@@ -634,14 +616,11 @@ export class NavbarComponent extends Component {
       <div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
     `;
 
-    /* ── Wire event listeners on a11y bar ── */
-
-    a11yBar.querySelectorAll('.a11y-btn').forEach(btn => {
+a11yBar.querySelectorAll('.a11y-btn').forEach(btn => {
       btn.addEventListener('click', () => this._handleA11yClick(btn.dataset.a11y));
     });
 
-    /* Arrow-key navigation within the a11y bar toolbar */
-    a11yBar.querySelector('.a11y-toolbar')?.addEventListener('keydown', (e) => {
+a11yBar.querySelector('.a11y-toolbar')?.addEventListener('keydown', (e) => {
       if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) return;
       const btns = [...a11yBar.querySelectorAll('.a11y-toolbar .a11y-btn')];
       const idx  = btns.indexOf(document.activeElement);
@@ -653,9 +632,7 @@ export class NavbarComponent extends Component {
       next.focus();
     });
 
-    /* ── Wire event listeners on main nav ── */
-
-    nav.querySelector('.nav-brand').addEventListener('click', (e) => {
+nav.querySelector('.nav-brand').addEventListener('click', (e) => {
       e.preventDefault();
       router.navigate('/');
       this.closeMenu();
@@ -683,13 +660,11 @@ export class NavbarComponent extends Component {
       btn.addEventListener('click', () => this.applyTheme(btn.dataset.themeId));
     });
 
-    /* Drawer a11y buttons (mobile) — same handler as the bar */
-    nav.querySelectorAll('.a11y-btn').forEach(btn => {
+nav.querySelectorAll('.a11y-btn').forEach(btn => {
       btn.addEventListener('click', () => this._handleA11yClick(btn.dataset.a11y));
     });
 
-    /* ESC closes any open dropdown or drawer */
-    nav.addEventListener('keydown', (e) => {
+nav.addEventListener('keydown', (e) => {
       if (e.key !== 'Escape') return;
       if (this.dropdownOpen) this.closeDropdown();
       const drawer = this.querySelector('#navbarNav');
@@ -699,13 +674,11 @@ export class NavbarComponent extends Component {
       }
     });
 
-    /* Scroll detection — adds .scrolled class to the main nav */
-    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 20);
+const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 20);
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    /* ── Mount both elements ── */
-    this.innerHTML = '';
+this.innerHTML = '';
     this.appendChild(a11yBar);
     this.appendChild(nav);
 

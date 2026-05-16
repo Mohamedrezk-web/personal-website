@@ -1,35 +1,15 @@
-/* ============================================================
-   ACCESSIBILITY STYLESHEET
-   WCAG 2.2 AA — Loaded last so it wins cascade without !important
-   Sections:
-     0. A11y bar (dedicated fixed strip above main navbar)
-     1. Skip link
-     2. Global focus-visible
-     3. A11y toolbar buttons
-     4. A11y toolbar — mobile drawer
-     5. Font scaling
-     6. High contrast mode
-     7. Dyslexia-friendly mode
-     8. Reduce motion mode
-     9. System media queries (reduced-motion, contrast, color-scheme)
-    10. Help dialogs
-    11. Screen-reader utility
-   ============================================================ */
 
-
-/* ── 0. A11Y BAR — dedicated strip above the main navbar ── */
 
 .a11y-bar {
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: var(--a11y-bar-height); /* 32px */
-  z-index: var(--a11y-bar-z);     /* above main navbar */
+  height: var(--a11y-bar-height); 
+  z-index: var(--a11y-bar-z);     
   border-bottom: 1px solid var(--a11y-bar-border);
-  /* overflow:visible so touch-target pseudo-elements can extend slightly below */
+  
   overflow: visible;
 }
 
-/* Blurred backdrop on ::before — same technique as the main navbar */
 .a11y-bar::before {
   content: '';
   position: absolute;
@@ -47,7 +27,6 @@
   gap: 0.5rem;
 }
 
-/* Subtle "Accessibility" label on the left edge */
 .a11y-bar-label {
   display: flex;
   align-items: center;
@@ -66,26 +45,20 @@
   opacity: 0.7;
 }
 
-/* Push the toolbar to the right side */
 .a11y-bar .a11y-toolbar {
   margin-left: auto;
 }
 
-/* On mobile: hide the bar entirely — a11y settings are in the drawer */
 @media (max-width: 991px) {
   .a11y-bar {
     display: none;
   }
-  /* Recalculate --navbar-height so sections have correct top padding on mobile */
+  
   :root {
     --a11y-bar-height: 0rem;
   }
 }
 
-
-/* ── 1. SKIP LINK ── */
-
-/* First focusable element — visually hidden until keyboard focus */
 .skip-link {
   position: fixed;
   top: -100%;
@@ -99,33 +72,26 @@
   border-radius: var(--prim-radius-sm);
   text-decoration: none;
   white-space: nowrap;
-  /* Transition only when moving into view — direction matters */
+  
   transition: top 0.2s ease;
   outline: none;
 }
 .skip-link:focus {
   top: calc(var(--navbar-height) + 0.5rem);
-  /* High-visibility focus ring on the skip link itself */
+  
   outline: 3px solid #fff;
   outline-offset: 2px;
 }
 
-
-/* ── 2. GLOBAL FOCUS-VISIBLE ── */
-
-/* Applies only to keyboard navigation — not mouse clicks */
 :focus-visible {
   outline: var(--focus-ring-width) solid var(--focus-ring-color);
   outline-offset: var(--focus-ring-offset);
   border-radius: 2px;
 }
-/* Remove outline for pointer/mouse users — don't penalise sighted mouse users */
+
 :focus:not(:focus-visible) {
   outline: none;
 }
-
-
-/* ── 3. A11Y TOOLBAR BUTTONS ── */
 
 .a11y-toolbar {
   display: flex;
@@ -133,7 +99,6 @@
   gap: var(--a11y-btn-gap);
 }
 
-/* Icon button — visual size matches the 32px bar */
 .a11y-btn {
   position: relative;
   display: inline-flex;
@@ -153,17 +118,16 @@
   transition:
     color var(--transition-interactive),
     background var(--transition-interactive);
-  /* Ensure SVG children inherit color */
+  
   fill: currentColor;
 }
 
-/* Invisible 44×44px touch target — extends 12px outside the 20px button on each side */
 .a11y-btn::before {
   content: '';
   position: absolute;
   inset: calc(var(--a11y-btn-hit-expand) * -1);
   border-radius: var(--prim-radius-sm);
-  /* Transparent — purely for pointer/touch hit-area expansion */
+  
   z-index: 0;
 }
 
@@ -183,7 +147,6 @@
   border-radius: var(--prim-radius-sm);
 }
 
-/* Separator between "settings" buttons and "help" buttons */
 .a11y-divider {
   display: block;
   width: 1px;
@@ -195,20 +158,14 @@
   pointer-events: none;
 }
 
-/* Remove default SVG focus ring — our :focus-visible rule covers it */
 .a11y-btn svg { pointer-events: none; overflow: visible; }
 
-
-/* ── 4. A11Y TOOLBAR — MOBILE DRAWER ── */
-
-/* Hide the desktop inline toolbar on mobile */
 @media (max-width: 991px) {
   .nav-item-a11y {
     display: none;
   }
 
-  /* Show the drawer accessibility section instead */
-  .drawer-a11y-section {
+.drawer-a11y-section {
     padding: var(--drawer-section-padding);
     border-top: 1px solid var(--color-border-glass);
     flex-shrink: 0;
@@ -233,8 +190,7 @@
     gap: 6px;
   }
 
-  /* In the drawer, buttons are full 44px cells — no pseudo-element needed */
-  .drawer-a11y-grid .a11y-btn {
+.drawer-a11y-grid .a11y-btn {
     width: 100%;
     height: 44px;
     min-height: 44px;
@@ -246,8 +202,7 @@
     font-size: 0.72rem;
   }
 
-  /* Label text shown below icon in drawer tiles */
-  .a11y-btn .a11y-label {
+.a11y-btn .a11y-label {
     display: block;
     font-size: 0.58rem;
     color: var(--color-text-ghost);
@@ -256,46 +211,29 @@
     line-height: 1;
   }
 
-  /* Hit-area pseudo-element not needed inside drawer cells */
-  .drawer-a11y-grid .a11y-btn::before {
+.drawer-a11y-grid .a11y-btn::before {
     display: none;
   }
 
-  /* No visual divider in grid layout */
-  .drawer-a11y-section .a11y-divider {
+.drawer-a11y-section .a11y-divider {
     display: none;
   }
 }
 
-/* Hide the drawer a11y section on desktop */
 @media (min-width: 992px) {
   .drawer-a11y-section {
     display: none;
   }
 
-  /* Label text hidden on desktop — button uses aria-label instead */
-  .a11y-btn .a11y-label {
+.a11y-btn .a11y-label {
     display: none;
   }
 }
 
-
-/* ── 5. FONT SCALING ── */
-
-/*
-  JS sets `--a11y-font-scale` as an inline custom property on <html>.
-  Because all size tokens use rem units, changing the root font-size
-  scales the entire typographic system proportionally.
-  Range: 0.8 (80%) to 1.4 (140%), default 1.
-*/
 html {
   font-size: calc(1rem * var(--a11y-font-scale, 1));
 }
 
-
-/* ── 6. HIGH CONTRAST MODE ── */
-
-/* User-toggled high contrast — augments the existing token system */
 [data-a11y-contrast="on"] {
   --color-text-primary:    #ffffff;
   --color-text-secondary:  #f0f0f0;
@@ -315,13 +253,12 @@ html {
   --color-surface-glass:   rgba(255, 255, 255, 0.05);
   --focus-ring-color:      #ffff00;
   --focus-ring-width:      4px;
-  /* Ensure minimum 7:1 for icons */
+  
   --a11y-btn-color:        rgba(255, 255, 255, 0.85);
   --a11y-btn-hover-color:  #ffffff;
   --a11y-btn-active-color: #ffff00;
 }
 
-/* High contrast + light mode combination */
 [data-a11y-contrast="on"][data-mode="light"] {
   --color-text-primary:   #000000;
   --color-text-secondary: #111111;
@@ -340,14 +277,6 @@ html {
   --a11y-btn-active-color:#0000cc;
 }
 
-
-/* ── 7. DYSLEXIA-FRIENDLY MODE ── */
-
-/*
-  Uses high-legibility system sans-serif + increased character/word/line spacing.
-  No external font required — works offline and with no CDN dependency.
-  Arial/Helvetica have wider, more distinct letterforms than Roboto.
-*/
 [data-a11y-dyslexia="on"],
 [data-a11y-dyslexia="on"] * {
   font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif !important;
@@ -359,17 +288,12 @@ html {
   line-height: 1.8;
 }
 
-/* Preserve monospace in code blocks */
 [data-a11y-dyslexia="on"] code,
 [data-a11y-dyslexia="on"] kbd,
 [data-a11y-dyslexia="on"] pre {
   font-family: 'Courier New', Courier, monospace !important;
 }
 
-
-/* ── 8. REDUCE MOTION MODE ── */
-
-/* User-toggled reduction — supplements the OS-level media query below */
 [data-a11y-motion="on"] *,
 [data-a11y-motion="on"] *::before,
 [data-a11y-motion="on"] *::after {
@@ -380,10 +304,6 @@ html {
   scroll-behavior: auto !important;
 }
 
-
-/* ── 9. SYSTEM MEDIA QUERIES ── */
-
-/* — prefers-reduced-motion — */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -396,7 +316,6 @@ html {
   }
 }
 
-/* — prefers-contrast: more — */
 @media (prefers-contrast: more) {
   :root {
     --color-border-subtle:  rgba(255, 255, 255, 0.5);
@@ -408,7 +327,6 @@ html {
   }
 }
 
-/* — prefers-color-scheme: light (OS fallback when user hasn't chosen a mode) — */
 @media (prefers-color-scheme: light) {
   :root:not([data-mode]) {
     --color-bg-page:     #f0f4ff;
@@ -432,10 +350,6 @@ html {
   }
 }
 
-
-/* ── 10. HELP DIALOGS ── */
-
-/* Native <dialog> element — showModal() handles focus trapping in modern browsers */
 dialog {
   position: fixed;
   inset: 0;
@@ -471,7 +385,7 @@ dialog::backdrop {
   font-weight: 600;
   color: var(--color-text-primary);
   margin-bottom: 1.25rem;
-  padding-right: 2rem; /* avoid overlap with close button */
+  padding-right: 2rem; 
 }
 
 .ds-dialog-body {
@@ -488,7 +402,6 @@ dialog::backdrop {
 .ds-dialog-body li { margin-bottom: 0.25rem; }
 .ds-dialog-body strong { color: var(--color-text-primary); }
 
-/* Close button — positioned absolute in top-right corner */
 .ds-dialog-close {
   position: absolute;
   top: -0.25rem;
@@ -521,7 +434,6 @@ dialog::backdrop {
   outline-offset: var(--focus-ring-offset);
 }
 
-/* Keyboard shortcut table inside help dialog */
 .ds-dialog-table {
   width: 100%;
   border-collapse: collapse;
@@ -548,7 +460,6 @@ dialog::backdrop {
   border-bottom: none;
 }
 
-/* Keyboard key badge */
 kbd {
   display: inline-block;
   padding: 2px 6px;
@@ -563,11 +474,6 @@ kbd {
   white-space: nowrap;
 }
 
-
-/* ── 11. SCREEN-READER UTILITY ── */
-
-/* Already exists as .ds-sr-only in base.css — ensure it is defined here too
-   as a fallback in case base.css load order changes */
 .ds-sr-only {
   position: absolute;
   width: 1px;

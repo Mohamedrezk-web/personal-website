@@ -1,4 +1,5 @@
 import { Component } from '../Component.js';
+import { renderIcon } from '../utils/icons.js';
 
 export class PortfolioComponent extends Component {
   currentFilter = '*';
@@ -113,10 +114,10 @@ export class PortfolioComponent extends Component {
                 <p class="project-desc">${project.description}</p>
                 <div class="project-links">
                   <a href="${project.githubLink}" class="project-link-btn" target="_blank" rel="noopener noreferrer" aria-label="View ${project.title} on GitHub">
-                    <i class="fab fa-github" aria-hidden="true"></i>
+                    ${renderIcon('github')}
                   </a>
                   <a href="${project.liveLink}" class="project-link-btn" target="_blank" rel="noopener noreferrer" aria-label="View ${project.title} live demo">
-                    <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    ${renderIcon('external-link-alt')}
                   </a>
                 </div>
               </div>
@@ -163,13 +164,11 @@ export class PortfolioComponent extends Component {
           </p>
         </div>
 
-        <!-- Filter -->
-        <div class="filter-bar">
+<div class="filter-bar">
           ${this.generateFilterButtons()}
         </div>
 
-        <!-- Grid -->
-        <div class="project-grid">
+<div class="project-grid">
           ${this.projects.map((p) => this.generateProjectCard(p)).join('')}
         </div>
 

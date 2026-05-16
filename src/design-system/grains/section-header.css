@@ -1,4 +1,4 @@
-/* ── SECTION EYEBROW ── */
+
 .section-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -19,7 +19,6 @@
   background: var(--section-eyebrow-line-bg-r);
 }
 
-/* ── SECTION TITLE ── */
 .section-title {
   font-size: var(--section-title-font-size);
   font-weight: 800;
@@ -36,7 +35,6 @@
   filter: var(--accent-filter, drop-shadow(0 0 24px var(--color-glow-indigo-mid)));
 }
 
-/* ── SECTION SUBTITLE ── */
 .section-subtitle {
   color: var(--color-text-faint);
   font-size: var(--section-subtitle-font-size);
@@ -46,7 +44,6 @@
   animation: fadeUp .7s ease .2s both;
 }
 
-/* ── SECTION HEADER WRAPPER ── */
 .section-head {
   text-align: center;
   margin-bottom: var(--space-stack-xl);

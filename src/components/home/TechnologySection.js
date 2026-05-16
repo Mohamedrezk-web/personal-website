@@ -1,4 +1,5 @@
 import { Component } from "../../Component.js";
+import { renderIcon } from "../../utils/icons.js";
 
 const CATEGORY_META = {
   "Core Web Technologies": {
@@ -149,7 +150,7 @@ export class TechnologySection extends Component {
           ">
             <div class="ts-card-header">
               <div class="ts-icon-wrap" aria-hidden="true">
-                <i class="fas fa-${meta.icon}"></i>
+                ${renderIcon(meta.icon)}
               </div>
               <span class="ts-cat-name">${category}</span>
             </div>

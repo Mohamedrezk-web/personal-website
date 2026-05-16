@@ -1,9 +1,9 @@
-/* ── NAVBAR BASE ── */
+
 .app-navbar {
   position: fixed;
   top: calc(
     var(--a11y-bar-height) - 2px
-  ); /* pushed down by the a11y bar above it */
+  ); 
   left: 0;
   right: 0;
   z-index: var(--navbar-z);
@@ -11,8 +11,7 @@
   transition: border-color var(--transition-layout);
   overflow: visible;
 }
-/* backdrop-filter lives on ::before so the nav itself never becomes
-           a containing block — fixed children (the drawer) stay viewport-relative */
+
 .app-navbar::before {
   content: "";
   position: absolute;
@@ -32,5 +31,5 @@
 .nav-inner {
   display: flex;
   align-items: center;
-  height: var(--main-nav-height); /* 56px */
+  height: var(--main-nav-height); 
 }

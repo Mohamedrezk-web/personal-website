@@ -1,18 +1,16 @@
-/* ── BASE ── */
+
 .ts-section {
   background: transparent;
   position: relative;
   padding-block: var(--space-section-y);
 }
 
-/* ── CARDS GRID ── */
 .ts-grid-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
 }
 
-/* ── CARD ── */
 .ts-card {
   position: relative;
   background: var(--color-surface-card);
@@ -36,7 +34,6 @@
   opacity: 0; transition: opacity .35s ease; z-index: 0; pointer-events: none;
 }
 
-/* ── CARD HEADER ── */
 .ts-card-header {
   display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
   position: relative; z-index: 1;

@@ -1,4 +1,4 @@
-/* ── FLOATING STAT CARD ── */
+
 .stat-card {
   position: absolute;
   background: color-mix(in srgb, var(--color-text-primary) 5%, transparent);

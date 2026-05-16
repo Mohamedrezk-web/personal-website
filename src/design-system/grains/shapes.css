@@ -1,4 +1,4 @@
-/* ── SECTION SHAPES CONTAINER ── */
+
 .section-shapes {
   display: var(--decorative-display, block);
   position: absolute;
@@ -12,12 +12,10 @@
   will-change: transform;
 }
 
-/* ── SHAPE TYPE MODIFIERS ── */
 .section-shape.shape-cube  { border: 1.5px solid; }
 .section-shape.shape-ring  { border-radius: 50%; border: 2px solid; }
 .section-shape.shape-sphere { border-radius: 50%; }
 
-/* ── GENERIC POSITIONS (used inside .section-shapes) ── */
 .section-shapes .shape-1 {
   top: 8%; right: 4%;
   width: 50px; height: 50px;
@@ -62,7 +60,6 @@
   50%      { transform: translateY(-14px) scale(1.2); }
 }
 
-/* ══ HERO FLOATING SHAPES ══ */
 .hero-shapes {
   display: var(--decorative-display, block);
   position: absolute;
@@ -76,7 +73,6 @@
 .shape-ring  { border-radius: 50%; border: 2px solid; }
 .shape-sphere { border-radius: 50%; }
 
-/* Hero shape positions */
 .hero-shapes .shape-1 {
   top: 14%; left: 7%;
   width: 58px; height: 58px;

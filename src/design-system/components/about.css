@@ -1,4 +1,4 @@
-/* ── BASE ── */
+
 .about-section {
   background: var(--section-bg);
   min-height: 100vh;
@@ -8,14 +8,12 @@
   padding-top: calc(var(--space-section-y) + var(--navbar-height));
 }
 
-/* ── LARGER TITLE ON ABOUT PAGE ── */
 .about-section .section-title {
   font-size: clamp(2.2rem, 5vw, 3.8rem);
   line-height: 1.15;
   margin-bottom: var(--space-stack-md);
 }
 
-/* ── LAYOUT ── */
 .ab-cols {
   display: flex;
   align-items: center;
@@ -38,7 +36,6 @@
   .ab-text-col { order: 2; flex: 1 1 100%; }
 }
 
-/* ── IMAGE FRAME ── */
 .ab-image-wrap {
   position: relative;
   animation: fadeUp .7s ease .15s both;
@@ -63,7 +60,6 @@
   pointer-events: none;
 }
 
-/* ── BIO ── */
 .ab-bio {
   display: flex; flex-direction: column; gap: 16px;
   animation: fadeUp .7s ease .2s both;
@@ -76,5 +72,4 @@
 }
 .ab-bio p:hover { border-left-color: var(--color-border-base); color: var(--color-text-muted); }
 
-/* ── ACCENT DOT ── */
 .ab-dot { color: var(--color-accent-indigo-strong); }

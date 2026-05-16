@@ -1,4 +1,4 @@
-/* ── THEME DROPDOWN ── */
+
 .nav-item-theme { margin-inline-start: var(--prim-space-2); }
 .theme-dropdown { position: relative; }
 
@@ -29,12 +29,13 @@
 }
 .td-chevron {
   font-size: .62rem;
+  width: .62rem;
+  height: .62rem;
   opacity: .65;
   transition: transform var(--transition-interactive);
 }
 .td-chevron--open { transform: rotate(180deg); }
 
-/* ── DROPDOWN PANEL ── */
 .td-panel {
   position: absolute;
   top: calc(100% + 8px);
@@ -131,13 +132,14 @@
 .palette-label { flex: 1; }
 .palette-check {
   font-size: .68rem;
+  width: .68rem;
+  height: .68rem;
   color: var(--color-accent-indigo);
   opacity: 0;
   transition: opacity var(--transition-interactive);
 }
 .palette-option--active .palette-check { opacity: 1; }
 
-/* ── THEME STYLE OPTIONS ── */
 .td-style-options { padding: 0 2px 2px; }
 
 .theme-option-btn {

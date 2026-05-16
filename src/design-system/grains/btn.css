@@ -1,4 +1,4 @@
-/* ── BASE BUTTON ── */
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -9,7 +9,6 @@
   transition: all .3s ease;
 }
 
-/* ── PRIMARY / CTA ── */
 .btn--primary {
   padding: var(--btn-primary-padding);
   background: var(--gradient-cta);
@@ -30,7 +29,6 @@
 .btn--primary i { margin-inline-start: .5rem; }
 .btn--primary:disabled { opacity: var(--btn-disabled-opacity); cursor: not-allowed; transform: none; }
 
-/* ── ICON / SOCIAL ── */
 .btn--icon {
   justify-content: center;
   width: var(--btn-icon-size); height: var(--btn-icon-size);
@@ -47,7 +45,6 @@
   box-shadow: 0 4px 16px var(--color-glow-indigo-mid);
 }
 
-/* ── SPINNER (inside primary button while loading) ── */
 .btn-spinner {
   display: inline-block;
   width: var(--btn-spinner-size); height: var(--btn-spinner-size);
@@ -59,7 +56,6 @@
 }
 @keyframes btnSpin { to { transform: rotate(360deg); } }
 
-/* ── HERO ACTIONS WRAPPER ── */
 .hero-actions {
   display: flex;
   flex-wrap: wrap;

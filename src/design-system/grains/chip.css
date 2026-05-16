@@ -1,4 +1,4 @@
-/* ── CHIP LIST ── */
+
 .chip-list {
   display: flex;
   flex-wrap: wrap;
@@ -7,7 +7,6 @@
   z-index: 1;
 }
 
-/* ── CHIP ── */
 .chip {
   font-size: var(--chip-font-size);
   font-weight: var(--chip-font-weight);
