@@ -1,0 +1,103 @@
+{
+  "name": "Muhammad Rezk",
+  "title": "Frontend Developer",
+  "headline": "Frontend Engineer specializing in Angular, TypeScript, RxJS, NgRx, frontend architecture, performance optimization, and enterprise web applications.",
+  "website": "https://mohammed-rezk.vercel.app",
+  "github": "https://github.com/Mohamedrezk-web",
+  "location": {
+    "country": "Egypt",
+    "city": "Alexandria"
+  },
+  "expertise": [
+    "Angular",
+    "TypeScript",
+    "JavaScript",
+    "RxJS",
+    "NgRx",
+    "Angular Material",
+    "PrimeNG",
+    "Taiga UI",
+    "React",
+    "Next.js",
+    "Redux",
+    "React Native",
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "Firebase",
+    "REST APIs",
+    "Apollo Client",
+    "Webpack",
+    "Lighthouse",
+    "PageSpeed Insights",
+    "Docker",
+    "Git",
+    "GitHub",
+    "Vercel"
+  ],
+  "specializations": [
+    "Frontend Architecture",
+    "Enterprise Web Applications",
+    "Performance Optimization",
+    "Core Web Vitals",
+    "Lighthouse Optimization",
+    "SEO",
+    "Accessibility",
+    "State Management",
+    "Microfrontends",
+    "Design Systems",
+    "Technical Leadership",
+    "Developer Mentoring"
+  ],
+  "industries": ["Telecommunications", "Banking", "Healthcare", "Education", "Retail", "SaaS", "Esports"],
+  "companies": ["SIGMA EMEA", "e& UAE", "Meem Development", "ComRec Solutions", "Dinex POS"],
+  "projects": [
+    {
+      "name": "Saudi Esports Academy",
+      "technology": "Angular"
+    },
+    {
+      "name": "Social Development Bank",
+      "technology": "Angular"
+    },
+    {
+      "name": "e& UAE",
+      "technology": "Angular"
+    },
+    {
+      "name": "ComRec Solutions",
+      "technology": "Angular"
+    },
+    {
+      "name": "Dinex POS",
+      "technology": "Angular"
+    },
+    {
+      "name": "Collaborative Doc AI",
+      "technology": "Next.js",
+      "repository": "https://github.com/Mohamedrezk-web/collaborative-doc-ai"
+    },
+    {
+      "name": "Chat Crafterz",
+      "technology": "Next.js",
+      "repository": "https://github.com/Mohamedrezk-web/chat-crafterz"
+    },
+    {
+      "name": "Menus Scanner",
+      "technology": "Node.js",
+      "repository": "https://github.com/Mohamedrezk-web/menus-scanner"
+    }
+  ],
+  "topics": [
+    "Angular Architecture",
+    "Angular Performance",
+    "RxJS",
+    "NgRx",
+    "Angular Universal",
+    "Microfrontends",
+    "Frontend Scalability",
+    "TypeScript",
+    "Core Web Vitals",
+    "Frontend Leadership"
+  ]
+}
