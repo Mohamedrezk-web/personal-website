@@ -1,7 +1,8 @@
 .game-page {
+  position: relative;
+  z-index: 2;
   padding-block: var(--space-section-y);
   padding-top: calc(var(--space-section-y) + var(--navbar-height));
-  padding-inline: clamp(1.25rem, 5vw, 3rem);
   min-height: calc(100vh - var(--navbar-height));
 }
 

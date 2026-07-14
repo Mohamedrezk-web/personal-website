@@ -14,25 +14,27 @@ export class GameComponent extends HTMLElement {
 
     this.innerHTML = `
       <section class="game-page">
-        <header class="game-page__header">
-          <div class="mfe-badge" aria-label="Micro frontend indicator">
-            <span class="mfe-badge__dot"></span>
-            Remote Micro Frontend
-          </div>
-          <h1 class="game-page__title">${name}</h1>
-          <p class="game-page__desc">
-            Isolated module loaded at runtime from a separate Vercel deployment
-            via a custom MFE orchestrator — no shared build, no coupling.
-          </p>
-        </header>
+        <div class="ds-container">
+          <header class="game-page__header">
+            <div class="mfe-badge" aria-label="Micro frontend indicator">
+              <span class="mfe-badge__dot"></span>
+              Remote Micro Frontend
+            </div>
+            <h1 class="game-page__title">${name}</h1>
+            <p class="game-page__desc">
+              Isolated module loaded at runtime from a separate Vercel deployment
+              via a custom MFE orchestrator — no shared build, no coupling.
+            </p>
+          </header>
 
-        <div class="game-page__frame">
-          <div class="game-page__frame-label">
-            <span class="game-frame-origin">${url}</span>
-            <button class="game-frame-fs" id="mfe-fullscreen" aria-label="Enter fullscreen">${EXPAND_ICON}</button>
+          <div class="game-page__frame">
+            <div class="game-page__frame-label">
+              <span class="game-frame-origin">${url}</span>
+              <button class="game-frame-fs" id="mfe-fullscreen" aria-label="Enter fullscreen">${EXPAND_ICON}</button>
+            </div>
+            <div class="mfe-status" id="mfe-status" role="status" aria-live="polite"></div>
+            <div class="mfe-mount" id="mfe-mount"></div>
           </div>
-          <div class="mfe-status" id="mfe-status" role="status" aria-live="polite"></div>
-          <div class="mfe-mount" id="mfe-mount"></div>
         </div>
       </section>
     `;
