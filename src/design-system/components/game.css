@@ -53,6 +53,8 @@
 
 .game-page__frame {
   position: relative;
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--color-border-base);
   border-radius: var(--radius-card-lg);
   min-height: 540px;
@@ -214,6 +216,5 @@
 }
 
 .mfe-mount {
-  padding-top: 2.5rem;
-  min-height: 480px;
+  flex: 1;
 }
