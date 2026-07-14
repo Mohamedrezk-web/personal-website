@@ -3,8 +3,6 @@
   min-height: calc(100vh - var(--navbar-height));
 }
 
-/* ── Header ──────────────────────────────────────────── */
-
 .game-page__header {
   margin-bottom: var(--space-stack-xl);
   max-width: 640px;
@@ -51,8 +49,6 @@
   line-height: var(--prim-leading-relaxed);
 }
 
-/* ── Frame ───────────────────────────────────────────── */
-
 .game-page__frame {
   position: relative;
   border: 1px solid var(--color-border-base);
@@ -96,21 +92,17 @@
   text-overflow: ellipsis;
 }
 
-/* ── Status area (loading / error) ───────────────────── */
-
 .mfe-status {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 4rem 2rem;
-  padding-top: calc(4rem + 2.5rem); /* account for frame label */
+  padding-top: calc(4rem + 2.5rem);
 }
 
 .mfe-status[hidden] {
   display: none;
 }
-
-/* Loading */
 
 .mfe-loader {
   display: flex;
@@ -146,8 +138,6 @@
   max-width: 400px;
   word-break: break-all;
 }
-
-/* Error */
 
 .mfe-error {
   display: flex;
@@ -198,9 +188,7 @@
   color: var(--color-accent-indigo);
 }
 
-/* ── Mount point ─────────────────────────────────────── */
-
 .mfe-mount {
-  padding-top: 2.5rem; /* frame label height */
+  padding-top: 2.5rem;
   min-height: 480px;
 }

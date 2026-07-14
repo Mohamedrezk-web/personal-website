@@ -3,7 +3,7 @@ export const manifest = {
   entries: {
     game: {
       name: 'Vanilla JS Game',
-      url: 'https://YOUR_GAME_URL.vercel.app/mfe-entry.js',
+      url: 'https://blue-bull-mu.vercel.app/mfe-entry.js',
     },
   },
 };
