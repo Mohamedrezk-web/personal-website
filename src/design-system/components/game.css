@@ -1,0 +1,206 @@
+.game-page {
+  padding: var(--space-section-y) clamp(1.25rem, 5vw, 3rem);
+  min-height: calc(100vh - var(--navbar-height));
+}
+
+/* ── Header ──────────────────────────────────────────── */
+
+.game-page__header {
+  margin-bottom: var(--space-stack-xl);
+  max-width: 640px;
+}
+
+.mfe-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--text-eyebrow);
+  font-family: var(--font-mono, monospace);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent-indigo);
+  border: 1px solid color-mix(in srgb, var(--color-accent-indigo) 40%, transparent);
+  border-radius: var(--radius-badge);
+  padding: 0.25rem 0.75rem;
+  margin-bottom: var(--space-stack-sm);
+}
+
+.mfe-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent-indigo);
+  animation: mfe-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes mfe-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.3; transform: scale(0.8); }
+}
+
+.game-page__title {
+  font-size: var(--text-heading-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-stack-sm);
+  color: var(--color-text-primary);
+}
+
+.game-page__desc {
+  font-size: var(--text-body);
+  color: var(--color-text-muted);
+  line-height: var(--prim-leading-relaxed);
+}
+
+/* ── Frame ───────────────────────────────────────────── */
+
+.game-page__frame {
+  position: relative;
+  border: 1px solid var(--color-border-base);
+  border-radius: var(--radius-card-lg);
+  min-height: 540px;
+  overflow: hidden;
+  background: var(--color-bg-dark);
+}
+
+.game-page__frame-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(8px);
+  z-index: 1;
+}
+
+.game-page__frame-label::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent-indigo);
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+.game-frame-origin {
+  font-size: 0.7rem;
+  font-family: var(--font-mono, monospace);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Status area (loading / error) ───────────────────── */
+
+.mfe-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  padding-top: calc(4rem + 2.5rem); /* account for frame label */
+}
+
+.mfe-status[hidden] {
+  display: none;
+}
+
+/* Loading */
+
+.mfe-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-stack-sm);
+  text-align: center;
+}
+
+.mfe-spinner {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--color-border-base);
+  border-top-color: var(--color-accent-indigo);
+  border-radius: 50%;
+  animation: mfe-spin 0.75s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes mfe-spin {
+  to { transform: rotate(360deg); }
+}
+
+.mfe-loader__text {
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+}
+
+.mfe-loader__url {
+  font-size: 0.7rem;
+  font-family: var(--font-mono, monospace);
+  color: var(--color-text-muted);
+  max-width: 400px;
+  word-break: break-all;
+}
+
+/* Error */
+
+.mfe-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-stack-sm);
+  text-align: center;
+  max-width: 420px;
+  padding: var(--space-stack-lg);
+  border: 1px solid var(--color-status-error-border);
+  border-radius: var(--radius-card);
+  background: var(--color-status-error-bg);
+}
+
+.mfe-error__icon {
+  font-size: 2rem;
+  color: var(--color-status-error);
+  line-height: 1;
+}
+
+.mfe-error__title {
+  font-size: var(--text-heading-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.mfe-error__message {
+  font-size: 0.75rem;
+  font-family: var(--font-mono, monospace);
+  color: var(--color-text-muted);
+  word-break: break-word;
+}
+
+.mfe-error__retry {
+  margin-top: var(--space-stack-sm);
+  padding: 0.5rem 1.25rem;
+  border: 1px solid var(--color-border-base);
+  border-radius: var(--radius-button);
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: var(--text-body);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.mfe-error__retry:hover {
+  border-color: var(--color-accent-indigo);
+  color: var(--color-accent-indigo);
+}
+
+/* ── Mount point ─────────────────────────────────────── */
+
+.mfe-mount {
+  padding-top: 2.5rem; /* frame label height */
+  min-height: 480px;
+}

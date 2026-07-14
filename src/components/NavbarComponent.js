@@ -548,6 +548,7 @@ const nav = document.createElement('nav');
             <li><a class="nav-link" href="/portfolio" data-section="portfolio">Portfolio</a></li>
             <li><a class="nav-link" href="/contact"   data-section="contact">Contact</a></li>
             <li><a class="nav-link" href="/docs"      data-section="docs">Docs</a></li>
+            <li><a class="nav-link" href="/game"      data-section="game">Game</a></li>
             <li class="nav-item-theme">
               <div class="theme-dropdown">
 

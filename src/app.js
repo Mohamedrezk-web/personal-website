@@ -24,6 +24,7 @@ const TITLES = {
   portfolio: 'Portfolio — Muhammad Rezk | Frontend Projects',
   contact:   'Contact Muhammad Rezk — Senior Frontend Developer',
   docs:      'Docs — Muhammad Rezk | How This Site Was Built',
+  game:      'Game — Muhammad Rezk | Micro Frontend Demo',
 };
 
 let firstRender = true;
@@ -141,6 +142,15 @@ export const router = new Router({
     ]);
     define('app-docs', DocsComponent);
     handleRouteChange(DocsComponent, 'docs');
+  },
+
+  '/game': async () => {
+    const [[{ GameComponent }]] = await Promise.all([
+      Promise.all([import('./components/GameComponent.js')]),
+      loadAllCSS(['src/design-system/components/game.css']),
+    ]);
+    define('app-game', GameComponent);
+    handleRouteChange(GameComponent, 'game');
   },
 });
 
