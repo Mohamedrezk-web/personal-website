@@ -1,8 +1,12 @@
 import { orchestrator } from '../mfe/Orchestrator.js';
 import { manifest } from '../mfe/manifest.js';
 
+const EXPAND_ICON = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 5V1h4M13 5V1H9M1 9v4h4M13 9v4H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const COMPRESS_ICON = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 1v4H1M9 1v4h4M5 13V9H1M9 13V9h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
 export class GameComponent extends HTMLElement {
   #dead = false;
+  #fsHandler = null;
 
   connectedCallback() {
     this.#dead = false;
@@ -23,8 +27,9 @@ export class GameComponent extends HTMLElement {
         </header>
 
         <div class="game-page__frame">
-          <div class="game-page__frame-label" aria-hidden="true">
+          <div class="game-page__frame-label">
             <span class="game-frame-origin">${url}</span>
+            <button class="game-frame-fs" id="mfe-fullscreen" aria-label="Enter fullscreen">${EXPAND_ICON}</button>
           </div>
           <div class="mfe-status" id="mfe-status" role="status" aria-live="polite"></div>
           <div class="mfe-mount" id="mfe-mount"></div>
@@ -33,12 +38,38 @@ export class GameComponent extends HTMLElement {
     `;
 
     orchestrator.register('game', url);
+    this.#initFullscreen();
     this.#load();
   }
 
   disconnectedCallback() {
     this.#dead = true;
     orchestrator.unmount('game');
+    if (this.#fsHandler) {
+      document.removeEventListener('fullscreenchange', this.#fsHandler);
+      this.#fsHandler = null;
+    }
+  }
+
+  #initFullscreen() {
+    const btn = this.querySelector('#mfe-fullscreen');
+    const frame = this.querySelector('.game-page__frame');
+    if (!btn || !frame) return;
+
+    this.#fsHandler = () => {
+      const isFs = document.fullscreenElement === frame;
+      btn.setAttribute('aria-label', isFs ? 'Exit fullscreen' : 'Enter fullscreen');
+      btn.innerHTML = isFs ? COMPRESS_ICON : EXPAND_ICON;
+    };
+    document.addEventListener('fullscreenchange', this.#fsHandler);
+
+    btn.addEventListener('click', () => {
+      if (document.fullscreenElement === frame) {
+        document.exitFullscreen();
+      } else {
+        frame.requestFullscreen();
+      }
+    });
   }
 
   async #load() {

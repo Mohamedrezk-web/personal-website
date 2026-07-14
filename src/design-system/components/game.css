@@ -1,5 +1,7 @@
 .game-page {
-  padding: var(--space-section-y) clamp(1.25rem, 5vw, 3rem);
+  padding-block: var(--space-section-y);
+  padding-top: calc(var(--space-section-y) + var(--navbar-height));
+  padding-inline: clamp(1.25rem, 5vw, 3rem);
   min-height: calc(100vh - var(--navbar-height));
 }
 
@@ -65,6 +67,7 @@
   right: 0;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0.5rem 1rem;
   border-bottom: 1px solid var(--color-border-subtle);
   background: var(--color-surface-glass);
@@ -90,6 +93,28 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.game-frame-fs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-icon);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  margin-left: 0.75rem;
+}
+
+.game-frame-fs:hover {
+  border-color: var(--color-border-base);
+  color: var(--color-text-primary);
+  background: var(--color-surface-glass-hover);
 }
 
 .mfe-status {
