@@ -40,7 +40,7 @@ export class AboutComponent extends Component {
             <div class="ab-image-wrap">
               <div class="ab-image-frame">
                 <img
-                  src="uploads/about_04.png"
+                  src="uploads/about_04.webp"
                   alt="Profile picture"
                   class="ab-image"
                 >
