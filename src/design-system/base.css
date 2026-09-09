@@ -1,7 +1,7 @@
 
 
 /* Custom elements render as inline by default — force block so pre-rendered shell lays out correctly */
-app-home, hero-section, contact-info, work-experience, technology-section { display: block; }
+app-navbar, app-home, hero-section, contact-info, work-experience, technology-section { display: block; }
 
 #preloader {
   position: fixed;
@@ -11,12 +11,6 @@ app-home, hero-section, contact-info, work-experience, technology-section { disp
   justify-content: center;
   z-index: var(--z-loader);
   background: var(--loader-bg);
-  /* CSS-driven fade-out: hero content is pre-rendered in <main>, so reveal it as soon
-     as styles.css loads — no need to wait for JS. JS still sets display:none afterward. */
-  animation: preloader-out 0.3s ease-in forwards;
-}
-@keyframes preloader-out {
-  to { opacity: 0; pointer-events: none; visibility: hidden; }
 }
 
 #preloader .ds-spinner {
