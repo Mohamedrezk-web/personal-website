@@ -1,0 +1,22 @@
+# Muhammad Rezk — Senior Frontend Developer
+
+> Personal portfolio of Muhammad Rezk (Mohamed Rezk), a Senior Frontend Developer with 5+ years of experience building high-performance, accessible web applications using Angular, TypeScript, React, and Next.js. Based in Alexandria, Egypt. Currently at SIGMA EMEA.
+
+## Pages
+
+- [Home](https://mohamedrezk.vercel.app/): Introduction, work experience timeline, technology stack, and contact info.
+- [About](https://mohamedrezk.vercel.app/about): Background, skills, and personal story.
+- [Portfolio](https://mohamedrezk.vercel.app/portfolio): Featured projects with tech stack details and live/source links.
+- [Contact](https://mohamedrezk.vercel.app/contact): Contact form and direct contact details.
+- [Docs](https://mohamedrezk.vercel.app/docs): How this site was built — architecture, design system, and micro-frontend setup.
+
+## Resources
+
+- [CV / Resume](https://mohamedrezk.vercel.app/uploads/documents/cv.pdf): Downloadable PDF résumé.
+- [Sitemap](https://mohamedrezk.vercel.app/sitemap.xml): Full XML sitemap.
+- [AI Profile](https://mohamedrezk.vercel.app/ai-profile.json): Structured JSON profile for AI agents.
+
+## External Profiles
+
+- [LinkedIn](https://www.linkedin.com/in/mohamed-rezk-web/): Professional profile and work history.
+- [GitHub](https://github.com/Mohamedrezk-web): Open-source projects and code samples.

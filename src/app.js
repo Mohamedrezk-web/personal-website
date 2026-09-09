@@ -2,6 +2,7 @@ import { Router } from './Router.js';
 import { Store } from './Store.js';
 import { NavbarComponent } from './components/NavbarComponent.js';
 import { loadCSS, loadAllCSS } from './utils/loadCSS.js';
+import { updateSEO } from './utils/seo.js';
 
 export const store = new Store({
   currentSection: 'home',
@@ -18,28 +19,19 @@ if (savedTheme && savedTheme !== 'default') {
   loadCSS(`src/design-system/themes/${savedTheme}.css`);
 }
 
-const TITLES = {
-  home:      'Muhammad Rezk — Senior Frontend Developer | Angular · TypeScript · React',
-  about:     'About Muhammad Rezk — Senior Frontend Developer',
-  portfolio: 'Portfolio — Muhammad Rezk | Frontend Projects',
-  contact:   'Contact Muhammad Rezk — Senior Frontend Developer',
-  docs:      'Docs — Muhammad Rezk | How This Site Was Built',
-  game:      'Game — Muhammad Rezk | Micro Frontend Demo',
-};
-
 let firstRender = true;
 
 const handleRouteChange = (component, section) => {
   requestAnimationFrame(() => {
     store.state.currentSection = section;
-    document.title = TITLES[section] || TITLES.home;
+    updateSEO(section);
 
     const main = document.querySelector('#main-content');
     while (main.firstChild) main.removeChild(main.firstChild);
     main.appendChild(new component());
 
     const announcer = document.getElementById('a11y-announcer');
-    if (announcer) announcer.textContent = `Page loaded: ${TITLES[section] || section}`;
+    if (announcer) announcer.textContent = `Page loaded: ${document.title}`;
 
     main.setAttribute('tabindex', '-1');
     main.focus({ preventScroll: true });
