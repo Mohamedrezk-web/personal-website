@@ -71,17 +71,20 @@
   }
 
   .nav-list {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--drawer-list-gap);
-    margin-inline-start: 0;
-    padding: var(--drawer-list-padding);
-    flex: 1;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: var(--drawer-list-gap) !important;
+    margin-inline-start: 0 !important;
+    padding: var(--drawer-list-padding) !important;
+    flex: 1 !important;
   }
-  .nav-menu .nav-link {
+  /* Higher specificity (0,2,1) beats nav-links.css (0,1,1) so !important wins regardless of bundle order */
+  .app-navbar .nav-menu .nav-link {
     padding: var(--drawer-link-padding) !important;
     font-size: var(--drawer-link-font-size) !important;
-    display: block;
+    display: block !important;
+    text-align: start !important;
+    width: 100% !important;
   }
   .nav-menu .nav-link::after { display: none; }
 
