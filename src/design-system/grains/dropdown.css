@@ -67,7 +67,7 @@
   font-size: var(--dropdown-label-font-size);
   text-transform: uppercase;
   letter-spacing: var(--dropdown-label-spacing);
-  color: var(--color-text-ghost);
+  color: var(--color-text-muted);
   padding: 2px 8px 6px;
   font-weight: 600;
 }
@@ -89,7 +89,7 @@
   background: transparent;
   border: 1px solid var(--color-border-glass);
   border-radius: var(--prim-radius-sm);
-  color: var(--color-text-faint);
+  color: var(--color-text-muted);
   font-size: var(--dropdown-mode-btn-font-size);
   font-weight: 500;
   cursor: pointer;
@@ -117,7 +117,7 @@
   background: transparent;
   border: none;
   border-radius: var(--prim-radius-sm);
-  color: var(--color-text-faint);
+  color: var(--color-text-muted);
   font-size: var(--dropdown-option-font-size);
   cursor: pointer;
   transition: background var(--transition-interactive), color var(--transition-interactive);
@@ -154,7 +154,7 @@
   background: transparent;
   border: none;
   border-radius: var(--prim-radius-sm);
-  color: var(--color-text-faint);
+  color: var(--color-text-muted);
   font-size: var(--dropdown-option-font-size);
   cursor: pointer;
   transition: background var(--transition-interactive), color var(--transition-interactive);

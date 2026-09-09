@@ -11,14 +11,14 @@
             z-index: 2;
           }
           .scroll-text {
-            color: var(--color-text-ghost);
+            color: var(--color-text-muted);
             font-size: var(--scroll-text-font-size);
             letter-spacing: var(--scroll-text-letter-spacing);
             text-transform: uppercase;
             margin-bottom: var(--scroll-text-gap);
           }
           .bounce {
-            color: var(--color-text-ghost);
+            color: var(--color-text-muted);
             animation: bounce 2s infinite;
           }
           @keyframes bounce {

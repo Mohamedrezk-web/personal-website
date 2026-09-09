@@ -293,7 +293,7 @@
 :root {
   --footer-bg:     rgba(7, 7, 26, 0.95);
   --footer-border: var(--color-border-subtle);
-  --footer-text:   var(--color-text-ghost);
+  --footer-text:   var(--color-text-muted);
 }
 
 :root {
@@ -602,9 +602,9 @@
 
 --color-text-primary:          #0f172a;
   --color-text-secondary:        #1e293b;
-  --color-text-muted:            #475569;
-  --color-text-faint:            #64748b;
-  --color-text-ghost:            #94a3b8;
+  --color-text-muted:            #374151;
+  --color-text-faint:            #475569;
+  --color-text-ghost:            #576374;
   --color-text-accent:           var(--color-accent-indigo-strong);
   --color-text-white-60:         rgba(15, 23, 42, 0.6);
   --color-text-white-70:         rgba(15, 23, 42, 0.7);

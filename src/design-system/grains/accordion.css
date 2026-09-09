@@ -79,9 +79,9 @@
   font-size: var(--accordion-position-font-size);
   font-weight: 500;
 }
-.meta-sep { color: var(--color-text-ghost); font-size: .8rem; }
+.meta-sep { color: var(--color-text-muted); font-size: .8rem; }
 .accordion-period {
-  color: var(--color-text-faint);
+  color: var(--color-text-muted);
   font-size: var(--accordion-period-font-size);
 }
 .cal-icon {
