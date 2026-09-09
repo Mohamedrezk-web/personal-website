@@ -4,8 +4,6 @@
 .drawer-a11y-section { display: none; }
 
 @media (max-width: 991px) {
-  .nav-toggler { display: flex; }
-
   .nav-menu {
     position: fixed;
     top: 0; right: 0; bottom: 0;
