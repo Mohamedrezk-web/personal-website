@@ -25,6 +25,44 @@ const CRITICAL_CSS = new Set([
   'src/design-system/a11y.css',
 ]);
 
+// JS modules on the critical path for home page — preloaded in dist/index.html
+const MODULEPRELOAD_HINTS = [
+  'src/app.js',
+  'src/Router.js',
+  'src/Store.js',
+  'src/Component.js',
+  'src/components/NavbarComponent.js',
+  'src/utils/icons.js',
+  'src/utils/loadCSS.js',
+  'src/utils/seo.js',
+  'src/components/HomeComponent.js',
+  'src/components/home/HeroSection.js',
+  'src/components/home/WorkExperience.js',
+  'src/components/home/TechnologySection.js',
+  'src/components/home/ContactInfo.js',
+  'src/utils/download.js',
+  'src/utils/bgCanvas.js',
+];
+
+// Home-page CSS loaded lazily by app.js — preload early so they're cache-ready
+// when loadAllCSS() fires after the JS chain resolves
+const HOME_CSS_PRELOADS = [
+  'src/design-system/components/home.css',
+  'src/design-system/components/hero.css',
+  'src/design-system/components/work-experience.css',
+  'src/design-system/components/technology.css',
+  'src/design-system/components/contact-info.css',
+  'src/design-system/grains/grid-overlay.css',
+  'src/design-system/grains/hero-text.css',
+  'src/design-system/grains/status-badge.css',
+  'src/design-system/grains/scroll-indicator.css',
+  'src/design-system/grains/timeline.css',
+  'src/design-system/grains/accordion.css',
+  'src/design-system/grains/chip.css',
+  'src/design-system/grains/card-3d.css',
+  'src/design-system/grains/stat-card.css',
+];
+
 // CSS bundle order: foundational first, then grains, components, a11y, themes last
 const CSS_ORDER = [
   'src/design-system/tokens.css',
@@ -101,10 +139,18 @@ function buildCSSBundle() {
 function patchIndexHtml() {
   let html = fs.readFileSync(path.join(OUT, 'index.html'), 'utf8');
 
-  // Replace the FIRST individual CSS link with the critical bundle (keeps position early in <head>)
+  // Build preload hint blocks
+  const jsPreloads = MODULEPRELOAD_HINTS
+    .map(m => `    <link rel="modulepreload" href="${m}" />`)
+    .join('\n');
+  const cssPreloads = HOME_CSS_PRELOADS
+    .map(c => `    <link rel="preload" as="style" href="${c}" />`)
+    .join('\n');
+
+  // Replace the FIRST individual CSS link with the critical bundle + preload hints
   html = html.replace(
     /[ \t]*<link rel="stylesheet" href="src\/design-system\/tokens\.css"[^>]*>\n?/,
-    '    <link rel="stylesheet" href="styles.css" />\n'
+    `    <link rel="stylesheet" href="styles.css" />\n${jsPreloads}\n${cssPreloads}\n`
   );
 
   // Remove all remaining individual design-system CSS link tags
