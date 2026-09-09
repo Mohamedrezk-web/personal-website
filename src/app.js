@@ -1,12 +1,33 @@
 import { Router } from './Router.js';
 import { Store } from './Store.js';
 import { NavbarComponent } from './components/NavbarComponent.js';
-import { loadCSS, loadAllCSS } from './utils/loadCSS.js';
+import { loadCSS, loadAllCSS, markBundled } from './utils/loadCSS.js';
 import { updateSEO } from './utils/seo.js';
 
 export const store = new Store({
   currentSection: 'home',
 });
+
+// In production the build bundles home-page CSS into styles.css.
+// Pre-mark those hrefs so loadAllCSS() skips re-requesting them.
+if (document.querySelector('link[href="styles.css"]')) {
+  markBundled([
+    'src/design-system/components/home.css',
+    'src/design-system/components/hero.css',
+    'src/design-system/components/work-experience.css',
+    'src/design-system/components/technology.css',
+    'src/design-system/components/contact-info.css',
+    'src/design-system/grains/grid-overlay.css',
+    'src/design-system/grains/hero-text.css',
+    'src/design-system/grains/status-badge.css',
+    'src/design-system/grains/scroll-indicator.css',
+    'src/design-system/grains/timeline.css',
+    'src/design-system/grains/accordion.css',
+    'src/design-system/grains/chip.css',
+    'src/design-system/grains/card-3d.css',
+    'src/design-system/grains/stat-card.css',
+  ]);
+}
 
 function define(name, Cls) {
   if (!customElements.get(name)) customElements.define(name, Cls);

@@ -1,4 +1,8 @@
-const loaded = new Map(); 
+const loaded = new Map();
+
+export function markBundled(hrefs) {
+  for (const href of hrefs) loaded.set(href, null);
+}
 
 export function loadCSS(href) {
   if (loaded.has(href)) return Promise.resolve();

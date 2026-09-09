@@ -12,7 +12,9 @@ const CRITICAL_CSS = new Set([
   'src/design-system/base.css',
   'src/design-system/layout.css',
   'src/design-system/utilities.css',
+  // Navbar (always visible)
   'src/design-system/components/navbar.css',
+  // Grains needed by navbar + home pre-render
   'src/design-system/grains/ambient.css',
   'src/design-system/grains/brand.css',
   'src/design-system/grains/btn.css',
@@ -22,6 +24,21 @@ const CRITICAL_CSS = new Set([
   'src/design-system/grains/nav-links.css',
   'src/design-system/grains/section-header.css',
   'src/design-system/grains/shapes.css',
+  // Home-page CSS: bundled so the pre-rendered hero shell is styled at CSS parse time
+  'src/design-system/grains/accordion.css',
+  'src/design-system/grains/card-3d.css',
+  'src/design-system/grains/chip.css',
+  'src/design-system/grains/grid-overlay.css',
+  'src/design-system/grains/hero-text.css',
+  'src/design-system/grains/scroll-indicator.css',
+  'src/design-system/grains/stat-card.css',
+  'src/design-system/grains/status-badge.css',
+  'src/design-system/grains/timeline.css',
+  'src/design-system/components/contact-info.css',
+  'src/design-system/components/hero.css',
+  'src/design-system/components/home.css',
+  'src/design-system/components/technology.css',
+  'src/design-system/components/work-experience.css',
   'src/design-system/a11y.css',
 ]);
 
@@ -139,18 +156,15 @@ function buildCSSBundle() {
 function patchIndexHtml() {
   let html = fs.readFileSync(path.join(OUT, 'index.html'), 'utf8');
 
-  // Build preload hint blocks
+  // JS modulepreload hints — browser fetches the full module graph in parallel
   const jsPreloads = MODULEPRELOAD_HINTS
     .map(m => `    <link rel="modulepreload" href="${m}" />`)
     .join('\n');
-  const cssPreloads = HOME_CSS_PRELOADS
-    .map(c => `    <link rel="preload" as="style" href="${c}" />`)
-    .join('\n');
 
-  // Replace the FIRST individual CSS link with the critical bundle + preload hints
+  // Replace the FIRST individual CSS link with the critical bundle + modulepreload hints
   html = html.replace(
     /[ \t]*<link rel="stylesheet" href="src\/design-system\/tokens\.css"[^>]*>\n?/,
-    `    <link rel="stylesheet" href="styles.css" />\n${jsPreloads}\n${cssPreloads}\n`
+    `    <link rel="stylesheet" href="styles.css" />\n${jsPreloads}\n`
   );
 
   // Remove all remaining individual design-system CSS link tags
