@@ -5,6 +5,26 @@ const path = require('path');
 
 const OUT = 'dist';
 
+// Critical CSS always bundled into styles.css (needed on every page)
+const CRITICAL_CSS = new Set([
+  'src/design-system/tokens.css',
+  'src/design-system/reset.css',
+  'src/design-system/base.css',
+  'src/design-system/layout.css',
+  'src/design-system/utilities.css',
+  'src/design-system/components/navbar.css',
+  'src/design-system/grains/ambient.css',
+  'src/design-system/grains/brand.css',
+  'src/design-system/grains/btn.css',
+  'src/design-system/grains/drawer.css',
+  'src/design-system/grains/dropdown.css',
+  'src/design-system/grains/hamburger.css',
+  'src/design-system/grains/nav-links.css',
+  'src/design-system/grains/section-header.css',
+  'src/design-system/grains/shapes.css',
+  'src/design-system/a11y.css',
+]);
+
 // CSS bundle order: foundational first, then grains, components, a11y, themes last
 const CSS_ORDER = [
   'src/design-system/tokens.css',
@@ -20,6 +40,10 @@ const CSS_TAIL = [
   'src/design-system/themes/minimal.css',
   'src/design-system/themes/cyber.css',
 ];
+
+function toFwdSlash(p) {
+  return p.replace(/\\/g, '/');
+}
 
 function walk(dir, ext, list = []) {
   if (!fs.existsSync(dir)) return list;
@@ -42,44 +66,51 @@ function copyDir(src, dest) {
 }
 
 function buildCSSBundle() {
-  const grains = walk(CSS_GRAINS_DIR, '.css').sort();
+  const grains     = walk(CSS_GRAINS_DIR, '.css').sort();
   const components = walk(CSS_COMPONENTS_DIR, '.css').sort();
-  const allFiles = [...CSS_ORDER, ...grains, ...components, ...CSS_TAIL];
+  const allFiles   = [...CSS_ORDER, ...grains, ...components, ...CSS_TAIL];
 
-  const combined = allFiles
-    .map(f => fs.readFileSync(f, 'utf8'))
-    .join('\n');
+  const criticalFiles = allFiles.filter(f => CRITICAL_CSS.has(toFwdSlash(f)));
+  const routeFiles    = allFiles.filter(f => !CRITICAL_CSS.has(toFwdSlash(f)));
 
+  // Bundle critical CSS → dist/styles.css
+  const combined = criticalFiles.map(f => fs.readFileSync(f, 'utf8')).join('\n');
   const { code } = lightningcss.transform({
     filename: 'styles.css',
     code: Buffer.from(combined),
     minify: true,
   });
-
   fs.writeFileSync(path.join(OUT, 'styles.css'), code);
-  return allFiles.length;
+
+  // Minify route CSS files individually so lazy-loading still works in dist
+  for (const file of routeFiles) {
+    const css = fs.readFileSync(file, 'utf8');
+    const { code: minified } = lightningcss.transform({
+      filename: file,
+      code: Buffer.from(css),
+      minify: true,
+    });
+    const outPath = path.join(OUT, file);
+    fs.mkdirSync(path.dirname(outPath), { recursive: true });
+    fs.writeFileSync(outPath, minified);
+  }
+
+  return { critical: criticalFiles.length, route: routeFiles.length };
 }
 
 function patchIndexHtml() {
   let html = fs.readFileSync(path.join(OUT, 'index.html'), 'utf8');
 
-  // Remove all individual design-system CSS link tags
+  // Replace the FIRST individual CSS link with the critical bundle (keeps position early in <head>)
+  html = html.replace(
+    /[ \t]*<link rel="stylesheet" href="src\/design-system\/tokens\.css"[^>]*>\n?/,
+    '    <link rel="stylesheet" href="styles.css" />\n'
+  );
+
+  // Remove all remaining individual design-system CSS link tags
   html = html.replace(/[ \t]*<link rel="stylesheet" href="src\/design-system\/[^"]*"[^>]*>\n?/g, '');
 
-  // Inject single bundle link before </head>
-  html = html.replace('</head>', '    <link rel="stylesheet" href="styles.css" />\n  </head>');
-
   fs.writeFileSync(path.join(OUT, 'index.html'), html);
-}
-
-function writeNooopLoadCSS() {
-  const out = path.join(OUT, 'src/utils/loadCSS.js');
-  fs.mkdirSync(path.dirname(out), { recursive: true });
-  fs.writeFileSync(out,
-    'export function loadCSS(){return Promise.resolve();}\n' +
-    'export function loadAllCSS(){return Promise.resolve();}\n' +
-    'export function unloadThemeCSS(){}\n'
-  );
 }
 
 async function build() {
@@ -109,12 +140,12 @@ async function build() {
     })
   );
 
-  const cssCount = buildCSSBundle();
+  const { critical, route } = buildCSSBundle();
   patchIndexHtml();
-  writeNooopLoadCSS();
 
   console.log(`JS  ${jsFiles.length} files minified`);
-  console.log(`CSS ${cssCount} files bundled → dist/styles.css`);
+  console.log(`CSS ${critical} critical files bundled → dist/styles.css`);
+  console.log(`CSS ${route} route files minified → dist/src/design-system/...`);
   console.log(`Build complete -> dist/`);
 }
 

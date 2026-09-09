@@ -89,7 +89,7 @@ let rainCols, rainDrops;
     W = canvas.width  = window.innerWidth;
     H = canvas.height = window.innerHeight;
     nodes.length = 0;
-    const n = Math.min(160, Math.floor(W * H / 9000));
+    const n = Math.min(80, Math.floor(W * H / 12000));
     for (let i = 0; i < n; i++) nodes.push(new Node());
     rainCols  = Math.floor(W / RAIN_FS);
     rainDrops = Array.from({ length: rainCols }, () => (Math.random() * -(H / RAIN_FS)) | 0);
@@ -104,20 +104,25 @@ let rainCols, rainDrops;
 
   buildNodes();
 
+  const MAX_D_SQ = MAX_D * MAX_D;
+
   const loopNodes = () => {
     ctx.clearRect(0, 0, W, H);
-    const rgb = getLineRgb();
+    const rgb       = getLineRgb();
+    const lightMode = isLightMode();
+    const baseAlpha = lightMode ? 0.18 : 0.1;
 
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
-        const dx = nodes[i].x - nodes[j].x;
-        const dy = nodes[i].y - nodes[j].y;
-        const d  = Math.sqrt(dx * dx + dy * dy);
-        if (d < MAX_D) {
+        const dx  = nodes[i].x - nodes[j].x;
+        const dy  = nodes[i].y - nodes[j].y;
+        const dSq = dx * dx + dy * dy;
+        if (dSq < MAX_D_SQ) {
+          const d = Math.sqrt(dSq);
           ctx.beginPath();
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = `rgba(${rgb},${(isLightMode() ? 0.18 : 0.1) * (1 - d / MAX_D)})`;
+          ctx.strokeStyle = `rgba(${rgb},${baseAlpha * (1 - d / MAX_D)})`;
           ctx.lineWidth   = 0.6;
           ctx.stroke();
         }
@@ -153,12 +158,17 @@ let rainCols, rainDrops;
     }
   };
 
-  const loop = () => {
+  let lastFrameTime = -Infinity;
+  const FRAME_INTERVAL = 1000 / 30;
+
+  const loop = (now) => {
+    raf = requestAnimationFrame(loop);
+    if (now - lastFrameTime < FRAME_INTERVAL) return;
+    lastFrameTime = now;
     if (isCyber()) loopRain();
     else           loopNodes();
-    raf = requestAnimationFrame(loop);
   };
-  loop();
+  raf = requestAnimationFrame(loop);
 
   return () => {
     cancelAnimationFrame(raf);

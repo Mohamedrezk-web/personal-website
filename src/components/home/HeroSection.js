@@ -41,8 +41,6 @@ export class HeroSection extends Component {
     this.innerHTML = `
       <section class="hero-section" id="hero">
 
-<canvas id="hero-canvas" aria-hidden="true"></canvas>
-
 <div class="hero-grid" aria-hidden="true"></div>
 
 <div class="hero-shapes" aria-hidden="true">
@@ -232,111 +230,11 @@ export class HeroSection extends Component {
     `;
   }
 
-  initCanvas() {
-    const canvas = this.querySelector("#hero-canvas");
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    let W, H, raf;
-    const particles = [];
-
-    const resize = () => {
-      W = canvas.width = canvas.offsetWidth;
-      H = canvas.height = canvas.offsetHeight;
-    };
-    window.addEventListener("resize", resize);
-    resize();
-
-    const rand = (a, b) => Math.random() * (b - a) + a;
-    const isCyber = () => document.documentElement.dataset.theme === "cyber";
-    const COLORS_DEFAULT = [
-      "rgba(99,102,241,",
-      "rgba(6,182,212,",
-      "rgba(168,85,247,",
-      "rgba(56,189,248,",
-    ];
-    const COLORS_CYBER = [
-      "rgba(0,229,255,",
-      "rgba(255,45,120,",
-      "rgba(57,255,20,",
-      "rgba(0,200,255,",
-    ];
-    const getColors = () => isCyber() ? COLORS_CYBER : COLORS_DEFAULT;
-
-    class Particle {
-      constructor() {
-        this.reset(true);
-      }
-      reset(initial = false) {
-        this.x = rand(0, W);
-        this.y = initial ? rand(0, H) : H + 5;
-        this.z = rand(0.2, 1);
-        this.r = rand(0.5, 2) * this.z;
-        this.vx = rand(-0.25, 0.25) * this.z;
-        this.vy = rand(-0.25, -0.06) * this.z;
-        const COLORS = getColors();
-        this.color = COLORS[Math.floor(rand(0, COLORS.length))];
-        this.alpha = rand(0.2, 0.55) * this.z;
-      }
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        if (this.y < -5 || this.x < -5 || this.x > W + 5) this.reset();
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = this.color + this.alpha + ")";
-        ctx.fill();
-      }
-    }
-
-    for (let i = 0; i < 110; i++) particles.push(new Particle());
-
-    const loop = () => {
-      ctx.clearRect(0, 0, W, H);
-
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const d = Math.sqrt(dx * dx + dy * dy);
-          if (d < 100) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = isCyber()
-              ? `rgba(0,229,255,${0.12 * (1 - d / 100)})`
-              : `rgba(99,102,241,${0.07 * (1 - d / 100)})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-
-      particles.forEach((p) => {
-        p.update();
-        p.draw();
-      });
-      raf = requestAnimationFrame(loop);
-    };
-    loop();
-
-    this._cleanupCanvas = () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
-    };
-  }
-
   connectedCallback() {
     this.render();
     this.querySelector(".download-cv").addEventListener(
       "click",
       handleDownloadCV,
     );
-    this.initCanvas();
-  }
-
-  disconnectedCallback() {
-    if (this._cleanupCanvas) this._cleanupCanvas();
   }
 }

@@ -19,9 +19,21 @@
   background: #4ade80;
   border-radius: 50%;
   box-shadow: 0 0 8px rgba(74,222,128,.7);
-  animation: var(--badge-dot-animation, dotPulse 2s ease-in-out infinite);
+  position: relative;
+  flex-shrink: 0;
 }
+
+.badge-dot::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  background: rgba(74,222,128,.45);
+  animation: var(--badge-dot-animation, dotPulse 2s ease-in-out infinite);
+  will-change: transform, opacity;
+}
+
 @keyframes dotPulse {
-  0%,100% { box-shadow: 0 0 8px  rgba(74,222,128,.7); }
-  50%      { box-shadow: 0 0 16px rgba(74,222,128,1); }
+  0%,100% { transform: scale(0.5); opacity: 1; }
+  50%      { transform: scale(1.7); opacity: 0; }
 }
