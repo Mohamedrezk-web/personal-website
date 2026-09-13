@@ -1,0 +1,39 @@
+import { inject } from '@angular/core';
+import { tapResponse } from '@ngrx/operators';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { pipe, switchMap, tap } from 'rxjs';
+import { TechnologySection } from '../core/models';
+import { ApiService } from '../core/services/api.service';
+
+interface State { data: TechnologySection | null; loading: boolean; error: string | null; }
+
+export const TechnologiesStore = signalStore(
+  { providedIn: 'root' },
+  withState<State>({ data: null, loading: false, error: null }),
+
+  withMethods((store, api = inject(ApiService)) => ({
+
+    load: rxMethod<void>(pipe(
+      switchMap(() => {
+        patchState(store, { loading: true, error: null });
+        return api.getTechnologies().pipe(
+          tapResponse({
+            next:  (data) => patchState(store, { data, loading: false }),
+            error: (e: Error) => patchState(store, { error: e.message, loading: false }),
+          })
+        );
+      })
+    )),
+
+    update(tech: TechnologySection) {
+      return api.updateTechnologies(tech).pipe(
+        tap((data) => patchState(store, { data }))
+      );
+    },
+
+    patchLocal(data: TechnologySection) {
+      patchState(store, { data });
+    },
+  }))
+);

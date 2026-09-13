@@ -1,0 +1,41 @@
+spring:
+  data:
+    mongodb:
+      # ─────────────────────────────────────────────────────────────
+      # TODO: Replace with your MongoDB Atlas connection string.
+      # Format: mongodb+srv://<user>:<password>@<cluster>.mongodb.net
+      # Set this as an env var (MONGODB_URI) — never commit the real value.
+      # ─────────────────────────────────────────────────────────────
+      uri: ${MONGODB_URI:YOUR_MONGODB_URI_HERE}
+      database: portfolio
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    # ─────────────────────────────────────────────────────────────
+    # TODO: Add your Gmail address and an App Password.
+    # To create an App Password: Google Account → Security → 2-Step
+    # Verification → App Passwords. Use that 16-char password here.
+    # Set these as env vars (MAIL_USERNAME, MAIL_APP_PASSWORD).
+    # ─────────────────────────────────────────────────────────────
+    username: ${MAIL_USERNAME:YOUR_GMAIL_ADDRESS_HERE}
+    password: ${MAIL_APP_PASSWORD:YOUR_GMAIL_APP_PASSWORD_HERE}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  port: 8080
+
+app:
+  cors:
+    # ─────────────────────────────────────────────────────────────
+    # TODO: Add your deployed frontend URL (Vercel, Netlify, etc.)
+    # Comma-separated if multiple. localhost entries are for dev.
+    # ─────────────────────────────────────────────────────────────
+    allowed-origins: ${CORS_ORIGINS:http://localhost:5173,http://localhost:3000,YOUR_FRONTEND_URL_HERE}
+  mail:
+    to: mo.rezk06@gmail.com

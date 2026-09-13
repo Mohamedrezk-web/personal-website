@@ -165,6 +165,18 @@ export const router = new Router({
     define('app-game', GameComponent);
     handleRouteChange(GameComponent, 'game');
   },
+
+  '/admin': async () => {
+    const [[{ AdminComponent }]] = await Promise.all([
+      Promise.all([import('./components/AdminComponent.js')]),
+      loadAllCSS([
+        'src/design-system/components/admin.css',
+        'src/design-system/components/game.css',
+      ]),
+    ]);
+    define('app-admin', AdminComponent);
+    handleRouteChange(AdminComponent, 'admin');
+  },
 });
 
 window.addEventListener('load', async () => {

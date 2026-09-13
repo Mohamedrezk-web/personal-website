@@ -9,9 +9,9 @@ const Status = {
 class MFEOrchestrator {
   #registry = new Map();
 
-  register(name, url) {
+  register(name, url, { type } = {}) {
     if (!this.#registry.has(name)) {
-      this.#registry.set(name, { url, status: Status.IDLE, module: null, container: null });
+      this.#registry.set(name, { url, moduleType: type, status: Status.IDLE, module: null, container: null });
     }
   }
 
@@ -24,19 +24,27 @@ class MFEOrchestrator {
     if (entry.status === Status.IDLE || entry.status === Status.ERROR) {
       entry.status = Status.LOADING;
       try {
-        await this.#loadScript(name, entry.url);
+        if (entry.moduleType === 'module') {
+          const mod = await import(/* @vite-ignore */ entry.url);
+          if (!mod || typeof mod.mount !== 'function') {
+            entry.status = Status.ERROR;
+            throw new Error(`MFE "${name}" ES module must export { bootstrap, mount, unmount }.`);
+          }
+          entry.module = mod;
+        } else {
+          await this.#loadScript(name, entry.url);
+          const mod = window.__MFE_REGISTRY__?.[name];
+          if (!mod) {
+            entry.status = Status.ERROR;
+            throw new Error(`MFE "${name}" loaded but did not register on window.__MFE_REGISTRY__.`);
+          }
+          entry.module = mod;
+        }
       } catch (err) {
         entry.status = Status.ERROR;
         throw err;
       }
 
-      const mod = window.__MFE_REGISTRY__?.[name];
-      if (!mod) {
-        entry.status = Status.ERROR;
-        throw new Error(`MFE "${name}" loaded but did not register on window.__MFE_REGISTRY__.`);
-      }
-
-      entry.module = mod;
       entry.status = Status.IDLE;
     }
 
